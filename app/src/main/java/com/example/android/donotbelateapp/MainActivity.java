@@ -1,5 +1,6 @@
 package com.example.android.donotbelateapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -13,6 +14,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.example.android.donotbelateapp.ui.ParseLoginActivity;
 
 import java.util.Locale;
 
@@ -38,6 +41,14 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // start as first activity for now
+        Intent loginIntent = new Intent(this, ParseLoginActivity.class);
+        // For skipping MainActivity when going back
+        // and exiting from the app.
+        loginIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        loginIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(loginIntent);
 
         // Set up the action bar.
         final ActionBar actionBar = getSupportActionBar();
