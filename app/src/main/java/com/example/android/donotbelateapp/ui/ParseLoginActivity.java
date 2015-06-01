@@ -8,22 +8,23 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
-import com.example.android.donotbelateapp.MainActivity;
 import com.example.android.donotbelateapp.R;
 
 public class ParseLoginActivity extends ActionBarActivity {
 
-    TextView signupLink = (TextView) findViewById(R.id.login_signup_link);
+    TextView mSignupLink;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_parse_login);
 
-        signupLink.setOnClickListener(new View.OnClickListener() {
+        mSignupLink = (TextView) findViewById(R.id.login_signup_link);
+
+        mSignupLink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent signupIntent = new Intent(ParseLoginActivity.this, MainActivity.class);
+                Intent signupIntent = new Intent(ParseLoginActivity.this, ParseSignUpActivity.class);
                 startActivity(signupIntent);
             }
         });
