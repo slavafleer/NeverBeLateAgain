@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Do Not Be Late App</string>
+
+    <string name="title_fragment_todays_meetings">Today\'s Meetings</string>
+    <string name="title_fragment_future_meetings">Future Meetings</string>
+    <string name="title_fragment_friends">Friends</string>
+
+    <string name="hello_world">Hello world!</string>
+
+    <string name="action_settings">Settings</string>
+</resources>
