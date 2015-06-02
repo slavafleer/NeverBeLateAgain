@@ -5,7 +5,9 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 
 import com.example.android.donotbelateapp.OkCustomDialog;
 import com.example.android.donotbelateapp.R;
@@ -27,12 +29,15 @@ public class ParseSignUpActivity extends ActionBarActivity {
     @InjectView(R.id.signup_last_name) EditText mLastName;
     @InjectView(R.id.signup_password) EditText mPassword;
     @InjectView(R.id.signup_confirm_password) EditText mConfirmPassword;
+    @InjectView(R.id.signup_spinner) ProgressBar mSpinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_parse_sign_up);
         ButterKnife.inject(this);
+
+        mSpinner.setVisibility(View.INVISIBLE);
     }
 
     @OnClick (R.id.signup_button)
@@ -67,9 +72,11 @@ public class ParseSignUpActivity extends ActionBarActivity {
             newUser.put(LAST_NAME, lastName);
             newUser.setPassword(password);
 
+            mSpinner.setVisibility(View.VISIBLE);
             newUser.signUpInBackground(new SignUpCallback() {
                 @Override
                 public void done(ParseException e) {
+                    mSpinner.setVisibility(View.INVISIBLE);
                     if(e == null) {
                         // Success
                         Intent intent = new Intent(ParseSignUpActivity.this, MainActivity.class);

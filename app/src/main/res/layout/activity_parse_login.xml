@@ -48,4 +48,11 @@
         android:gravity="center"
         android:layout_marginTop="40dp"
         android:textSize="16sp"/>
+
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/login_spinner"
+        android:layout_alignParentTop="true"
+        android:layout_alignEnd="@+id/login_email"/>
 </RelativeLayout>

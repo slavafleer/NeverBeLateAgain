@@ -22,7 +22,7 @@
         </activity>
         <activity
             android:name=".ui.ParseLoginActivity"
-            android:label="@string/title_activity_parse_login" >
+            android:label="@string/title_activity_parse_login">
         </activity>
         <activity
             android:name=".ui.ParseSignUpActivity"
