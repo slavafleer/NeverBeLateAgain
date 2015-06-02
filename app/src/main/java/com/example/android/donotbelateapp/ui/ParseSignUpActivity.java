@@ -1,19 +1,26 @@
 package com.example.android.donotbelateapp.ui;
 
-import android.app.AlertDialog;
-import android.support.v7.app.ActionBarActivity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
 
+import com.example.android.donotbelateapp.OkCustomDialog;
 import com.example.android.donotbelateapp.R;
+import com.parse.ParseException;
+import com.parse.ParseUser;
+import com.parse.SignUpCallback;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
 
 public class ParseSignUpActivity extends ActionBarActivity {
+
+    public static final String FIRST_NAME = "firstName";
+    public static final String LAST_NAME = "lastName";
 
     @InjectView(R.id.signup_email) EditText mEmail;
     @InjectView(R.id.signup_first_name) EditText mFirstName;
@@ -41,13 +48,42 @@ public class ParseSignUpActivity extends ActionBarActivity {
         // If has any error, confirm user.
         if(email.isEmpty() || firstName.isEmpty() || lastName.isEmpty() ||
                 password.isEmpty() || confirmPassword.isEmpty()) {
-            // TODO: replace this temperaly dialog with custom one for different types of errors.
-            AlertDialog.Builder builder = new AlertDialog.Builder(ParseSignUpActivity.this)
-                    .setTitle("Sign Up Error")
-                    .setMessage("Some of the fields are empty")
-                    .setPositiveButton("OK", null);
-            AlertDialog dialog = builder.create();
+            OkCustomDialog dialog = new OkCustomDialog(
+                    this,
+                    getString(R.string.signup_error_dialog_title),
+                    getString(R.string.signup_emty_fields_dialog_message));
             dialog.show();
+        } else if( ! password.equals(confirmPassword)) {
+            OkCustomDialog dialog = new OkCustomDialog(
+                    this,
+                    getString(R.string.signup_error_dialog_title),
+                    getString(R.string.signup_confirmed_password_error_dialog_message));
+            dialog.show();
+        } else {
+            // Sign up to Parse
+            ParseUser newUser = new ParseUser();
+            newUser.setUsername(email);
+            newUser.put(FIRST_NAME, firstName);
+            newUser.put(LAST_NAME, lastName);
+            newUser.setPassword(password);
+
+            newUser.signUpInBackground(new SignUpCallback() {
+                @Override
+                public void done(ParseException e) {
+                    if(e == null) {
+                        // Success
+                        Intent intent = new Intent(ParseSignUpActivity.this, MainActivity.class);
+                        startActivity(intent);
+                    } else {
+                        // Show to user the error.
+                        OkCustomDialog dialog = new OkCustomDialog(
+                                ParseSignUpActivity.this,
+                                getString(R.string.signup_error_dialog_title),
+                                e.getMessage());
+                        dialog.show();
+                    }
+                }
+            });
         }
     }
 

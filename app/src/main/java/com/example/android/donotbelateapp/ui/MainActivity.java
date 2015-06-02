@@ -1,4 +1,4 @@
-package com.example.android.donotbelateapp;
+package com.example.android.donotbelateapp.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,8 +15,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.android.donotbelateapp.ui.ParseLoginActivity;
+import com.example.android.donotbelateapp.R;
 import com.parse.Parse;
+import com.parse.ParseUser;
 
 import java.util.Locale;
 
@@ -47,14 +48,16 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
         Parse.enableLocalDatastore(this);
         Parse.initialize(this, "3J5hJWC6D79bZKbs8liukXR7kfsrojEKrmkrpTEW", "wbL5uF2kvCOzNYyZbeHZhUgbahpbw4z9R0d25Bgu");
 
-
-        // start as first activity for now
-        Intent loginIntent = new Intent(this, ParseLoginActivity.class);
-        // For skipping MainActivity when going back
-        // and exiting from the app.
-        loginIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        loginIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(loginIntent);
+        ParseUser currentUser = ParseUser.getCurrentUser();
+        if(currentUser == null) {
+            // If no user logged in, first screen must be Login.
+            Intent loginIntent = new Intent(this, ParseLoginActivity.class);
+            // For skipping MainActivity when going back
+            // and exiting from the app.
+            loginIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            loginIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(loginIntent);
+        }
 
         // Set up the action bar.
         final ActionBar actionBar = getSupportActionBar();
