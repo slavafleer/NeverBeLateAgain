@@ -44,10 +44,6 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Enable Local Datastore.
-        Parse.enableLocalDatastore(this);
-        Parse.initialize(this, "3J5hJWC6D79bZKbs8liukXR7kfsrojEKrmkrpTEW", "wbL5uF2kvCOzNYyZbeHZhUgbahpbw4z9R0d25Bgu");
-
         ParseUser currentUser = ParseUser.getCurrentUser();
         if(currentUser == null) {
             // If no user logged in, first screen must be Login.
