@@ -21,7 +21,7 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/loggin_password"
+        android:id="@+id/login_password"
         android:layout_below="@+id/login_email"
         android:layout_alignParentStart="true"
         android:inputType="textPassword"
@@ -32,8 +32,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/login_button_label"
-        android:id="@+id/logiin_button"
-        android:layout_below="@+id/loggin_password"
+        android:id="@+id/login_button"
+        android:layout_below="@+id/login_password"
         android:layout_alignParentStart="true"
         android:layout_marginTop="10dp"/>
 
@@ -43,7 +43,7 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/login_signup_text"
         android:id="@+id/login_signup_link"
-        android:layout_below="@+id/logiin_button"
+        android:layout_below="@+id/login_button"
         android:layout_centerHorizontal="true"
         android:gravity="center"
         android:layout_marginTop="40dp"

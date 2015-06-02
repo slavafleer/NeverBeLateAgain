@@ -14,7 +14,7 @@ import com.parse.Parse;
     // Also while creating this type class, need to add
     // android:name="com.example.android.donotbelateapp.ParseApplication"
     // in manifest.
-    
+
 public class ParseApplication extends Application {
     @Override
     public void onCreate() {
