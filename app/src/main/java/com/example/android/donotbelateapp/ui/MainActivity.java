@@ -16,7 +16,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.android.donotbelateapp.R;
-import com.parse.Parse;
 import com.parse.ParseUser;
 
 import java.util.Locale;
@@ -47,12 +46,7 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
         ParseUser currentUser = ParseUser.getCurrentUser();
         if(currentUser == null) {
             // If no user logged in, first screen must be Login.
-            Intent loginIntent = new Intent(this, ParseLoginActivity.class);
-            // For skipping MainActivity when going back
-            // and exiting from the app.
-            loginIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            loginIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(loginIntent);
+            navigateToLogin();
         }
 
         // Set up the action bar.
@@ -90,6 +84,15 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
         }
     }
 
+    private void navigateToLogin() {
+        Intent loginIntent = new Intent(this, ParseLoginActivity.class);
+        // For skipping MainActivity when going back
+        // and exiting from the app.
+        loginIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        loginIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(loginIntent);
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -108,6 +111,10 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
+        }
+        if(id == R.id.action_logout) {
+            ParseUser.logOut();
+            navigateToLogin();
         }
 
         return super.onOptionsItemSelected(item);
