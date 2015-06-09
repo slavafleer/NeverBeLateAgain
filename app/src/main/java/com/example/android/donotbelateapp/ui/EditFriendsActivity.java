@@ -39,18 +39,17 @@ public class EditFriendsActivity extends ListActivity {
                     // Success
                     mUsers = users;
                     int usersAmount = mUsers.size();
-                    String[] firstNames = new String[usersAmount];
-                    String[] lastNames = new String[usersAmount];
+                    String[] fullNames = new String[usersAmount];
                     int i = 0;
                     for(ParseUser user : mUsers) {
-                        firstNames[i] = user.getString(ParseConstants.KEY_FIRSTNAME);
-                        lastNames[i] = user.getString(ParseConstants.KEY_LASTNAME);
+                        fullNames[i] = user.getString(ParseConstants.KEY_FIRSTNAME) + " " +
+                            user.getString(ParseConstants.KEY_LASTNAME);
                         i++;
                     }
                     ArrayAdapter<String> adapter = new ArrayAdapter<String>(
                         EditFriendsActivity.this,
                             android.R.layout.simple_list_item_checked,
-                            lastNames
+                            fullNames
                     );
                     setListAdapter(adapter);
 
