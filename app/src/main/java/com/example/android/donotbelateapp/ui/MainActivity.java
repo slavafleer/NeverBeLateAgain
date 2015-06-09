@@ -109,6 +109,11 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
         int id = item.getItemId();
 
         switch(id) {
+            case R.id.action_edit_fiends:
+                Intent intent = new Intent(MainActivity.this, EditFriendsActivity.class);
+                startActivity(intent);
+                break;
+
             case R.id.action_settings :
                 break;
 
