@@ -26,4 +26,5 @@
     <string name="signup_emty_fields_dialog_message">Some of the fields are empty.</string>
     <string name="signup_confirmed_password_error_dialog_message">Confirmed password doesn\'t match to password.</string>
     <string name="login_error_dialog_title">Login Error</string>
+    <string name="fragments_loading_data">Loading data...</string>
 </resources>
