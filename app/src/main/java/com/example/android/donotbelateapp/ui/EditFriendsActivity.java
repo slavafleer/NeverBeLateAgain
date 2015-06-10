@@ -20,6 +20,7 @@ import com.parse.ParseRelation;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
+import java.util.Iterator;
 import java.util.List;
 
 import butterknife.ButterKnife;
@@ -60,6 +61,16 @@ public class EditFriendsActivity extends ListActivity {
                 if (e == null) {
                     // Success
                     mUsers = users;
+
+                    // Remove current user from mUsers, for not self showing.
+                    Iterator<ParseUser> iterator = mUsers.iterator();
+                    while(iterator.hasNext()) {
+                        String userId = iterator.next().getObjectId();
+                        if(mCurrentUser.getObjectId().equals(userId)) {
+                            iterator.remove();
+                        }
+                    }
+
                     int usersAmount = mUsers.size();
                     String[] fullNames = new String[usersAmount];
                     int i = 0;
