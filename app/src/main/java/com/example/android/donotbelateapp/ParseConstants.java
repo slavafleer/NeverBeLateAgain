@@ -9,4 +9,5 @@ public final class ParseConstants {
     // Field names
     public static final String KEY_LASTNAME = "lastName";
     public static final String KEY_FIRSTNAME = "firstName";
+    public static final String KEY_FRIENDS_RELATION = "friendsRelation";
 }

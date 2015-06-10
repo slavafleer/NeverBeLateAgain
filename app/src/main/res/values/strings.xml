@@ -31,5 +31,7 @@
 
     <string name="title_activity_edit_friends">Choose Your Friends</string>
     <string name="loading_data_error_title">Loading Data Error</string>
+    <string name="friend_list_updating_error_title">Friends List Updating Error</string>
+    <string name="friend_list_updated_toast">Friend List Updated.</string>
 
 </resources>
