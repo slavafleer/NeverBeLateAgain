@@ -55,6 +55,7 @@ public class EditFriendsActivity extends ListActivity {
         mSpinner.setVisibility(View.VISIBLE);
         ParseQuery<ParseUser> query = ParseUser.getQuery();
         query.orderByAscending(ParseConstants.KEY_LASTNAME);
+        query.addAscendingOrder(ParseConstants.KEY_FIRSTNAME);
         query.findInBackground(new FindCallback<ParseUser>() {
             @Override
             public void done(List<ParseUser> users, ParseException e) {
@@ -159,7 +160,6 @@ public class EditFriendsActivity extends ListActivity {
         mFriendsRelation.getQuery().findInBackground(new FindCallback<ParseUser>() {
             @Override
             public void done(List<ParseUser> friends, ParseException e) {
-                mSpinner.setVisibility(View.INVISIBLE);
                 if(e == null) {
                     // Success - look for the match.
                     for(int i = 0; i < mUsers.size(); i++) {
@@ -171,7 +171,9 @@ public class EditFriendsActivity extends ListActivity {
                             }
                         }
                     }
+                    mSpinner.setVisibility(View.INVISIBLE);
                 } else {
+                    mSpinner.setVisibility(View.INVISIBLE);
                     // Show error to user
                     OkCustomDialog dialog = new OkCustomDialog(
                             EditFriendsActivity.this,

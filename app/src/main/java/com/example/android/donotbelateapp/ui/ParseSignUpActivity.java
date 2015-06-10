@@ -80,6 +80,8 @@ public class ParseSignUpActivity extends ActionBarActivity {
                     if(e == null) {
                         // Success
                         Intent intent = new Intent(ParseSignUpActivity.this, MainActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);
                     } else {
                         // Show to user the error.
