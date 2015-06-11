@@ -1,7 +1,9 @@
 package com.example.android.donotbelateapp.ui.fragments;
 
+
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,12 +41,6 @@ public class FriendsFragment extends ListFragment {
         View rootView = inflater.inflate(R.layout.fragment_friends, container, false);
         ButterKnife.inject(this, rootView);
         mSpinner.setVisibility(View.INVISIBLE);
-        return rootView;
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
 
         mCurrentUser = ParseUser.getCurrentUser();
         mFriendsRelation = mCurrentUser.getRelation(ParseConstants.KEY_FRIENDS_RELATION);
@@ -68,12 +64,19 @@ public class FriendsFragment extends ListFragment {
                                 user.getString(ParseConstants.KEY_LASTNAME);
                         i++;
                     }
-                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-                            getListView().getContext(),
-                            android.R.layout.simple_list_item_1,
-                            fullNames
-                    );
-                    setListAdapter(adapter);
+
+                    // Check if fragment still exist befor creating of the list.
+                    Fragment fragment = getFragmentManager()
+                            .findFragmentById(R.id.fragmentFriendsSpinner);
+
+                    if (fragment != null) {
+                        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+                                getListView().getContext(),
+                                android.R.layout.simple_list_item_1,
+                                fullNames
+                        );
+                        setListAdapter(adapter);
+                    }
                 } else {
                     mSpinner.setVisibility(View.INVISIBLE);
                     // Show error to user
@@ -86,5 +89,7 @@ public class FriendsFragment extends ListFragment {
                 }
             }
         });
+
+        return rootView;
     }
 }
