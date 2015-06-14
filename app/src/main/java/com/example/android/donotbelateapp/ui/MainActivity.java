@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -29,6 +30,8 @@ import java.util.Locale;
 
 
 public class MainActivity extends ActionBarActivity implements ActionBar.TabListener {
+
+    private static final String TAG = MainActivity.class.getSimpleName();
 
     protected List<ParseUser> mFriends;
     protected ParseUser mCurrentUser;
@@ -104,6 +107,11 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
     protected void onResume() {
         super.onResume();
 
+        getUserFriends();
+    }
+
+    private void getUserFriends() {
+        Log.v(TAG, "getUserFriends() activated.");
         mCurrentUser = ParseUser.getCurrentUser();
         mFriendsRelation = mCurrentUser.getRelation(ParseConstants.KEY_FRIENDS_RELATION);
 
