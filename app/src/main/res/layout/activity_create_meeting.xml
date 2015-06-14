@@ -11,10 +11,10 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/createMeetingTitle"
+        android:id="@+id/createMeetingSubject"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
-        android:hint="Meeting Title"/>
+        android:hint="Meeting Subject"/>
 
     <LinearLayout
         android:orientation="horizontal"
@@ -47,7 +47,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/createMeetingsDetails"
-        android:layout_below="@+id/createMeetingTitle"
+        android:layout_below="@+id/createMeetingSubject"
         android:layout_alignParentStart="true"
         android:hint="Details"/>
 
