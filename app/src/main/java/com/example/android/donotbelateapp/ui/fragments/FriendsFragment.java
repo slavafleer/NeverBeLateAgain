@@ -8,16 +8,8 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ProgressBar;
 
-import com.example.android.donotbelateapp.OkCustomDialog;
-import com.example.android.donotbelateapp.ParseConstants;
 import com.example.android.donotbelateapp.R;
-import com.parse.FindCallback;
-import com.parse.ParseException;
-import com.parse.ParseQuery;
-import com.parse.ParseRelation;
-import com.parse.ParseUser;
-
-import java.util.List;
+import com.example.android.donotbelateapp.ui.MainActivity;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -27,9 +19,7 @@ import butterknife.InjectView;
  */
 public class FriendsFragment extends ListFragment {
 
-    protected List<ParseUser> mFriends;
-    protected ParseUser mCurrentUser;
-    protected ParseRelation<ParseUser> mFriendsRelation;
+
 
     @InjectView(R.id.fragmentFriendsSpinner) ProgressBar mSpinner;
 
@@ -46,45 +36,10 @@ public class FriendsFragment extends ListFragment {
     public void onResume() {
         super.onResume();
 
-        mCurrentUser = ParseUser.getCurrentUser();
-        mFriendsRelation = mCurrentUser.getRelation(ParseConstants.KEY_FRIENDS_RELATION);
-
-        ParseQuery<ParseUser> query = mFriendsRelation.getQuery();
-        query.orderByAscending(ParseConstants.KEY_LASTNAME);
-        query.addAscendingOrder(ParseConstants.KEY_FIRSTNAME);
-        mSpinner.setVisibility(View.VISIBLE);
-        query.findInBackground(new FindCallback<ParseUser>() {
-            @Override
-            public void done(List<ParseUser> friends, ParseException e) {
-                mSpinner.setVisibility(View.INVISIBLE);
-                if (e == null) {
-                    // Success
-                    mFriends = friends;
-                    int usersAmount = mFriends.size();
-                    String[] fullNames = new String[usersAmount];
-                    int i = 0;
-                    for (ParseUser user : mFriends) {
-                        fullNames[i] = user.getString(ParseConstants.KEY_FIRSTNAME) + " " +
-                                user.getString(ParseConstants.KEY_LASTNAME);
-                        i++;
-                    }
-                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-                            getListView().getContext(),
-                            android.R.layout.simple_list_item_1,
-                            fullNames
-                    );
-                    setListAdapter(adapter);
-                } else {
-                    mSpinner.setVisibility(View.INVISIBLE);
-                    // Show error to user
-                    OkCustomDialog dialog = new OkCustomDialog(
-                            getListView().getContext(),
-                            getString(R.string.friend_list_updating_error_title),
-                            e.getMessage());
-                    dialog.show();
-
-                }
-            }
-        });
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+                getListView().getContext(),
+                android.R.layout.simple_list_item_1,
+                MainActivity.mFullNames);
+        setListAdapter(adapter);
     }
 }

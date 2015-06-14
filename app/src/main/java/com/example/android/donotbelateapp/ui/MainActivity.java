@@ -12,16 +12,28 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.example.android.donotbelateapp.OkCustomDialog;
+import com.example.android.donotbelateapp.ParseConstants;
 import com.example.android.donotbelateapp.R;
 import com.example.android.donotbelateapp.ui.fragments.FriendsFragment;
 import com.example.android.donotbelateapp.ui.fragments.FutureMeetingsFragment;
 import com.example.android.donotbelateapp.ui.fragments.TodaysMeetingsFragment;
+import com.parse.FindCallback;
+import com.parse.ParseException;
+import com.parse.ParseQuery;
+import com.parse.ParseRelation;
 import com.parse.ParseUser;
 
+import java.util.List;
 import java.util.Locale;
 
 
 public class MainActivity extends ActionBarActivity implements ActionBar.TabListener {
+
+    protected List<ParseUser> mFriends;
+    protected ParseUser mCurrentUser;
+    protected ParseRelation<ParseUser> mFriendsRelation;
+    public static String[] mFullNames;
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -48,6 +60,8 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
             // If no user logged in, first screen must be Login.
             navigateToLogin();
         }
+
+
 
         // Set up the action bar.
         final ActionBar actionBar = getSupportActionBar();
@@ -82,6 +96,45 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
                             .setText(mSectionsPagerAdapter.getPageTitle(i))
                             .setTabListener(this));
         }
+    }
+
+    // The getting of users List from Parse, done from FriendsFragment Parent (MainActivity)
+    // for preventing crashing of the app due to chance of changing fragment before data was received.
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        mCurrentUser = ParseUser.getCurrentUser();
+        mFriendsRelation = mCurrentUser.getRelation(ParseConstants.KEY_FRIENDS_RELATION);
+
+        ParseQuery<ParseUser> query = mFriendsRelation.getQuery();
+        query.orderByAscending(ParseConstants.KEY_LASTNAME);
+        query.addAscendingOrder(ParseConstants.KEY_FIRSTNAME);
+        query.findInBackground(new FindCallback<ParseUser>() {
+            @Override
+            public void done(List<ParseUser> friends, ParseException e) {
+                if (e == null) {
+                    // Success
+                    mFriends = friends;
+                    int usersAmount = mFriends.size();
+                    String[] fullNames = new String[usersAmount];
+                    int i = 0;
+                    for (ParseUser user : mFriends) {
+                        fullNames[i] = user.getString(ParseConstants.KEY_FIRSTNAME) + " " +
+                                user.getString(ParseConstants.KEY_LASTNAME);
+                        i++;
+                    }
+                    mFullNames = fullNames;
+                } else {
+                    // Show error to user
+                    OkCustomDialog dialog = new OkCustomDialog(
+                            MainActivity.this,
+                            getString(R.string.friend_list_updating_error_title),
+                            e.getMessage());
+                    dialog.show();
+                }
+            }
+        });
     }
 
     private void navigateToLogin() {
