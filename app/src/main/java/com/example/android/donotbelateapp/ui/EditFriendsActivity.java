@@ -1,10 +1,11 @@
 package com.example.android.donotbelateapp.ui;
 
-import android.app.ListActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -26,12 +27,13 @@ import java.util.List;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
-public class EditFriendsActivity extends ListActivity {
+public class EditFriendsActivity extends ActionBarActivity {
 
     protected List<ParseUser> mUsers;
     protected ParseUser mCurrentUser;
     protected ParseRelation<ParseUser> mFriendsRelation;
 
+    @InjectView(R.id.editFriendsList) ListView mFriendsList;
     @InjectView(R.id.editFriendsSpinner) ProgressBar mSpinner;
 
     @Override
@@ -42,7 +44,39 @@ public class EditFriendsActivity extends ListActivity {
 
         mSpinner.setVisibility(View.INVISIBLE);
 
-        getListView().setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+        mFriendsList.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+
+        mFriendsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if (mFriendsList.isItemChecked(position)) {
+                    // Add friend
+                    mFriendsRelation.add(mUsers.get(position));
+                } else {
+                    // Remove friend
+                    mFriendsRelation.remove(mUsers.get(position));
+                }
+                // Updating in Parse
+                mCurrentUser.saveInBackground(new SaveCallback() {
+                    @Override
+                    public void done(ParseException e) {
+                        if (e == null) {
+                            // Success
+                            Toast.makeText(EditFriendsActivity.this,
+                                    getString(R.string.friend_list_updated_toast),
+                                    Toast.LENGTH_LONG).show();
+                        } else {
+                            // Show error to user
+                            OkCustomDialog dialog = new OkCustomDialog(
+                                    EditFriendsActivity.this,
+                                    getString(R.string.friend_list_updating_error_title),
+                                    e.getMessage());
+                            dialog.show();
+                        }
+                    }
+                });
+            }
+        });
     }
 
     @Override
@@ -85,7 +119,7 @@ public class EditFriendsActivity extends ListActivity {
                             android.R.layout.simple_list_item_checked,
                             fullNames
                     );
-                    setListAdapter(adapter);
+                    mFriendsList.setAdapter(adapter);
 
                     addFriendCheckMarks();
 
@@ -123,38 +157,6 @@ public class EditFriendsActivity extends ListActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    protected void onListItemClick(ListView l, View v, int position, long id) {
-        super.onListItemClick(l, v, position, id);
-
-        if (getListView().isItemChecked(position)) {
-            // Add friend
-            mFriendsRelation.add(mUsers.get(position));
-        } else {
-            // Remove friend
-            mFriendsRelation.remove(mUsers.get(position));
-        }
-        // Updating in Parse
-        mCurrentUser.saveInBackground(new SaveCallback() {
-            @Override
-            public void done(ParseException e) {
-                if (e == null) {
-                    // Success
-                    Toast.makeText(EditFriendsActivity.this,
-                            getString(R.string.friend_list_updated_toast),
-                            Toast.LENGTH_LONG).show();
-                } else {
-                    // Show error to user
-                    OkCustomDialog dialog = new OkCustomDialog(
-                            EditFriendsActivity.this,
-                            getString(R.string.friend_list_updating_error_title),
-                            e.getMessage());
-                    dialog.show();
-                }
-            }
-        });
-    }
-
     // Marking checked friends after the list has loaded.
     private void addFriendCheckMarks() {
         mFriendsRelation.getQuery().findInBackground(new FindCallback<ParseUser>() {
@@ -167,7 +169,7 @@ public class EditFriendsActivity extends ListActivity {
 
                         for(ParseUser friend : friends) {
                             if(friend.getObjectId().equals(user.getObjectId())) {
-                                getListView().setItemChecked(i, true);
+                                mFriendsList.setItemChecked(i, true);
                             }
                         }
                     }
