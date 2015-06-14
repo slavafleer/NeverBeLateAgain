@@ -40,6 +40,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.android.donotbelateapp.ui.MainActivity" />
         </activity>
+        <activity
+            android:name=".ui.CreateMeetingActivity"
+            android:label="@string/title_activity_create_meeting"
+            android:parentActivityName=".ui.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.android.donotbelateapp.ui.MainActivity" />
+        </activity>
     </application>
 
 </manifest>
