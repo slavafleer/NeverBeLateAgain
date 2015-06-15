@@ -1,7 +1,6 @@
 package com.example.android.donotbelateapp.ui;
 
 import android.app.DatePickerDialog;
-import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
@@ -9,12 +8,12 @@ import android.view.MenuItem;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.example.android.donotbelateapp.OkCustomDialog;
 import com.example.android.donotbelateapp.ParseConstants;
 import com.example.android.donotbelateapp.R;
+import com.example.android.donotbelateapp.ui.pickers.TimePicker;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
@@ -34,7 +33,7 @@ public class CreateMeetingActivity extends ActionBarActivity {
     @InjectView(R.id.createMeetingSubject) EditText mSubject;
     @InjectView(R.id.createMeetingsDetails) EditText mDetailes;
     @InjectView(R.id.createMeetingDate) TextView mDate;
-    @InjectView(R.id.createMeetingTime) TextView mTime;
+    @InjectView(R.id.createMeetingTime) EditText mTime;
     @InjectView(R.id.createMeetingLocation) EditText mLocation;
     @InjectView(R.id.createMeetingInvitees) TextView mInvitees;
 
@@ -43,6 +42,8 @@ public class CreateMeetingActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_meeting);
         ButterKnife.inject(this);
+
+        TimePicker time = new TimePicker(CreateMeetingActivity.this, mTime);
     }
 
     @Override
@@ -149,23 +150,5 @@ public class CreateMeetingActivity extends ActionBarActivity {
         }, year, month, day);
         datePicker.setTitle("Choose Date");
         datePicker.show();
-    }
-
-    @OnClick(R.id.createMeetingTime)
-    void onClickTime() {
-        // To show current time in the time picker
-        Calendar currentTime = Calendar.getInstance();
-        int hour = currentTime.get(Calendar.HOUR);
-        int minute = currentTime.get(Calendar.MINUTE);
-
-        TimePickerDialog timePicker;
-        timePicker = new TimePickerDialog(CreateMeetingActivity.this, new TimePickerDialog.OnTimeSetListener() {
-            @Override
-            public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-                mTime.setText(selectedHour + ":" + selectedMinute);
-            }
-        },hour,minute, true); // 24h format
-        timePicker.setTitle("Choose Time");
-        timePicker.show();
     }
 }
