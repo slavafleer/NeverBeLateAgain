@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.DatePicker;
@@ -30,6 +31,7 @@ import butterknife.InjectView;
 import butterknife.OnClick;
 
 public class CreateMeetingActivity extends ActionBarActivity {
+    private static final String TAG = CreateMeetingActivity.class.getSimpleName();
 
     @InjectView(R.id.createMeetingSubject) EditText mSubject;
     @InjectView(R.id.createMeetingsDetails) EditText mDetailes;
@@ -79,21 +81,20 @@ public class CreateMeetingActivity extends ActionBarActivity {
             date = dateFormat.parse(mDate.getText().toString());
             time = timeFormat.parse(mTime.getText().toString());
         } catch (java.text.ParseException e) {
-            OkCustomDialog dialog = new OkCustomDialog(
-                    CreateMeetingActivity.this,
-                    getString(R.string.meeting_creating_error_title),
-                    e.getMessage());
-            dialog.show();
+            Log.e(TAG,"The error: ", e);
         }
+
+        Date dateAndTime = new Date(date.getTime() + time.getTime());
+
         String location = mLocation.getText().toString();
-        String notification = null;
+        String notification = "";
 
         if(subject.isEmpty()) {
             notification = "Subject field is empty.";
-//        } else if(date == null) {
-//            notification = "Date field is empty.";
-//        } else if(time == null) {
-//            notification = "Time field is empty.";
+        } else if(date == null) {
+            notification = "Date field is empty.";
+        } else if(time == null) {
+            notification = "Time field is empty.";
         } else if(location.isEmpty()) {
             notification = "Location field is empty.";
         }
@@ -110,6 +111,7 @@ public class CreateMeetingActivity extends ActionBarActivity {
             meeting.put(ParseConstants.KEY_DETAILS, details);
             meeting.put(ParseConstants.KEY_DATE, date);
             meeting.put(ParseConstants.KEY_TIME, time);
+            meeting.put("dateAndTime", dateAndTime);
             meeting.put(ParseConstants.KEY_LOCATION, location);
             meeting.put(ParseConstants.KEY_INITIALIZER, ParseUser.getCurrentUser());
             meeting.saveInBackground(new SaveCallback() {
@@ -144,7 +146,7 @@ public class CreateMeetingActivity extends ActionBarActivity {
         datePicker = new DatePickerDialog(CreateMeetingActivity.this, new DatePickerDialog.OnDateSetListener() {
             public void onDateSet(DatePicker datePicker, int selectedYear, int selectedMonth, int selectedDay) {
                 selectedMonth++; // Jan = 0
-                mDate.setText("" + selectedDay + "/" + selectedMonth + "/" + selectedYear);
+                mDate.setText(selectedDay + "/" + selectedMonth + "/" + selectedYear);
             }
         }, year, month, day);
         datePicker.setTitle("Choose Date");
@@ -159,7 +161,8 @@ public class CreateMeetingActivity extends ActionBarActivity {
         int minute = currentTime.get(Calendar.MINUTE);
 
         TimePickerDialog timePicker;
-        timePicker = new TimePickerDialog(CreateMeetingActivity.this, new TimePickerDialog.OnTimeSetListener() {
+        timePicker = new TimePickerDialog(
+                CreateMeetingActivity.this, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
                 mTime.setText(selectedHour + ":" + selectedMinute);
