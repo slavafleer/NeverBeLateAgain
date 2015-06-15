@@ -84,8 +84,6 @@ public class CreateMeetingActivity extends ActionBarActivity {
             Log.e(TAG,"The error: ", e);
         }
 
-        Date dateAndTime = new Date(date.getTime() + time.getTime());
-
         String location = mLocation.getText().toString();
         String notification = "";
 
@@ -111,7 +109,6 @@ public class CreateMeetingActivity extends ActionBarActivity {
             meeting.put(ParseConstants.KEY_DETAILS, details);
             meeting.put(ParseConstants.KEY_DATE, date);
             meeting.put(ParseConstants.KEY_TIME, time);
-            meeting.put("dateAndTime", dateAndTime);
             meeting.put(ParseConstants.KEY_LOCATION, location);
             meeting.put(ParseConstants.KEY_INITIALIZER, ParseUser.getCurrentUser());
             meeting.saveInBackground(new SaveCallback() {
