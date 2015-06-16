@@ -16,7 +16,6 @@ import android.widget.Toast;
 import com.example.android.donotbelateapp.OkCustomDialog;
 import com.example.android.donotbelateapp.ParseConstants;
 import com.example.android.donotbelateapp.R;
-import com.example.android.donotbelateapp.module.DateTime;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
@@ -41,8 +40,7 @@ public class CreateMeetingActivity extends ActionBarActivity {
     @InjectView(R.id.createMeetingLocation) EditText mLocation;
     @InjectView(R.id.createMeetingInvitees) TextView mInvitees;
 
-    DateTime mDateTime = new DateTime();
-    Calendar mCalendar = Calendar.getInstance();
+    Calendar mDateTime = Calendar.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,11 +109,7 @@ public class CreateMeetingActivity extends ActionBarActivity {
             ParseObject meeting = new ParseObject(ParseConstants.CLASS_MEETINGS);
             meeting.put(ParseConstants.KEY_SUBJECT, subject);
             meeting.put(ParseConstants.KEY_DETAILS, details);
-            meeting.put(ParseConstants.KEY_DATE, date);
-            meeting.put(ParseConstants.KEY_TIME, time);
-//            mCalendar.set(mDateTime.getYear(), mDateTime.getMonth(), mDateTime.getDay(),
-//                    mDateTime.getHour(), mDateTime.getMinute());
-            meeting.put("dateTimeCal",mCalendar.getTime());
+            meeting.put(ParseConstants.KEY_DATETIME, mDateTime.getTime());
             meeting.put(ParseConstants.KEY_LOCATION, location);
             meeting.put(ParseConstants.KEY_INITIALIZER, ParseUser.getCurrentUser());
             meeting.saveInBackground(new SaveCallback() {
@@ -149,16 +143,11 @@ public class CreateMeetingActivity extends ActionBarActivity {
         DatePickerDialog datePicker;
         datePicker = new DatePickerDialog(CreateMeetingActivity.this, new DatePickerDialog.OnDateSetListener() {
             public void onDateSet(DatePicker datePicker, int selectedYear, int selectedMonth, int selectedDay) {
-                selectedMonth++; // Jan = 0
-                mDate.setText(selectedDay + "/" + selectedMonth + "/" + selectedYear);
-                
-                mDateTime.setYear(selectedYear);
-                mDateTime.setMonth(selectedMonth);
-                mDateTime.setDay(selectedDay);
+                mDate.setText(selectedDay + "/" + selectedMonth+1 + "/" + selectedYear); // Jan = 0
 
-                mCalendar.set(Calendar.YEAR, selectedYear);
-                mCalendar.set(Calendar.MONTH, selectedMonth);
-                mCalendar.set(Calendar.DAY_OF_MONTH, selectedDay);
+                mDateTime.set(Calendar.YEAR, selectedYear);
+                mDateTime.set(Calendar.MONTH, selectedMonth);
+                mDateTime.set(Calendar.DAY_OF_MONTH, selectedDay);
             }
         }, year, month, day);
         datePicker.setTitle("Choose Date");
@@ -178,11 +167,9 @@ public class CreateMeetingActivity extends ActionBarActivity {
             @Override
             public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
                 mTime.setText(selectedHour + ":" + selectedMinute);
-                mDateTime.setHour(selectedHour);
-                mDateTime.setMinute(selectedMinute);
 
-                mCalendar.set(Calendar.HOUR_OF_DAY, selectedHour);
-                mCalendar.set(Calendar.MINUTE, selectedMinute);
+                mDateTime.set(Calendar.HOUR_OF_DAY, selectedHour);
+                mDateTime.set(Calendar.MINUTE, selectedMinute);
             }
         },hour,minute, true); // 24h format
         timePicker.setTitle("Choose Time");

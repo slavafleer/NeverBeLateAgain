@@ -14,8 +14,7 @@ public final class ParseConstants {
 
     public static final String KEY_SUBJECT = "subject";
     public static final String KEY_DETAILS = "details";
-    public static final String KEY_DATE = "date";
-    public static final String KEY_TIME = "time";
+    public static final String KEY_DATETIME = "dateTime";
     public static final String KEY_LOCATION = "location";
     public static final String KEY_INVITEES = "invitees";
     public static final String KEY_INITIALIZER = "initializer";
