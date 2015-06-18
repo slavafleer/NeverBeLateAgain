@@ -18,6 +18,7 @@ import com.parse.ParseQuery;
 import com.parse.ParseRelation;
 import com.parse.ParseUser;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.ButterKnife;
@@ -26,10 +27,11 @@ import butterknife.InjectView;
 
 public class ChooseInviteesActivity extends ActionBarActivity {
 
-    protected List<ParseUser> mFriends;
-    protected ParseUser mCurrentUser;
-    protected ParseRelation<ParseUser> mFriendsRelation;
-    public static String[] mFullNames;
+    private List<ParseUser> mFriends;
+    private ArrayList<ParseUser> mInvitees = new ArrayList<>();
+    private ParseUser mCurrentUser;
+    private ParseRelation<ParseUser> mFriendsRelation;
+    private String[] mFullNames;
 
     @InjectView(R.id.chooseInviteesSpinner) ProgressBar mSpinner;
     @InjectView(R.id.chooseInviteesList) ListView mFriendsList;
@@ -42,16 +44,16 @@ public class ChooseInviteesActivity extends ActionBarActivity {
 
         mSpinner.setVisibility(View.INVISIBLE);
 
-        // Choose invitees on item click.
+        mFriendsList.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
         mFriendsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (mFriendsList.isItemChecked(position)) {
-                    // Add friend
-                    mFriendsRelation.add(mFriends.get(position));
+                if(mFriendsList.isItemChecked(position)) {
+                    // Add the friend to InviteesIds List
+                    mInvitees.add(mFriends.get(position));
                 } else {
-                    // Remove friend
-                    mFriendsRelation.remove(mFriends.get(position));
+                    // Remove the friend from InviteesIds List
+                    mInvitees.remove(mFriends.get(position));
                 }
             }
         });
@@ -100,6 +102,13 @@ public class ChooseInviteesActivity extends ActionBarActivity {
     @Override
     public void onBackPressed() {
         Intent data = new Intent();
+        ArrayList<String> inviteesId = new ArrayList<>();
+
+        for(ParseUser invity : mInvitees) {
+            inviteesId.add(invity.getObjectId());
+        }
+        data.putExtra("string-array", inviteesId);
+//        data.putStringArrayListExtra("invitees", inviteesId);
         data.putExtra("key", 777);
         setResult(Activity.RESULT_OK, data);
 

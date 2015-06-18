@@ -190,8 +190,10 @@ public class CreateMeetingActivity extends ActionBarActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(requestCode == 1 && resultCode == Activity.RESULT_OK){
+        if(requestCode == REQUESTCODE_CHOOSEINVITEES && resultCode == Activity.RESULT_OK){
             int testData = (int) data.getIntExtra("key",1);
+            //TODO: rewrite with parcelable class
+            String[] testString = data.getStringArrayExtra("string-array");
             //Do whatever you want with yourData
             Log.v("TEST DATA",testData + "");
         }
