@@ -39,5 +39,6 @@
     <string name="hello_world">Hello world!</string>
     <string name="new_meeting_created_toast">A new meeting was created</string>
     <string name="meeting_creating_error_title">Meeting creation error</string>
+    <string name="title_activity_choose_invitees">Choose Invitees</string>
 
 </resources>

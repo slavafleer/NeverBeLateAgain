@@ -1,7 +1,9 @@
 package com.example.android.donotbelateapp.ui;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
@@ -13,6 +15,7 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.example.android.donotbelateapp.ChooseInviteesActivity;
 import com.example.android.donotbelateapp.OkCustomDialog;
 import com.example.android.donotbelateapp.ParseConstants;
 import com.example.android.donotbelateapp.R;
@@ -32,6 +35,7 @@ import butterknife.OnClick;
 
 public class CreateMeetingActivity extends ActionBarActivity {
     private static final String TAG = CreateMeetingActivity.class.getSimpleName();
+    public static final int REQUESTCODE_CHOOSEINVITEES = 1;
 
     @InjectView(R.id.createMeetingSubject) EditText mSubject;
     @InjectView(R.id.createMeetingsDetails) EditText mDetailes;
@@ -174,5 +178,22 @@ public class CreateMeetingActivity extends ActionBarActivity {
         },hour,minute, true); // 24h format
         timePicker.setTitle("Choose Time");
         timePicker.show();
+    }
+
+    @OnClick(R.id.createMeetingInviteesButton)
+    void onClickInviteesButton() {
+        Intent inviteesIntent = new Intent(CreateMeetingActivity.this, ChooseInviteesActivity.class);
+        startActivityForResult(inviteesIntent, REQUESTCODE_CHOOSEINVITEES);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == 1 && resultCode == Activity.RESULT_OK){
+            int testData = (int) data.getIntExtra("key",1);
+            //Do whatever you want with yourData
+            Log.v("TEST DATA",testData + "");
+        }
     }
 }
