@@ -5,6 +5,7 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -19,13 +20,16 @@ import com.example.android.donotbelateapp.ChooseInviteesActivity;
 import com.example.android.donotbelateapp.OkCustomDialog;
 import com.example.android.donotbelateapp.ParseConstants;
 import com.example.android.donotbelateapp.R;
+import com.example.android.donotbelateapp.modul.Invitees;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
+import java.lang.reflect.Array;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -45,6 +49,8 @@ public class CreateMeetingActivity extends ActionBarActivity {
     @InjectView(R.id.createMeetingInvitees) TextView mInvitees;
 
     Calendar mDateTime = Calendar.getInstance();
+
+    Invitees mInvitees;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -193,7 +199,9 @@ public class CreateMeetingActivity extends ActionBarActivity {
         if(requestCode == REQUESTCODE_CHOOSEINVITEES && resultCode == Activity.RESULT_OK){
             int testData = (int) data.getIntExtra("key",1);
             //TODO: rewrite with parcelable class
-            String[] testString = data.getStringArrayExtra("string-array");
+            Parcelable[] parcelables =  data.getParcelableArrayExtra("parcelable");
+            mInvitees = Arrays.copyOf(parcelables, parcelables.length, Invitees[].class);
+
             //Do whatever you want with yourData
             Log.v("TEST DATA",testData + "");
         }
