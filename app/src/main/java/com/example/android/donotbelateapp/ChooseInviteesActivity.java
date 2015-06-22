@@ -12,7 +12,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 
-import com.example.android.donotbelateapp.modul.Invitees;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
@@ -33,7 +32,6 @@ public class ChooseInviteesActivity extends ActionBarActivity {
     private ParseUser mCurrentUser;
     private ParseRelation<ParseUser> mFriendsRelation;
     private String[] mFullNames;
-    private Invitees mInviteesParcelable;
 
     @InjectView(R.id.chooseInviteesSpinner) ProgressBar mSpinner;
     @InjectView(R.id.chooseInviteesList) ListView mFriendsList;
@@ -112,11 +110,8 @@ public class ChooseInviteesActivity extends ActionBarActivity {
         data.putExtra("string-array", inviteesId);
 //        data.putStringArrayListExtra("invitees", inviteesId);
         data.putExtra("key", 777);
-
-        mInviteesParcelable.addToInviteesList("Invitees test ID");
-        data.putExtra("parcelable", mInviteesParcelable);
-
         setResult(Activity.RESULT_OK, data);
+
         super.onBackPressed();
     }
 
