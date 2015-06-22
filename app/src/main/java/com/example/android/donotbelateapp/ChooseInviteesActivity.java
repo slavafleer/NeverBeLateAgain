@@ -26,6 +26,8 @@ import butterknife.InjectView;
 
 
 public class ChooseInviteesActivity extends ActionBarActivity {
+    public final static String INVITEES_AMOUNT = "iviteesAmount";
+    public final static String INVITEE = "invitee";
 
     private List<ParseUser> mFriends;
     private ArrayList<ParseUser> mInvitees = new ArrayList<>();
@@ -44,6 +46,7 @@ public class ChooseInviteesActivity extends ActionBarActivity {
 
         mSpinner.setVisibility(View.INVISIBLE);
 
+        // Edit invitees
         mFriendsList.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
         mFriendsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -102,16 +105,17 @@ public class ChooseInviteesActivity extends ActionBarActivity {
     @Override
     public void onBackPressed() {
         Intent data = new Intent();
-        ArrayList<String> inviteesId = new ArrayList<>();
 
-        for(ParseUser invity : mInvitees) {
-            inviteesId.add(invity.getObjectId());
+        int i = 0;
+        for(ParseUser invitee : mInvitees) {
+            data.putExtra(INVITEE + i, invitee.getObjectId());
+            i++;
         }
-        data.putExtra("string-array", inviteesId);
-//        data.putStringArrayListExtra("invitees", inviteesId);
-        data.putExtra("key", 777);
-        setResult(Activity.RESULT_OK, data);
+        data.putExtra(INVITEES_AMOUNT, i);
 
+        data.putExtra("key", 777);
+
+        setResult(Activity.RESULT_OK, data);
         super.onBackPressed();
     }
 

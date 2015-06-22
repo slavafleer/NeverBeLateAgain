@@ -26,6 +26,7 @@ import com.parse.SaveCallback;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -45,6 +46,8 @@ public class CreateMeetingActivity extends ActionBarActivity {
     @InjectView(R.id.createMeetingInvitees) TextView mInvitees;
 
     Calendar mDateTime = Calendar.getInstance();
+
+    private ArrayList<String> mInviteesList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -186,15 +189,19 @@ public class CreateMeetingActivity extends ActionBarActivity {
         startActivityForResult(inviteesIntent, REQUESTCODE_CHOOSEINVITEES);
     }
 
+    //TODO: need to restart the mInviteList each time, cause it adds to the old list each time.
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
         if(requestCode == REQUESTCODE_CHOOSEINVITEES && resultCode == Activity.RESULT_OK){
             int testData = (int) data.getIntExtra("key",1);
-            //TODO: rewrite with parcelable class
-            String[] testString = data.getStringArrayExtra("string-array");
-            //Do whatever you want with yourData
+
+            int inviteesAmount = data.getIntExtra(ChooseInviteesActivity.INVITEES_AMOUNT, 0);
+            for(int i = 0; i < inviteesAmount; i++) {
+                mInviteesList.add(data.getStringExtra(ChooseInviteesActivity.INVITEE + i));
+            }
+
             Log.v("TEST DATA",testData + "");
         }
     }
