@@ -34,6 +34,7 @@ public class ChooseInviteesActivity extends ActionBarActivity {
     private ParseUser mCurrentUser;
     private ParseRelation<ParseUser> mFriendsRelation;
     private String[] mFullNames;
+    private ArrayList<String> mInviteesList = new ArrayList<>();
 
     @InjectView(R.id.chooseInviteesSpinner) ProgressBar mSpinner;
     @InjectView(R.id.chooseInviteesList) ListView mFriendsList;
@@ -90,6 +91,17 @@ public class ChooseInviteesActivity extends ActionBarActivity {
                             fullNames
                     );
                     mFriendsList.setAdapter(adapter);
+
+                    // Mark previous chosen invitees.
+                    int i2 = 0;
+                    for(ParseUser friend : mFriends) {
+                        for(String invitee : mInviteesList) {
+                            if(friend.getObjectId().equals(invitee)) {
+                                mFriendsList.setItemChecked(i2, true);
+                            }
+                        }
+                        i2++;
+                    }
                 } else {
                     // Show error to user
                     OkCustomDialog dialog = new OkCustomDialog(
@@ -100,6 +112,21 @@ public class ChooseInviteesActivity extends ActionBarActivity {
                 }
             }
         });
+
+        // Receiving inviteesIds that already were chosen before.
+        Intent intent = getIntent();
+        mInviteesList.clear();
+        int inviteesAmount = intent.getIntExtra(ChooseInviteesActivity.INVITEES_AMOUNT, 0);
+        for(int i = 0; i < inviteesAmount; i++) {
+            mInviteesList.add(intent.getStringExtra(ChooseInviteesActivity.INVITEE + i));
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+
     }
 
     @Override

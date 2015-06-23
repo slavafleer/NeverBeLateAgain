@@ -173,6 +173,15 @@ public class CreateMeetingActivity extends ActionBarActivity {
     @OnClick(R.id.createMeetingInviteesButton)
     void onClickInviteesButton() {
         Intent inviteesIntent = new Intent(CreateMeetingActivity.this, ChooseInviteesActivity.class);
+
+        // Returning mInviteesList back for editing.
+        int i = 0;
+        for(String invitee:mInviteesList) {
+            inviteesIntent.putExtra(ChooseInviteesActivity.INVITEE + i, invitee);
+            i++;
+        }
+        inviteesIntent.putExtra(ChooseInviteesActivity.INVITEES_AMOUNT, i);
+
         startActivityForResult(inviteesIntent, REQUESTCODE_CHOOSEINVITEES);
     }
 
@@ -186,6 +195,13 @@ public class CreateMeetingActivity extends ActionBarActivity {
             for(int i = 0; i < inviteesAmount; i++) {
                 mInviteesList.add(data.getStringExtra(ChooseInviteesActivity.INVITEE + i));
             }
+
+            // Displaying invitees(for now just IDs) in Invitees Field
+            String inviteesListToString = "";
+            for(String invitee : mInviteesList) {
+                inviteesListToString += " <" + invitee + "> ";
+            }
+            mInvitees.setText(inviteesListToString);
         }
     }
 }
