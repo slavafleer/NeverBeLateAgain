@@ -189,6 +189,10 @@ public class CreateMeetingActivity extends ActionBarActivity {
         startActivityForResult(inviteesIntent, REQUESTCODE_CHOOSEINVITEES);
     }
 
+    void onClickInviteesTextView() {
+        Toast.makeText(CreateMeetingActivity.this, "clicked on text", Toast.LENGTH_LONG).show();
+    }
+
     //TODO: need to restart the mInviteList each time, cause it adds to the old list each time.
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
