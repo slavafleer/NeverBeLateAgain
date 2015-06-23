@@ -81,9 +81,7 @@
         android:layout_alignParentStart="true"
         android:layout_alignEnd="@+id/createMeetingMaps"
         android:textSize="18sp"
-        android:minLines="2"
-        android:onClick="onClickInviteesTextView"
-        android:clickable="true"/>
+        android:minLines="2"/>
 
     <LinearLayout
         android:orientation="horizontal"
