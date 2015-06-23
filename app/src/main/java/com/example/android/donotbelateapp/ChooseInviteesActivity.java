@@ -26,7 +26,7 @@ import butterknife.InjectView;
 
 
 public class ChooseInviteesActivity extends ActionBarActivity {
-    public final static String INVITEES_AMOUNT = "iviteesAmount";
+    public final static String INVITEES_AMOUNT = "inviteesAmount";
     public final static String INVITEE = "invitee";
 
     private List<ParseUser> mFriends;
@@ -92,12 +92,16 @@ public class ChooseInviteesActivity extends ActionBarActivity {
                     );
                     mFriendsList.setAdapter(adapter);
 
+
+                    //TODO: meantime when backed to CreateMeeting the InviteeLIst is short and not include previos selectec invitees
+                    //TODO: it cause mInvitees changed on each item click but not check  already selected ones
                     // Mark previous chosen invitees.
                     int i2 = 0;
                     for(ParseUser friend : mFriends) {
                         for(String invitee : mInviteesList) {
                             if(friend.getObjectId().equals(invitee)) {
                                 mFriendsList.setItemChecked(i2, true);
+                                mInvitees.add(mFriends.get(i2));
                             }
                         }
                         i2++;
@@ -123,16 +127,9 @@ public class ChooseInviteesActivity extends ActionBarActivity {
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-
-
-    }
-
-    @Override
     public void onBackPressed() {
         Intent data = new Intent();
-
+        
         int i = 0;
         for(ParseUser invitee : mInvitees) {
             data.putExtra(INVITEE + i, invitee.getObjectId());
