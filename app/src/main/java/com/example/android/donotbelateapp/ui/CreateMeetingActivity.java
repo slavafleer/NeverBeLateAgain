@@ -6,7 +6,6 @@ import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.DatePicker;
@@ -24,11 +23,8 @@ import com.parse.ParseObject;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -82,25 +78,16 @@ public class CreateMeetingActivity extends ActionBarActivity {
     void onClickCreateMeetingButton(){
         String subject = mSubject.getText().toString();
         String details = mDetailes.getText().toString();
-        Date date = null;
-        Date time = null;
-        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        DateFormat timeFormat = new SimpleDateFormat("HH:mm");
-        try {
-            date = dateFormat.parse(mDate.getText().toString());
-            time = timeFormat.parse(mTime.getText().toString());
-        } catch (java.text.ParseException e) {
-            Log.e(TAG,"The error: ", e);
-        }
-
+        String date = mDate.getText().toString();
+        String time = mTime.getText().toString();
         String location = mLocation.getText().toString();
         String notification = "";
 
         if(subject.isEmpty()) {
             notification = "Subject field is empty.";
-        } else if(date == null) {
+        } else if(date.isEmpty()) {
             notification = "Date field is empty.";
-        } else if(time == null) {
+        } else if(time.isEmpty()) {
             notification = "Time field is empty.";
         } else if(location.isEmpty()) {
             notification = "Location field is empty.";
