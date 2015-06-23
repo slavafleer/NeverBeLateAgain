@@ -189,14 +189,14 @@ public class CreateMeetingActivity extends ActionBarActivity {
         startActivityForResult(inviteesIntent, REQUESTCODE_CHOOSEINVITEES);
     }
 
-    //TODO: need to restart the mInviteList each time, cause it adds to the old list each time.
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
         if(requestCode == REQUESTCODE_CHOOSEINVITEES && resultCode == Activity.RESULT_OK){
             int testData = (int) data.getIntExtra("key",1);
-
+            
+            mInviteesList.clear();
             int inviteesAmount = data.getIntExtra(ChooseInviteesActivity.INVITEES_AMOUNT, 0);
             for(int i = 0; i < inviteesAmount; i++) {
                 mInviteesList.add(data.getStringExtra(ChooseInviteesActivity.INVITEE + i));
