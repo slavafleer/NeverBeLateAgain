@@ -1,4 +1,4 @@
-package com.example.android.donotbelateapp;
+package com.example.android.donotbelateapp.ui;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -12,6 +12,9 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 
+import com.example.android.donotbelateapp.OkCustomDialog;
+import com.example.android.donotbelateapp.ParseConstants;
+import com.example.android.donotbelateapp.R;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
@@ -92,9 +95,6 @@ public class ChooseInviteesActivity extends ActionBarActivity {
                     );
                     mFriendsList.setAdapter(adapter);
 
-
-                    //TODO: meantime when backed to CreateMeeting the InviteeLIst is short and not include previos selectec invitees
-                    //TODO: it cause mInvitees changed on each item click but not check  already selected ones
                     // Mark previous chosen invitees.
                     int i2 = 0;
                     for(ParseUser friend : mFriends) {
@@ -129,7 +129,7 @@ public class ChooseInviteesActivity extends ActionBarActivity {
     @Override
     public void onBackPressed() {
         Intent data = new Intent();
-        
+
         int i = 0;
         for(ParseUser invitee : mInvitees) {
             data.putExtra(INVITEE + i, invitee.getObjectId());

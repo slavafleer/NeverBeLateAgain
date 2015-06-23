@@ -14,17 +14,20 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import com.example.android.donotbelateapp.ChooseInviteesActivity;
 import com.example.android.donotbelateapp.OkCustomDialog;
 import com.example.android.donotbelateapp.ParseConstants;
 import com.example.android.donotbelateapp.R;
+import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
+import com.parse.ParseQuery;
+import com.parse.ParseRelation;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -41,15 +44,34 @@ public class CreateMeetingActivity extends ActionBarActivity {
     @InjectView(R.id.createMeetingLocation) EditText mLocation;
     @InjectView(R.id.createMeetingInvitees) TextView mInvitees;
 
-    Calendar mDateTime = Calendar.getInstance();
-
+    private Calendar mDateTime = Calendar.getInstance();
     private ArrayList<String> mInviteesList = new ArrayList<>();
+    private ParseUser mCurrentUser;
+    private ParseRelation<ParseUser> mFriendsRelation;
+    private List<ParseUser> mFriends;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_meeting);
         ButterKnife.inject(this);
+
+        mCurrentUser = ParseUser.getCurrentUser();
+        mFriendsRelation = mCurrentUser.getRelation(ParseConstants.KEY_FRIENDS_RELATION);
+
+        ParseQuery<ParseUser> query = mFriendsRelation.getQuery();
+        query.orderByAscending(ParseConstants.KEY_LASTNAME);
+        query.addAscendingOrder(ParseConstants.KEY_FIRSTNAME);
+        query.findInBackground(new FindCallback<ParseUser>() {
+            @Override
+            public void done(List<ParseUser> friends, ParseException e) {
+                if (e == null) {
+                    // Success
+                    mFriends = friends;
+                }
+            }
+        });
     }
 
     @Override
@@ -199,7 +221,14 @@ public class CreateMeetingActivity extends ActionBarActivity {
             // Displaying invitees(for now just IDs) in Invitees Field
             String inviteesListToString = "";
             for(String invitee : mInviteesList) {
-                inviteesListToString += " <" + invitee + "> ";
+//                inviteesListToString += " <" + invitee + "> ";
+                for(ParseUser friend : mFriends) {
+                    if(friend.getObjectId().equals(invitee)) {
+                        inviteesListToString +=
+                                " < " + friend.getString(ParseConstants.KEY_FIRSTNAME) + " " +
+                                friend.getString(ParseConstants.KEY_LASTNAME) + " > ";
+                    }
+                }
             }
             mInvitees.setText(inviteesListToString);
         }

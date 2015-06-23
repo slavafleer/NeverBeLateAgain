@@ -49,7 +49,7 @@
                 android:value="com.example.android.donotbelateapp.ui.MainActivity" />
         </activity>
         <activity
-            android:name=".ChooseInviteesActivity"
+            android:name=".ui.ChooseInviteesActivity"
             android:label="@string/title_activity_choose_invitees"
             android:parentActivityName=".ui.CreateMeetingActivity" >
             <meta-data
