@@ -128,6 +128,8 @@ public class CreateMeetingActivity extends ActionBarActivity {
             meeting.put(ParseConstants.KEY_DATETIME, mDateTime.getTime());
             meeting.put(ParseConstants.KEY_LOCATION, location);
             meeting.put(ParseConstants.KEY_INITIALIZER, ParseUser.getCurrentUser());
+            //TODO: need replace it to ParseRelation
+            meeting.put(ParseConstants.KEY_INVITEES, mInviteesList);
             meeting.saveInBackground(new SaveCallback() {
                 @Override
                 public void done(ParseException e) {
@@ -174,7 +176,7 @@ public class CreateMeetingActivity extends ActionBarActivity {
     void onClickTime() {
         // To show current time in the time picker
         Calendar currentTime = Calendar.getInstance();
-        int hour = currentTime.get(Calendar.HOUR);
+        int hour = currentTime.get(Calendar.HOUR) + 12; // Done due to not recognizing pm hour
         int minute = currentTime.get(Calendar.MINUTE);
 
         TimePickerDialog timePicker;
