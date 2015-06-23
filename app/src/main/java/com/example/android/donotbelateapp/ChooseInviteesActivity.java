@@ -113,8 +113,6 @@ public class ChooseInviteesActivity extends ActionBarActivity {
         }
         data.putExtra(INVITEES_AMOUNT, i);
 
-        data.putExtra("key", 777);
-
         setResult(Activity.RESULT_OK, data);
         super.onBackPressed();
     }

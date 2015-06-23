@@ -194,15 +194,11 @@ public class CreateMeetingActivity extends ActionBarActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if(requestCode == REQUESTCODE_CHOOSEINVITEES && resultCode == Activity.RESULT_OK){
-            int testData = (int) data.getIntExtra("key",1);
-            
             mInviteesList.clear();
             int inviteesAmount = data.getIntExtra(ChooseInviteesActivity.INVITEES_AMOUNT, 0);
             for(int i = 0; i < inviteesAmount; i++) {
                 mInviteesList.add(data.getStringExtra(ChooseInviteesActivity.INVITEE + i));
             }
-
-            Log.v("TEST DATA",testData + "");
         }
     }
 }
