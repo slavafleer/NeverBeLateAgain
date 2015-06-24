@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="horizontal"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="1."
+        android:id="@+id/itemSerialNumberLabel"
+        android:layout_alignParentTop="false"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="5dp"/>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/item3in1LinearLayout"
+        android:layout_toRightOf="@+id/itemSerialNumberLabel"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@+id/itemIconsLinearLayout">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Subject"
+            android:id="@+id/itemSubjectLabel"
+            android:layout_alignParentTop="false"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="5dp"
+            android:layout_toRightOf="@+id/itemSerialNumberLabel"
+            android:layout_weight="10"
+            android:layout_gravity="center"
+            android:gravity="center"/>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/itemDateTimeLinearLayout"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/itemSubjectLabel"
+            android:layout_gravity="center"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="13/04/2015"
+                android:id="@+id/itemDateLabel"
+                android:layout_alignParentTop="false"
+                android:layout_toEndOf="@+id/itemSerialNumberLabel"
+                android:layout_toRightOf="@+id/itemSubjectLabel"
+                android:textSize="11sp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="22:00"
+                android:id="@+id/itemTimeLabel"
+                android:layout_below="@+id/itemSerialNumberLabel"
+                android:layout_toEndOf="@+id/itemSerialNumberLabel"
+                android:layout_alignLeft="@+id/itemDateLabel"
+                android:layout_alignRight="@+id/itemDateLabel"
+                android:gravity="center"
+                android:textSize="12sp"/>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Location"
+            android:id="@+id/itemLocationLabel"
+            android:layout_alignParentTop="false"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/itemIconsLinearLayout"
+            android:layout_weight="10"
+            android:layout_gravity="center"
+            android:gravity="center"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/itemIconsLinearLayout"
+        android:layout_toLeftOf="@+id/itemReminderLabel"
+        android:layout_marginLeft="5dp"
+        android:layout_centerInParent="true">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/itemInviteesIcon"
+            android:layout_alignParentTop="true"
+            android:layout_toEndOf="@+id/itemLocationLabel"
+            android:src="@drawable/ic_supervisor_account_black_18dp"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/itemInfoIcon"
+            android:layout_below="@+id/itemInviteesIcon"
+            android:layout_alignStart="@+id/itemInviteesIcon"
+            android:src="@drawable/ic_info_black_18dp"/>
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="in 23h"
+        android:id="@+id/itemReminderLabel"
+        android:layout_alignParentTop="false"
+        android:layout_toStartOf="@+id/itemApprovingIcon"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="5dp"
+        android:gravity="center"/>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/itemApprovingIcon"
+        android:src="@drawable/ic_help_black_18dp"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="5dp"/>
+
+</RelativeLayout>
