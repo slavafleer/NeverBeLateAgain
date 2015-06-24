@@ -49,6 +49,8 @@ public class CreateMeetingActivity extends ActionBarActivity {
     private ParseUser mCurrentUser;
     private ParseRelation<ParseUser> mFriendsRelation;
     private List<ParseUser> mFriends;
+    ParseObject mMeeting;
+    ParseRelation<ParseUser> mInviteesRelation;
 
 
     @Override
@@ -72,6 +74,9 @@ public class CreateMeetingActivity extends ActionBarActivity {
                 }
             }
         });
+
+        mMeeting = new ParseObject(ParseConstants.CLASS_MEETINGS);
+        mInviteesRelation = mMeeting.getRelation(ParseConstants.KEY_INVITEES);
     }
 
     @Override
@@ -122,15 +127,12 @@ public class CreateMeetingActivity extends ActionBarActivity {
                     notification);
             dialog.show();
         } else {
-            ParseObject meeting = new ParseObject(ParseConstants.CLASS_MEETINGS);
-            meeting.put(ParseConstants.KEY_SUBJECT, subject);
-            meeting.put(ParseConstants.KEY_DETAILS, details);
-            meeting.put(ParseConstants.KEY_DATETIME, mDateTime.getTime());
-            meeting.put(ParseConstants.KEY_LOCATION, location);
-            meeting.put(ParseConstants.KEY_INITIALIZER, ParseUser.getCurrentUser());
-            //TODO: need replace it to ParseRelation
-            meeting.put(ParseConstants.KEY_INVITEES, mInviteesList);
-            meeting.saveInBackground(new SaveCallback() {
+            mMeeting.put(ParseConstants.KEY_SUBJECT, subject);
+            mMeeting.put(ParseConstants.KEY_DETAILS, details);
+            mMeeting.put(ParseConstants.KEY_DATETIME, mDateTime.getTime());
+            mMeeting.put(ParseConstants.KEY_LOCATION, location);
+            mMeeting.put(ParseConstants.KEY_INITIALIZER, ParseUser.getCurrentUser());
+            mMeeting.saveInBackground(new SaveCallback() {
                 @Override
                 public void done(ParseException e) {
                     if(e == null) {
@@ -145,6 +147,7 @@ public class CreateMeetingActivity extends ActionBarActivity {
                                 e.getMessage());
                         dialog.show();
                     }
+                    finish();
                 }
             });
         }
@@ -229,6 +232,7 @@ public class CreateMeetingActivity extends ActionBarActivity {
                         inviteesListToString +=
                                 " < " + friend.getString(ParseConstants.KEY_FIRSTNAME) + " " +
                                 friend.getString(ParseConstants.KEY_LASTNAME) + " > ";
+                        mInviteesRelation.add(friend);
                     }
                 }
             }
