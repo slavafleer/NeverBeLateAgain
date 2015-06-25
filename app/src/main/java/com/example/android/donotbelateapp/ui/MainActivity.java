@@ -21,10 +21,14 @@ import com.example.android.donotbelateapp.ui.fragments.FutureMeetingsFragment;
 import com.example.android.donotbelateapp.ui.fragments.TodaysMeetingsFragment;
 import com.parse.FindCallback;
 import com.parse.ParseException;
+import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseRelation;
 import com.parse.ParseUser;
 
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -37,6 +41,7 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
     protected ParseUser mCurrentUser;
     protected ParseRelation<ParseUser> mFriendsRelation;
     public static String[] mFullNames;
+    public ParseObject[] mTodaysMeetings;
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -108,6 +113,8 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
         super.onResume();
 
         getUserFriends();
+
+        getTodaysMeetings();
     }
 
     private void getUserFriends() {
@@ -141,6 +148,43 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
                             e.getMessage());
                     dialog.show();
                 }
+            }
+        });
+    }
+
+    private void getTodaysMeetings() {
+
+        Calendar dateTime = Calendar.getInstance();
+        dateTime.add(Calendar.DAY_OF_MONTH, -1); // 24h ago
+        Date todayDate = dateTime.getTime();
+
+        // Query for user created meetings.
+        ParseQuery<ParseObject> initializerMeetingsQuery = ParseQuery.getQuery(ParseConstants.CLASS_MEETINGS);
+        initializerMeetingsQuery.whereGreaterThan(ParseConstants.KEY_DATETIME, todayDate);
+        initializerMeetingsQuery.whereEqualTo(ParseConstants.KEY_INITIALIZER, todayDate);
+
+        // Query for user was invited meetings.
+        ParseQuery<ParseObject> inviteedMeetingsQuery = ParseQuery.getQuery(ParseConstants.CLASS_MEETINGS);
+        initializerMeetingsQuery.whereGreaterThan(ParseConstants.KEY_DATETIME, dateTime.getTime());
+        inviteedMeetingsQuery.whereEqualTo(ParseConstants.KEY_INVITEES ,mCurrentUser.getObjectId());
+
+        // Combined query.
+        List<ParseQuery<ParseObject>> queries = new ArrayList<ParseQuery<ParseObject>>();
+        queries.add(initializerMeetingsQuery);
+        queries.add(inviteedMeetingsQuery);
+
+        ParseQuery<ParseObject> mainQuery = ParseQuery.or(queries);
+        mainQuery.findInBackground(new FindCallback<ParseObject>() {
+            @Override
+            public void done(List<ParseObject> meetings, ParseException e) {
+                if(e == null) {
+                    // Success
+                    Log.v(TAG, "Today's meetings");
+                } else {
+                    // Failed.
+                    Log.e(TAG, "Error: ", e);
+                }
+                int pause = 1;
             }
         });
     }
