@@ -154,20 +154,33 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
 
     private void getTodaysMeetings() {
 
-        Calendar dateTime = Calendar.getInstance();
-        dateTime.add(Calendar.DAY_OF_MONTH, -1); // 24h ago
-        Date todayDate = dateTime.getTime();
+        Calendar fromCalendar = Calendar.getInstance();
+        Calendar tillCalendar = Calendar.getInstance();
+
+        fromCalendar.add(Calendar.HOUR_OF_DAY, -12);
+        tillCalendar.add(Calendar.HOUR_OF_DAY, +12);
+
+        Date fromDate = fromCalendar.getTime();
+        Date tillDate = tillCalendar.getTime();
+
+        //TODO: for test
+        Log.v(TAG, "Now: " + Calendar.getInstance().getTime());
+        Log.v(TAG,"From: " + fromDate.toString());
+        Log.v(TAG, "Till: " + tillDate.toString());
 
         // Query for user created meetings.
         ParseQuery<ParseObject> initializerMeetingsQuery = ParseQuery.getQuery(ParseConstants.CLASS_MEETINGS);
 //        initializerMeetingsQuery.whereGreaterThan(ParseConstants.KEY_DATETIME, todayDate);
 //        initializerMeetingsQuery.whereEqualTo(ParseConstants.KEY_INITIALIZER, );
         //TODO: for test
-        initializerMeetingsQuery.whereGreaterThan(ParseConstants.KEY_DATETIME, todayDate);
+//        initializerMeetingsQuery.whereLessThan(ParseConstants.KEY_DATETIME, todayDate);
+
+        initializerMeetingsQuery.whereLessThan(ParseConstants.KEY_DATETIME, tillDate);
+        initializerMeetingsQuery.whereGreaterThan(ParseConstants.KEY_DATETIME, fromDate);
 
         // Query for user was invited meetings.
         ParseQuery<ParseObject> inviteedMeetingsQuery = ParseQuery.getQuery(ParseConstants.CLASS_MEETINGS);
-        initializerMeetingsQuery.whereGreaterThan(ParseConstants.KEY_DATETIME, dateTime.getTime());
+//        initializerMeetingsQuery.whereLessThan(ParseConstants.KEY_DATETIME, dateTime.getTime());
         inviteedMeetingsQuery.whereEqualTo(ParseConstants.KEY_INVITEES ,mCurrentUser.getObjectId());
 
         // Combined query.
@@ -181,7 +194,6 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
             public void done(List<ParseObject> meetings, ParseException e) {
                 if(e == null) {
                     // Success
-                    Log.v(TAG, "Today's meetings");
                     mTodaysMeetings = meetings;
                 } else {
                     // Failed.

@@ -131,7 +131,7 @@ public class CreateMeetingActivity extends ActionBarActivity {
             mMeeting.put(ParseConstants.KEY_DETAILS, details);
             mMeeting.put(ParseConstants.KEY_DATETIME, mDateTime.getTime());
             mMeeting.put(ParseConstants.KEY_LOCATION, location);
-            mMeeting.put(ParseConstants.KEY_INITIALIZER, ParseUser.getCurrentUser());
+            mMeeting.put(ParseConstants.KEY_INITIALIZER, ParseUser.getCurrentUser().getObjectId());
             mMeeting.saveInBackground(new SaveCallback() {
                 @Override
                 public void done(ParseException e) {
@@ -146,6 +146,7 @@ public class CreateMeetingActivity extends ActionBarActivity {
                                 getString(R.string.meeting_creating_error_title),
                                 e.getMessage());
                         dialog.show();
+                        Toast.makeText(CreateMeetingActivity.this, e.toString(), Toast.LENGTH_LONG).show();
                     }
                     finish();
                 }
