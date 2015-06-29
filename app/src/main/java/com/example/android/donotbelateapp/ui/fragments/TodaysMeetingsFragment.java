@@ -5,9 +5,13 @@ import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.ProgressBar;
 
+import com.example.android.donotbelateapp.ParseConstants;
 import com.example.android.donotbelateapp.R;
+import com.example.android.donotbelateapp.ui.MainActivity;
+import com.parse.ParseObject;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -24,6 +28,30 @@ public class TodaysMeetingsFragment extends ListFragment {
         View rootView = inflater.inflate(R.layout.fragment_todays_meetings, container, false);
         ButterKnife.inject(this, rootView);
         mSpinner.setVisibility(View.INVISIBLE);
+
+
         return rootView;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        String[] dates;
+        if(MainActivity.mTodaysMeetings != null) {
+            dates = new String[MainActivity.mTodaysMeetings.size()];
+            int i = 0;
+            for(ParseObject meeting : MainActivity.mTodaysMeetings) {
+                dates[i] = meeting.get(ParseConstants.KEY_DATETIME).toString();
+                i++;
+            }
+
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+                    getListView().getContext(),
+                    android.R.layout.simple_list_item_1,
+                    dates);
+            setListAdapter(adapter);
+        }
+
     }
 }

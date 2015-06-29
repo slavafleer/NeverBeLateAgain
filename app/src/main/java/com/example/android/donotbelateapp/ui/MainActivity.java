@@ -41,7 +41,7 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
     protected ParseUser mCurrentUser;
     protected ParseRelation<ParseUser> mFriendsRelation;
     public static String[] mFullNames;
-    public ParseObject[] mTodaysMeetings;
+    public static List<ParseObject> mTodaysMeetings;
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -160,8 +160,10 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
 
         // Query for user created meetings.
         ParseQuery<ParseObject> initializerMeetingsQuery = ParseQuery.getQuery(ParseConstants.CLASS_MEETINGS);
+//        initializerMeetingsQuery.whereGreaterThan(ParseConstants.KEY_DATETIME, todayDate);
+//        initializerMeetingsQuery.whereEqualTo(ParseConstants.KEY_INITIALIZER, );
+        //TODO: for test
         initializerMeetingsQuery.whereGreaterThan(ParseConstants.KEY_DATETIME, todayDate);
-        initializerMeetingsQuery.whereEqualTo(ParseConstants.KEY_INITIALIZER, todayDate);
 
         // Query for user was invited meetings.
         ParseQuery<ParseObject> inviteedMeetingsQuery = ParseQuery.getQuery(ParseConstants.CLASS_MEETINGS);
@@ -171,7 +173,7 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
         // Combined query.
         List<ParseQuery<ParseObject>> queries = new ArrayList<ParseQuery<ParseObject>>();
         queries.add(initializerMeetingsQuery);
-        queries.add(inviteedMeetingsQuery);
+//        queries.add(inviteedMeetingsQuery);
 
         ParseQuery<ParseObject> mainQuery = ParseQuery.or(queries);
         mainQuery.findInBackground(new FindCallback<ParseObject>() {
@@ -180,6 +182,7 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
                 if(e == null) {
                     // Success
                     Log.v(TAG, "Today's meetings");
+                    mTodaysMeetings = meetings;
                 } else {
                     // Failed.
                     Log.e(TAG, "Error: ", e);
