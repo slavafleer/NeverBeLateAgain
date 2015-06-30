@@ -168,25 +168,24 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
         Log.v(TAG,"From: " + fromDate.toString());
         Log.v(TAG, "Till: " + tillDate.toString());
 
+        // Requesting for meetings just from initializer and where he was invited in
+        // in near future (today).
         // Query for user created meetings.
         ParseQuery<ParseObject> initializerMeetingsQuery = ParseQuery.getQuery(ParseConstants.CLASS_MEETINGS);
-//        initializerMeetingsQuery.whereGreaterThan(ParseConstants.KEY_DATETIME, todayDate);
-//        initializerMeetingsQuery.whereEqualTo(ParseConstants.KEY_INITIALIZER, );
-        //TODO: for test
-//        initializerMeetingsQuery.whereLessThan(ParseConstants.KEY_DATETIME, todayDate);
-
+        initializerMeetingsQuery.whereEqualTo(ParseConstants.KEY_INITIALIZER, mCurrentUser.getObjectId());
         initializerMeetingsQuery.whereLessThan(ParseConstants.KEY_DATETIME, tillDate);
         initializerMeetingsQuery.whereGreaterThan(ParseConstants.KEY_DATETIME, fromDate);
 
         // Query for user was invited meetings.
         ParseQuery<ParseObject> inviteedMeetingsQuery = ParseQuery.getQuery(ParseConstants.CLASS_MEETINGS);
-//        initializerMeetingsQuery.whereLessThan(ParseConstants.KEY_DATETIME, dateTime.getTime());
         inviteedMeetingsQuery.whereEqualTo(ParseConstants.KEY_INVITEES ,mCurrentUser.getObjectId());
+        initializerMeetingsQuery.whereLessThan(ParseConstants.KEY_DATETIME, tillDate);
+        initializerMeetingsQuery.whereGreaterThan(ParseConstants.KEY_DATETIME, fromDate);
 
         // Combined query.
         List<ParseQuery<ParseObject>> queries = new ArrayList<ParseQuery<ParseObject>>();
         queries.add(initializerMeetingsQuery);
-//        queries.add(inviteedMeetingsQuery);
+        queries.add(inviteedMeetingsQuery);
 
         ParseQuery<ParseObject> mainQuery = ParseQuery.or(queries);
         mainQuery.findInBackground(new FindCallback<ParseObject>() {
