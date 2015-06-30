@@ -2,6 +2,7 @@ package com.example.android.donotbelateapp.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -201,6 +202,10 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
                 int pause = 1;
             }
         });
+
+        //TODO: need to think for alternative way for this problem!!!
+        // Giving time to download the data from Parse before creation RecyclerView
+        SystemClock.sleep(2000);
     }
 
     private void navigateToLogin() {
