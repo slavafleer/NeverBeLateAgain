@@ -11,7 +11,7 @@ import java.util.Date;
  */
 
 
-@ParseClassName(ParseConstants.KEY_FRIENDS_RELATION) // Due to Parse.com class declaration
+@ParseClassName(ParseConstants.CLASS_MEETINGS) // Due to Parse.com class declaration
 public class Meeting extends ParseObject {
 
     public Meeting() {

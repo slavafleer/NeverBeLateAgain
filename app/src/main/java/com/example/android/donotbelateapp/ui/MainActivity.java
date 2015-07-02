@@ -205,7 +205,7 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
 
         //TODO: need to think for alternative way for this problem!!!
         // Giving time to download the data from Parse before creation RecyclerView
-        SystemClock.sleep(2000);
+        SystemClock.sleep(4000);
     }
 
     private void navigateToLogin() {
