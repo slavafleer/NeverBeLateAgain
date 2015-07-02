@@ -40,5 +40,8 @@
     <string name="new_meeting_created_toast">A new meeting was created</string>
     <string name="meeting_creating_error_title">Meeting creation error</string>
     <string name="title_activity_choose_invitees">Choose Invitees</string>
+    <string name="title_activity_start">Loading Data</string>
+    <string name="start_addvertising">Here could be your advertising.</string>
+    <string name="start_loading_data">Loading Data</string>
 
 </resources>
