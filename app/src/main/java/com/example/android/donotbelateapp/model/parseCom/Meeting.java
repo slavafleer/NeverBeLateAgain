@@ -10,6 +10,7 @@ import java.util.Date;
  * Created by Slava on 02/07/2015.
  */
 
+
 @ParseClassName(ParseConstants.KEY_FRIENDS_RELATION) // Due to Parse.com class declaration
 public class Meeting extends ParseObject {
 
