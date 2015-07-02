@@ -75,7 +75,11 @@ public class CreateMeetingActivity extends ActionBarActivity {
             }
         });
 
+<<<<<<< HEAD
         mMeeting = new ParseObject(ParseConstants.CLASS_MEETINGS);
+=======
+        mMeeting = new Meeting();
+>>>>>>> parent of 7bf1675... Revert "fixed crushing, but now is now updating on cloud"
         mInviteesRelation = mMeeting.getRelation(ParseConstants.KEY_INVITEES);
     }
 
