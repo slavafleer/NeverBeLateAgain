@@ -15,8 +15,9 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.example.android.donotbelateapp.OkCustomDialog;
-import com.example.android.donotbelateapp.ParseConstants;
+import com.example.android.donotbelateapp.model.parseCom.ParseConstants;
 import com.example.android.donotbelateapp.R;
+import com.example.android.donotbelateapp.model.parseCom.Meeting;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
@@ -75,11 +76,7 @@ public class CreateMeetingActivity extends ActionBarActivity {
             }
         });
 
-<<<<<<< HEAD
-        mMeeting = new ParseObject(ParseConstants.CLASS_MEETINGS);
-=======
         mMeeting = new Meeting();
->>>>>>> parent of 7bf1675... Revert "fixed crushing, but now is now updating on cloud"
         mInviteesRelation = mMeeting.getRelation(ParseConstants.KEY_INVITEES);
     }
 

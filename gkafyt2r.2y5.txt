@@ -1,0 +1,22 @@
+﻿Revert "Revert "fixed crushing, but now is now updating on cloud""
+
+This reverts commit 7bf16754f16e36995d1061bab4c8bcb3fb81e770.
+
+Conflicts:
+	app/src/main/java/com/example/android/donotbelateapp/ui/CreateMeetingActivity.java
+
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+# On branch insert_loading_activity_as_main
+# You are currently reverting commit 7bf1675.
+#
+# Changes to be committed:
+#	modified:   app/src/main/java/com/example/android/donotbelateapp/adapters/MeetingAdapter.java
+#	modified:   app/src/main/java/com/example/android/donotbelateapp/model/parseCom/Meeting.java
+#	renamed:    app/src/main/java/com/example/android/donotbelateapp/ParseConstants.java -> app/src/main/java/com/example/android/donotbelateapp/model/parseCom/ParseConstants.java
+#	modified:   app/src/main/java/com/example/android/donotbelateapp/ui/ChooseInviteesActivity.java
+#	modified:   app/src/main/java/com/example/android/donotbelateapp/ui/CreateMeetingActivity.java
+#	modified:   app/src/main/java/com/example/android/donotbelateapp/ui/EditFriendsActivity.java
+#	modified:   app/src/main/java/com/example/android/donotbelateapp/ui/MainActivity.java
+#
+

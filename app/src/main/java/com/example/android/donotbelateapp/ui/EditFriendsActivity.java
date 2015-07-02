@@ -12,7 +12,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.android.donotbelateapp.OkCustomDialog;
-import com.example.android.donotbelateapp.ParseConstants;
+import com.example.android.donotbelateapp.model.parseCom.ParseConstants;
 import com.example.android.donotbelateapp.R;
 import com.parse.FindCallback;
 import com.parse.ParseException;
