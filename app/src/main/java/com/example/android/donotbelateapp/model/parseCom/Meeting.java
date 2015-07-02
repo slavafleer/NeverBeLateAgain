@@ -1,6 +1,5 @@
 package com.example.android.donotbelateapp.model.parseCom;
 
-import com.parse.ParseClassName;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
 
@@ -9,12 +8,10 @@ import java.util.Date;
 /**
  * Created by Slava on 02/07/2015.
  */
-
-@ParseClassName(ParseConstants.KEY_FRIENDS_RELATION) // Due to Parse.com
 public class Meeting extends ParseObject {
 
-    public Meeting() {
-        super();
+    public Meeting(String theClassName) {
+        super(theClassName);
     }
 
     public void setSubject(String subject) {

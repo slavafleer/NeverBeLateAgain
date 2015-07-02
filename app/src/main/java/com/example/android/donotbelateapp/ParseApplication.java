@@ -2,9 +2,7 @@ package com.example.android.donotbelateapp;
 
 import android.app.Application;
 
-import com.example.android.donotbelateapp.model.parseCom.Meeting;
 import com.parse.Parse;
-import com.parse.ParseObject;
 
 /**
  * Created by Slava on 02/06/2015.
@@ -24,8 +22,6 @@ public class ParseApplication extends Application {
 
         // Enable Local Datastore.
         Parse.enableLocalDatastore(this);
-
-        ParseObject.registerSubclass(Meeting.class);
 
         Parse.initialize(this, "3J5hJWC6D79bZKbs8liukXR7kfsrojEKrmkrpTEW",
                 "wbL5uF2kvCOzNYyZbeHZhUgbahpbw4z9R0d25Bgu");
