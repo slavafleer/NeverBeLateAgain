@@ -75,7 +75,7 @@ public class CreateMeetingActivity extends ActionBarActivity {
             }
         });
 
-        mMeeting = new Meeting(ParseConstants.CLASS_MEETINGS);
+        mMeeting = new Meeting();
         mInviteesRelation = mMeeting.getRelation(ParseConstants.KEY_INVITEES);
     }
 
