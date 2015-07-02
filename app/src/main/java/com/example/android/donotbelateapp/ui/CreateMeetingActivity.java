@@ -15,11 +15,11 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.example.android.donotbelateapp.OkCustomDialog;
-import com.example.android.donotbelateapp.ParseConstants;
 import com.example.android.donotbelateapp.R;
+import com.example.android.donotbelateapp.model.parseCom.Meeting;
+import com.example.android.donotbelateapp.model.parseCom.ParseConstants;
 import com.parse.FindCallback;
 import com.parse.ParseException;
-import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseRelation;
 import com.parse.ParseUser;
@@ -49,7 +49,7 @@ public class CreateMeetingActivity extends ActionBarActivity {
     private ParseUser mCurrentUser;
     private ParseRelation<ParseUser> mFriendsRelation;
     private List<ParseUser> mFriends;
-    ParseObject mMeeting;
+    Meeting mMeeting;
     ParseRelation<ParseUser> mInviteesRelation;
 
 
@@ -75,7 +75,7 @@ public class CreateMeetingActivity extends ActionBarActivity {
             }
         });
 
-        mMeeting = new ParseObject(ParseConstants.CLASS_MEETINGS);
+        mMeeting = new Meeting(ParseConstants.CLASS_MEETINGS);
         mInviteesRelation = mMeeting.getRelation(ParseConstants.KEY_INVITEES);
     }
 
@@ -127,11 +127,11 @@ public class CreateMeetingActivity extends ActionBarActivity {
                     notification);
             dialog.show();
         } else {
-            mMeeting.put(ParseConstants.KEY_SUBJECT, subject);
-            mMeeting.put(ParseConstants.KEY_DETAILS, details);
-            mMeeting.put(ParseConstants.KEY_DATETIME, mDateTime.getTime());
-            mMeeting.put(ParseConstants.KEY_LOCATION, location);
-            mMeeting.put(ParseConstants.KEY_INITIALIZER, ParseUser.getCurrentUser().getObjectId());
+            mMeeting.setSubject(subject);
+            mMeeting.setDetails(details);
+            mMeeting.setDateTime(mDateTime.getTime());
+            mMeeting.setLocation(location);
+            mMeeting.setInitializer();
             mMeeting.saveInBackground(new SaveCallback() {
                 @Override
                 public void done(ParseException e) {

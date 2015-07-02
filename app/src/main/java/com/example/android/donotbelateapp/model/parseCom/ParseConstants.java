@@ -1,4 +1,4 @@
-package com.example.android.donotbelateapp;
+package com.example.android.donotbelateapp.model.parseCom;
 
 /**
  * Created by Slava on 09/06/2015.

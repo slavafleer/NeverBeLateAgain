@@ -15,7 +15,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.android.donotbelateapp.OkCustomDialog;
-import com.example.android.donotbelateapp.ParseConstants;
+import com.example.android.donotbelateapp.model.parseCom.ParseConstants;
 import com.example.android.donotbelateapp.R;
 import com.example.android.donotbelateapp.ui.fragments.FriendsFragment;
 import com.example.android.donotbelateapp.ui.fragments.FutureMeetingsFragment;
