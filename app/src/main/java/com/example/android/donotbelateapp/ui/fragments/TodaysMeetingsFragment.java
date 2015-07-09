@@ -50,8 +50,6 @@ public class TodaysMeetingsFragment extends Fragment {
 
         mRecyclerView.setHasFixedSize(true);
 
-
-
         return rootView;
     }
 

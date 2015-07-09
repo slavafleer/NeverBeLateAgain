@@ -148,10 +148,20 @@ public class CreateMeetingActivity extends ActionBarActivity {
                         dialog.show();
                         Toast.makeText(CreateMeetingActivity.this, e.toString(), Toast.LENGTH_LONG).show();
                     }
-                    finish();
+//                    finish();
+                    navigateToStart();
                 }
             });
         }
+    }
+
+    private void navigateToStart() {
+        Intent mainIntent = new Intent(this, StartActivity.class);
+        // For skipping MainActivity when going back
+        // and exiting from the app.
+        mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        mainIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(mainIntent);
     }
 
     @OnClick(R.id.createMeetingDate)

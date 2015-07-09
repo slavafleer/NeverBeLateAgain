@@ -171,6 +171,9 @@ public class StartActivity extends ActionBarActivity {
                     // Failed.
                     Log.e(TAG, "Error: ", e);
                 }
+                // TODO: meantime data are retrieving in "synchronous" way
+                // need to change it to asynchronous with waiting for finishing
+                // of all asynchronous tasks.
                 navigateToMain();
             }
         });
