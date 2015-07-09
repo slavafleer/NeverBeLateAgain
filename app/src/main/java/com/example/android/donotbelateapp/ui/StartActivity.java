@@ -81,6 +81,7 @@ public class StartActivity extends ActionBarActivity {
             navigateToLogin();
         } else {
             getUserFriends(); // getTodaysMeetings just in getUserFriends
+            List<ParseObject> TestTodaysMeetings = Global.getTodaysMeetings();
             navigateToMain();
         }
     }
@@ -167,7 +168,6 @@ public class StartActivity extends ActionBarActivity {
             public void done(List<ParseObject> meetings, ParseException e) {
                 if (e == null) {
                     // Success
-                    mTodaysMeetings = meetings;
                     Global.setTodaysMeetings(meetings);
                 } else {
                     // Failed.

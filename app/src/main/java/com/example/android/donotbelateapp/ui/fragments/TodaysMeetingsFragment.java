@@ -10,9 +10,12 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.example.android.donotbelateapp.GlobalApplication;
 import com.example.android.donotbelateapp.R;
 import com.example.android.donotbelateapp.adapters.MeetingAdapter;
-import com.example.android.donotbelateapp.ui.MainActivity;
+import com.parse.ParseObject;
+
+import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -21,6 +24,8 @@ import butterknife.InjectView;
  * Created by Slava on 09/06/2015.
  */
 public class TodaysMeetingsFragment extends Fragment {
+    private GlobalApplication Global;
+
     @InjectView(R.id.fragmentTodaysMeetingSpinner) ProgressBar mSpinner;
     @InjectView(R.id.fragmentTodaysMeetingsRecyclerView) RecyclerView mRecyclerView;
     @InjectView(R.id.fragmentTodaysMeetingEmpty) TextView mEmpty;
@@ -31,10 +36,13 @@ public class TodaysMeetingsFragment extends Fragment {
 
         View rootView = inflater.inflate(R.layout.fragment_todays_meetings, container, false);
         ButterKnife.inject(this, rootView);
+        Global = (GlobalApplication) getActivity().getApplication();
+
         mSpinner.setVisibility(View.INVISIBLE);
         mEmpty.setVisibility(View.INVISIBLE);
 
-        MeetingAdapter adapter = new MeetingAdapter(MainActivity.mTodaysMeetings);
+        List<ParseObject> todaysMeetings = Global.getTodaysMeetings();
+        MeetingAdapter adapter = new MeetingAdapter(todaysMeetings);
         mRecyclerView.setAdapter(adapter);
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(mRecyclerView.getContext());

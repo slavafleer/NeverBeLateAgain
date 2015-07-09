@@ -113,9 +113,9 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
     protected void onResume() {
         super.onResume();
 
-        getUserFriends();
+//        getUserFriends();
 
-        getTodaysMeetings();
+   //     getTodaysMeetings();
     }
 
     private void getUserFriends() {
@@ -154,6 +154,9 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
     }
 
     private void getTodaysMeetings() {
+
+        mCurrentUser = ParseUser.getCurrentUser();
+        mFriendsRelation = mCurrentUser.getRelation(ParseConstants.KEY_FRIENDS_RELATION);
 
         Calendar fromCalendar = Calendar.getInstance();
         Calendar tillCalendar = Calendar.getInstance();
