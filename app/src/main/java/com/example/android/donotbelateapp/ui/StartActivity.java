@@ -81,8 +81,6 @@ public class StartActivity extends ActionBarActivity {
             navigateToLogin();
         } else {
             getUserFriends(); // getTodaysMeetings just in getUserFriends
-            List<ParseObject> TestTodaysMeetings = Global.getTodaysMeetings();
-            navigateToMain();
         }
     }
 
@@ -173,6 +171,7 @@ public class StartActivity extends ActionBarActivity {
                     // Failed.
                     Log.e(TAG, "Error: ", e);
                 }
+                navigateToMain();
             }
         });
     }
