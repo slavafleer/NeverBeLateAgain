@@ -1,5 +1,6 @@
 package com.example.android.donotbelateapp.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
@@ -12,8 +13,8 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.android.donotbelateapp.OkCustomDialog;
-import com.example.android.donotbelateapp.model.parseCom.ParseConstants;
 import com.example.android.donotbelateapp.R;
+import com.example.android.donotbelateapp.model.parseCom.ParseConstants;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
@@ -99,9 +100,9 @@ public class EditFriendsActivity extends ActionBarActivity {
 
                     // Remove current user from mUsers, for not self showing.
                     Iterator<ParseUser> iterator = mUsers.iterator();
-                    while(iterator.hasNext()) {
+                    while (iterator.hasNext()) {
                         String userId = iterator.next().getObjectId();
-                        if(mCurrentUser.getObjectId().equals(userId)) {
+                        if (mCurrentUser.getObjectId().equals(userId)) {
                             iterator.remove();
                         }
                     }
@@ -149,9 +150,13 @@ public class EditFriendsActivity extends ActionBarActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        switch (id) {
+            case R.id.action_settings:
+                return true;
+
+            case android.R.id.home: // Action Bar Back Button
+                onBackPressed();
+                return true;
         }
 
         return super.onOptionsItemSelected(item);
@@ -186,5 +191,21 @@ public class EditFriendsActivity extends ActionBarActivity {
                 }
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        navigateToStart();
+
+        super.onBackPressed();
+    }
+
+    private void navigateToStart() {
+        Intent mainIntent = new Intent(this, StartActivity.class);
+        // For skipping MainActivity when going back
+        // and exiting from the app.
+        mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        mainIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(mainIntent);
     }
 }
