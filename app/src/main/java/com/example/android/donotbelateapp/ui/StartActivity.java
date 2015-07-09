@@ -1,10 +1,13 @@
 package com.example.android.donotbelateapp.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.example.android.donotbelateapp.GlobalApplication;
 import com.example.android.donotbelateapp.OkCustomDialog;
@@ -21,7 +24,9 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.concurrent.CountDownLatch;
+
+import butterknife.ButterKnife;
+import butterknife.InjectView;
 
 public class StartActivity extends ActionBarActivity {
     private static final String TAG = StartActivity.class.getSimpleName();
@@ -32,22 +37,52 @@ public class StartActivity extends ActionBarActivity {
     public static String[] mFullNames;
     public static List<ParseObject> mTodaysMeetings;
     private GlobalApplication Global;
-    private CountDownLatch mCountDownLatch;
+
+    @InjectView(R.id.startProgressSpinner) ProgressBar mSpinner;
+    @InjectView(R.id.startLoadingDataLabel) TextView mLoadingLabel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
+        ButterKnife.inject(this);
 
         Global = (GlobalApplication)getApplication();
+    }
+
+    private void navigateToLogin() {
+        Intent loginIntent = new Intent(this, ParseLoginActivity.class);
+        // For skipping MainActivity when going back
+        // and exiting from the app.
+        loginIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        loginIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(loginIntent);
+    }
+
+    private void navigateToMain() {
+        Intent mainIntent = new Intent(this, MainActivity.class);
+        // For skipping MainActivity when going back
+        // and exiting from the app.
+        mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        mainIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(mainIntent);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
 
-        getUserFriends();
-
+        // TODO: right now the code is done before layout loaded.
+        // Need to find way first to load start layout and after processing queries
+        // One way is splash screen...
+        ParseUser currentUser = ParseUser.getCurrentUser();
+        if (currentUser == null) {
+            // If no user logged in, first screen must be Login.
+            navigateToLogin();
+        } else {
+            getUserFriends(); // getTodaysMeetings just in getUserFriends
+            navigateToMain();
+        }
     }
 
     private void getUserFriends() {
@@ -138,10 +173,6 @@ public class StartActivity extends ActionBarActivity {
                     // Failed.
                     Log.e(TAG, "Error: ", e);
                 }
-
-                // test
-                List<ParseObject> testMeetings = Global.getTodaysMeetings();
-                List<ParseUser> testFriends = Global.getFriends();
             }
         });
     }

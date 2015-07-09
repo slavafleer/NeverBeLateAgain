@@ -79,7 +79,7 @@ public class ParseSignUpActivity extends ActionBarActivity {
                     mSpinner.setVisibility(View.INVISIBLE);
                     if(e == null) {
                         // Success
-                        Intent intent = new Intent(ParseSignUpActivity.this, MainActivity.class);
+                        Intent intent = new Intent(ParseSignUpActivity.this, StartActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);
