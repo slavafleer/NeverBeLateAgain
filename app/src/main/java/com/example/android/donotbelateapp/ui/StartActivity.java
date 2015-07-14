@@ -149,8 +149,8 @@ public class StartActivity extends ActionBarActivity {
         // Query for user was invited meetings.
         ParseQuery<ParseObject> inviteedMeetingsQuery = ParseQuery.getQuery(ParseConstants.CLASS_MEETINGS);
         inviteedMeetingsQuery.whereEqualTo(ParseConstants.KEY_INVITEES ,mCurrentUser.getObjectId());
-        initializerMeetingsQuery.whereLessThan(ParseConstants.KEY_DATETIME, tillDate);
-        initializerMeetingsQuery.whereGreaterThan(ParseConstants.KEY_DATETIME, fromDate);
+        inviteedMeetingsQuery.whereLessThan(ParseConstants.KEY_DATETIME, tillDate);
+        inviteedMeetingsQuery.whereGreaterThan(ParseConstants.KEY_DATETIME, fromDate);
 
         // Combined query.
         List<ParseQuery<ParseObject>> queries = new ArrayList<ParseQuery<ParseObject>>();
