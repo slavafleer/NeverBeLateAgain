@@ -172,6 +172,49 @@ public class StartActivity extends ActionBarActivity {
                 // TODO: meantime data are retrieving in "synchronous" way
                 // need to change it to asynchronous with waiting for finishing
                 // of all asynchronous tasks.
+                getFutureMeetings();
+            }
+        });
+    }
+
+    private void getFutureMeetings() {
+
+        Calendar fromCalendar = Calendar.getInstance();
+        fromCalendar.add(Calendar.HOUR_OF_DAY, +12);
+        Date fromDate = fromCalendar.getTime();
+
+        // Requesting for meetings just from initializer and where he was invited in
+        // in near future (today).
+        // Query for user created meetings.
+        ParseQuery<ParseObject> initializerMeetingsQuery = ParseQuery.getQuery(ParseConstants.CLASS_MEETINGS);
+        initializerMeetingsQuery.whereEqualTo(ParseConstants.KEY_INITIALIZER, mCurrentUser.getObjectId());
+        initializerMeetingsQuery.whereGreaterThan(ParseConstants.KEY_DATETIME, fromDate);
+
+        // Query for user was invited meetings.
+        ParseQuery<ParseObject> inviteedMeetingsQuery = ParseQuery.getQuery(ParseConstants.CLASS_MEETINGS);
+        inviteedMeetingsQuery.whereEqualTo(ParseConstants.KEY_INVITEES ,mCurrentUser.getObjectId());
+        inviteedMeetingsQuery.whereGreaterThan(ParseConstants.KEY_DATETIME, fromDate);
+
+        // Combined query.
+        List<ParseQuery<ParseObject>> queries = new ArrayList<ParseQuery<ParseObject>>();
+        queries.add(initializerMeetingsQuery);
+        queries.add(inviteedMeetingsQuery);
+
+        ParseQuery<ParseObject> mainQuery = ParseQuery.or(queries);
+        mainQuery.orderByAscending(ParseConstants.KEY_DATETIME);
+        mainQuery.findInBackground(new FindCallback<ParseObject>() {
+            @Override
+            public void done(List<ParseObject> meetings, ParseException e) {
+                if (e == null) {
+                    // Success
+                    Global.setFutureMeetings(meetings);
+                } else {
+                    // Failed.
+                    Log.e(TAG, "Error: ", e);
+                }
+                // TODO: meantime data are retrieving in "synchronous" way
+                // need to change it to asynchronous with waiting for finishing
+                // of all asynchronous tasks.
                 navigateToMain();
             }
         });
