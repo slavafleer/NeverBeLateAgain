@@ -43,5 +43,10 @@
     <string name="title_activity_start">Loading Data</string>
     <string name="start_addvertising">Here could be your advertising.</string>
     <string name="start_loading_data">Loading Data</string>
+    <string name="create_meeting_subject_empty">Subject field is empty.</string>
+    <string name="create_meeting_date_empty">Date field is empty.</string>
+    <string name="create_meeting_time_empty">Time field is empty.</string>
+    <string name="create_meeting_location_empty">Location field is empty.</string>
+    <string name="create_meeting_date_time_wrong">Chosen date/time is wrong.</string>
 
 </resources>

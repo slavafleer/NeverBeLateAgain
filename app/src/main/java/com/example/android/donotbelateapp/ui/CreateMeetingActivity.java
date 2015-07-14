@@ -49,7 +49,7 @@ public class CreateMeetingActivity extends ActionBarActivity {
     private ParseUser mCurrentUser;
     private ParseRelation<ParseUser> mFriendsRelation;
     private List<ParseUser> mFriends;
-    Meeting mMeeting;
+    private Meeting mMeeting;
     ParseRelation<ParseUser> mInviteesRelation;
 
 
@@ -111,13 +111,16 @@ public class CreateMeetingActivity extends ActionBarActivity {
         String notification = "";
 
         if(subject.isEmpty()) {
-            notification = "Subject field is empty.";
+            notification = getString(R.string.create_meeting_subject_empty);
         } else if(date.isEmpty()) {
-            notification = "Date field is empty.";
+            notification = getString(R.string.create_meeting_date_empty);
         } else if(time.isEmpty()) {
-            notification = "Time field is empty.";
+            notification = getString(R.string.create_meeting_time_empty);
         } else if(location.isEmpty()) {
-            notification = "Location field is empty.";
+            notification = getString(R.string.create_meeting_location_empty);
+        } else if(Calendar.getInstance().compareTo(mDateTime) > 0) {
+            // Past dates not allowed for meeting creation.
+            notification = getString(R.string.create_meeting_date_time_wrong);
         }
 
         if( ! notification.isEmpty()) {
@@ -148,7 +151,7 @@ public class CreateMeetingActivity extends ActionBarActivity {
                         dialog.show();
                         Toast.makeText(CreateMeetingActivity.this, e.toString(), Toast.LENGTH_LONG).show();
                     }
-//                    finish();
+
                     navigateToStart();
                 }
             });
