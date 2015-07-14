@@ -8,8 +8,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.android.donotbelateapp.model.parseCom.ParseConstants;
 import com.example.android.donotbelateapp.R;
+import com.example.android.donotbelateapp.model.parseCom.ParseConstants;
 import com.parse.ParseObject;
 
 import java.text.SimpleDateFormat;
@@ -21,6 +21,7 @@ import java.util.List;
  * Created by Slava on 30/06/2015.
  */
 public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.MeetingViewHolder> {
+    private static final String TAG = MeetingAdapter.class.getSimpleName();
 
     private List<ParseObject> mMeetings;
 
@@ -59,14 +60,13 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.MeetingV
         public TextView mItemReminderLabel;
         public ImageView mItemApprovingIcon;
 
-
         public MeetingViewHolder(View itemView) {
             super(itemView);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(v.getContext(), "clicked " + getLayoutPosition() + 1, Toast.LENGTH_LONG).show();
+                    Toast.makeText(v.getContext(), "clicked " + getLayoutPosition(), Toast.LENGTH_LONG).show();
                 }
             });
 
@@ -92,17 +92,48 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.MeetingV
             mItemDateLabel.setText(dateString);
             mItemTimeLabel.setText(timeString);
             mItemLocationLabel.setText(meeting.getString(ParseConstants.KEY_LOCATION));
-            Calendar currentCalendar = Calendar.getInstance();
-            Date currentDate = currentCalendar.getTime();
-            long timeLeft = date.getTime() - currentDate.getTime();
-            int secondsLeft = (int)timeLeft / 1000;
-            int minutesLeft = secondsLeft / 60;
-            int hoursLeft = minutesLeft / 60;
-            int daysLeft = hoursLeft / 24;
-            //TODO: to build exactly how much time left, meentime in hours
-            mItemReminderLabel.setText(hoursLeft + "h");
+            mItemReminderLabel.setText(timeLeft(date));
         }
     }
 
+    private String timeLeft(Date dateTime) {
+        String answer = "";
+        Calendar currentCalendar = Calendar.getInstance();
+        Date currentDate = currentCalendar.getTime();
+        long timeLeft = dateTime.getTime() - currentDate.getTime();
+        long secondsLeft = timeLeft / 1000;
+        int minutesLeft = (int) (secondsLeft / 60);
+        if(minutesLeft < 60) {
+            answer = minutesLeft + "m";
+        } else {
+            int hoursLeft = minutesLeft / 60;
+            int minutes = minutesLeft % 60;
+            if(hoursLeft < 24) {
+                if(minutes == 0) {
+                    answer = hoursLeft + "h";
+                } else {
+                    answer = hoursLeft + "h " + minutes + "m";
+                }
+            } else {
+                int daysLeft = hoursLeft / 24;
+                int hours = hoursLeft % 24;
+                if(minutes == 0) {
+                    if(hours == 0) {
+                        answer = daysLeft + "d";
+                    } else {
+                        answer = daysLeft + "d " + hoursLeft%24 + "h";
+                    }
+                } else {
+                    if(hours == 0) {
+                        answer = daysLeft + "d " + minutesLeft%60 + "m";
+                    } else {
+                        answer = daysLeft + "d " + hoursLeft%24 + "h " + minutesLeft%60 + "m";
+                    }
+                }
+            }
+        }
+
+        return answer;
+    }
 
 }
