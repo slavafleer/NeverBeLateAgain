@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.android.donotbelateapp.model.parseCom.ParseConstants;
 import com.example.android.donotbelateapp.R;
@@ -61,6 +62,13 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.MeetingV
 
         public MeetingViewHolder(View itemView) {
             super(itemView);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(v.getContext(), "clicked " + getLayoutPosition() + 1, Toast.LENGTH_LONG).show();
+                }
+            });
 
             mItemSerialNumberLabel = (TextView)itemView.findViewById(R.id.itemSerialNumberLabel);
             mItemSubjectLabel = (TextView)itemView.findViewById(R.id.itemSubjectLabel);
