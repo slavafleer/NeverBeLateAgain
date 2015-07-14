@@ -7,7 +7,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.android.donotbelateapp.GlobalApplication;
@@ -26,7 +25,6 @@ import butterknife.InjectView;
 public class TodaysMeetingsFragment extends Fragment {
     private GlobalApplication Global;
 
-    @InjectView(R.id.fragmentTodaysMeetingSpinner) ProgressBar mSpinner;
     @InjectView(R.id.fragmentTodaysMeetingsRecyclerView) RecyclerView mRecyclerView;
     @InjectView(R.id.fragmentTodaysMeetingEmpty) TextView mEmpty;
 
@@ -38,7 +36,6 @@ public class TodaysMeetingsFragment extends Fragment {
         ButterKnife.inject(this, rootView);
         Global = (GlobalApplication) getActivity().getApplication();
 
-        mSpinner.setVisibility(View.INVISIBLE);
         mEmpty.setVisibility(View.INVISIBLE);
 
         List<ParseObject> todaysMeetings = Global.getTodaysMeetings();

@@ -16,23 +16,12 @@ import com.example.android.donotbelateapp.R;
 import com.example.android.donotbelateapp.ui.fragments.FriendsFragment;
 import com.example.android.donotbelateapp.ui.fragments.FutureMeetingsFragment;
 import com.example.android.donotbelateapp.ui.fragments.TodaysMeetingsFragment;
-import com.parse.ParseObject;
-import com.parse.ParseRelation;
 import com.parse.ParseUser;
 
-import java.util.List;
 import java.util.Locale;
 
 
 public class MainActivity extends ActionBarActivity implements ActionBar.TabListener {
-
-    private static final String TAG = MainActivity.class.getSimpleName();
-
-    protected List<ParseUser> mFriends;
-    protected ParseUser mCurrentUser;
-    protected ParseRelation<ParseUser> mFriendsRelation;
-    public static String[] mFullNames;
-    public static List<ParseObject> mTodaysMeetings;
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -53,14 +42,6 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        ParseUser currentUser = ParseUser.getCurrentUser();
-        if(currentUser == null) {
-            // If no user logged in, first screen must be Login.
-            navigateToLogin();
-        }
-
-
 
         // Set up the action bar.
         final ActionBar actionBar = getSupportActionBar();

@@ -72,9 +72,6 @@ public class StartActivity extends ActionBarActivity {
     protected void onResume() {
         super.onResume();
 
-        // TODO: right now the code is done before layout loaded.
-        // Need to find way first to load start layout and after processing queries
-        // One way is splash screen...
         ParseUser currentUser = ParseUser.getCurrentUser();
         if (currentUser == null) {
             // If no user logged in, first screen must be Login.
@@ -161,6 +158,7 @@ public class StartActivity extends ActionBarActivity {
         queries.add(inviteedMeetingsQuery);
 
         ParseQuery<ParseObject> mainQuery = ParseQuery.or(queries);
+        mainQuery.orderByAscending(ParseConstants.KEY_DATETIME);
         mainQuery.findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(List<ParseObject> meetings, ParseException e) {

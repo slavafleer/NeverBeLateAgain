@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ProgressBar;
 
 import com.example.android.donotbelateapp.GlobalApplication;
 import com.example.android.donotbelateapp.R;
@@ -16,7 +15,6 @@ import com.parse.ParseUser;
 import java.util.List;
 
 import butterknife.ButterKnife;
-import butterknife.InjectView;
 
 /**
  * Created by Slava on 09/06/2015.
@@ -25,8 +23,6 @@ public class FriendsFragment extends ListFragment {
 
     private GlobalApplication Global;
 
-    @InjectView(R.id.fragmentFriendsSpinner) ProgressBar mSpinner;
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -34,8 +30,6 @@ public class FriendsFragment extends ListFragment {
         ButterKnife.inject(this, rootView);
 
         Global = (GlobalApplication) getActivity().getApplication();
-
-        mSpinner.setVisibility(View.INVISIBLE);
 
         return rootView;
     }
