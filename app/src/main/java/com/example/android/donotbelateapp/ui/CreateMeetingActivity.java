@@ -178,7 +178,8 @@ public class CreateMeetingActivity extends ActionBarActivity {
         DatePickerDialog datePicker;
         datePicker = new DatePickerDialog(CreateMeetingActivity.this, new DatePickerDialog.OnDateSetListener() {
             public void onDateSet(DatePicker datePicker, int selectedYear, int selectedMonth, int selectedDay) {
-                mDate.setText(selectedDay + "/" + selectedMonth+1 + "/" + selectedYear); // Jan = 0
+                int month = selectedMonth + 1;
+                mDate.setText(selectedDay + "/" + month + "/" + selectedYear); // Jan = 0
 
                 mDateTime.set(Calendar.YEAR, selectedYear);
                 mDateTime.set(Calendar.MONTH, selectedMonth);
