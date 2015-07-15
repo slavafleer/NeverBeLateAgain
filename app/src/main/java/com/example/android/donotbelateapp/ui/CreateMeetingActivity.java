@@ -27,6 +27,7 @@ import com.parse.SaveCallback;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -177,8 +178,19 @@ public class CreateMeetingActivity extends ActionBarActivity {
         int month = currentDate.get(Calendar.MONTH);
         int day = currentDate.get(Calendar.DAY_OF_MONTH);
 
-        if(mDate.getText().toString().equals(""))
-        Toast.makeText(CreateMeetingActivity.this, mDate.getText().toString(), Toast.LENGTH_LONG).show();
+        String date = mDate.getText().toString();
+        if(! date.equals("")) {
+            SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+            try {
+                currentDate.setTime(format.parse(date));
+                year = currentDate.get(Calendar.YEAR);
+                month = currentDate.get(Calendar.MONTH);
+                day = currentDate.get(Calendar.DAY_OF_MONTH);
+            } catch (java.text.ParseException e) {
+                e.printStackTrace();
+            }
+        }
+//        Toast.makeText(CreateMeetingActivity.this, mDate.getText().toString(), Toast.LENGTH_LONG).show();
 
         DatePickerDialog datePicker;
         datePicker = new DatePickerDialog(
