@@ -49,7 +49,7 @@ public class ParseLoginActivity extends ActionBarActivity {
             OkCustomDialog dialog = new OkCustomDialog(
                     this,
                     getString(R.string.login_error_dialog_title),
-                    getString(R.string.login_emty_fields_dialog_message));
+                    getString(R.string.login_empty_fields_dialog_message));
             dialog.show();
         } else {
             // Success

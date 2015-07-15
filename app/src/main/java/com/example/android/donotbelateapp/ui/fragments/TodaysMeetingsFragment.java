@@ -27,6 +27,7 @@ public class TodaysMeetingsFragment extends Fragment {
 
     @InjectView(R.id.fragmentTodaysMeetingsRecyclerView) RecyclerView mRecyclerView;
     @InjectView(R.id.fragmentTodaysMeetingEmpty) TextView mEmpty;
+    private MeetingAdapter adapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -36,10 +37,8 @@ public class TodaysMeetingsFragment extends Fragment {
         ButterKnife.inject(this, rootView);
         Global = (GlobalApplication) getActivity().getApplication();
 
-        mEmpty.setVisibility(View.INVISIBLE);
-
         List<ParseObject> todaysMeetings = Global.getTodaysMeetings();
-        MeetingAdapter adapter = new MeetingAdapter(todaysMeetings);
+        adapter = new MeetingAdapter(todaysMeetings);
         mRecyclerView.setAdapter(adapter);
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(mRecyclerView.getContext());
@@ -50,4 +49,14 @@ public class TodaysMeetingsFragment extends Fragment {
         return rootView;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        if(adapter.getItemCount() == 0) {
+            mEmpty.setVisibility(View.VISIBLE);
+        } else {
+            mEmpty.setVisibility(View.INVISIBLE);
+        }
+    }
 }

@@ -16,7 +16,7 @@
     <string name="login_signup_text">Don\'t have an account ?\nSign Up, right now.</string>
     <string name="login_email_hint">Email</string>
     <string name="login_password_hint">Password</string>
-    <string name="login_emty_fields_dialog_message">Some of the fields are empty.</string>
+    <string name="login_empty_fields_dialog_message">Some of the fields are empty.</string>
     <string name="login_error_dialog_title">Login Error</string>
 
     <string name="title_activity_parse_sign_up">Sign Up</string>
@@ -43,10 +43,13 @@
     <string name="title_activity_start">Loading Data</string>
     <string name="start_addvertising">Here could be your advertising.</string>
     <string name="start_loading_data">Loading Data</string>
+
     <string name="create_meeting_subject_empty">Subject field is empty.</string>
     <string name="create_meeting_date_empty">Date field is empty.</string>
     <string name="create_meeting_time_empty">Time field is empty.</string>
     <string name="create_meeting_location_empty">Location field is empty.</string>
     <string name="create_meeting_date_time_wrong">Chosen date/time is wrong.</string>
+    <string name="fragment_todays_no_meetings">No meetings today.</string>
+    <string name="fragment_future_no_meetings">No meetings.</string>
 
 </resources>
