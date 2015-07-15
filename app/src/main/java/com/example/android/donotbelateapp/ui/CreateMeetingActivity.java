@@ -190,7 +190,6 @@ public class CreateMeetingActivity extends ActionBarActivity {
                 e.printStackTrace();
             }
         }
-//        Toast.makeText(CreateMeetingActivity.this, mDate.getText().toString(), Toast.LENGTH_LONG).show();
 
         DatePickerDialog datePicker;
         datePicker = new DatePickerDialog(
@@ -216,6 +215,18 @@ public class CreateMeetingActivity extends ActionBarActivity {
         Calendar currentTime = Calendar.getInstance();
         int hour = currentTime.get(Calendar.HOUR); // Done due to not recognizing pm hour
         int minute = currentTime.get(Calendar.MINUTE);
+
+        String time = mTime.getText().toString();
+        if(! time.equals("")) {
+            SimpleDateFormat format = new SimpleDateFormat("HH:mm");
+            try {
+                currentTime.setTime(format.parse(time));
+                hour = currentTime.get(Calendar.HOUR);
+                minute = currentTime.get(Calendar.MINUTE);
+            } catch (java.text.ParseException e) {
+                e.printStackTrace();
+            }
+        }
 
         TimePickerDialog timePicker;
         timePicker = new TimePickerDialog(
