@@ -96,6 +96,7 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.MeetingV
         }
     }
 
+    // TODO: need recheck that timeleft shown correct, pay attention to days.
     private String timeLeft(Date dateTime) {
         String answer = "";
         Calendar currentCalendar = Calendar.getInstance();
