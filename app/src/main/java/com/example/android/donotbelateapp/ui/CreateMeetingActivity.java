@@ -25,6 +25,8 @@ import com.parse.ParseRelation;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -175,11 +177,17 @@ public class CreateMeetingActivity extends ActionBarActivity {
         int month = currentDate.get(Calendar.MONTH);
         int day = currentDate.get(Calendar.DAY_OF_MONTH);
 
+        if(mDate.getText().toString().equals(""))
+        Toast.makeText(CreateMeetingActivity.this, mDate.getText().toString(), Toast.LENGTH_LONG).show();
+
         DatePickerDialog datePicker;
-        datePicker = new DatePickerDialog(CreateMeetingActivity.this, new DatePickerDialog.OnDateSetListener() {
+        datePicker = new DatePickerDialog(
+                CreateMeetingActivity.this, new DatePickerDialog.OnDateSetListener() {
             public void onDateSet(DatePicker datePicker, int selectedYear, int selectedMonth, int selectedDay) {
-                int month = selectedMonth + 1;
-                mDate.setText(selectedDay + "/" + month + "/" + selectedYear); // Jan = 0
+                int month = selectedMonth + 1; // Jan = 0
+                NumberFormat numberFormat = new DecimalFormat("00");
+                mDate.setText(numberFormat.format(selectedDay) + "/" +
+                        numberFormat.format(month) + "/" + selectedYear);
 
                 mDateTime.set(Calendar.YEAR, selectedYear);
                 mDateTime.set(Calendar.MONTH, selectedMonth);
@@ -194,7 +202,7 @@ public class CreateMeetingActivity extends ActionBarActivity {
     void onClickTime() {
         // To show current time in the time picker
         Calendar currentTime = Calendar.getInstance();
-        int hour = currentTime.get(Calendar.HOUR) + 12; // Done due to not recognizing pm hour
+        int hour = currentTime.get(Calendar.HOUR); // Done due to not recognizing pm hour
         int minute = currentTime.get(Calendar.MINUTE);
 
         TimePickerDialog timePicker;
@@ -202,7 +210,9 @@ public class CreateMeetingActivity extends ActionBarActivity {
                 CreateMeetingActivity.this, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-                mTime.setText(selectedHour + ":" + selectedMinute);
+                NumberFormat numberFormat = new DecimalFormat("00");
+                mTime.setText(numberFormat.format(selectedHour) + ":" +
+                        numberFormat.format(selectedMinute));
 
                 mDateTime.set(Calendar.HOUR_OF_DAY, selectedHour);
                 mDateTime.set(Calendar.MINUTE, selectedMinute);
@@ -212,7 +222,7 @@ public class CreateMeetingActivity extends ActionBarActivity {
         timePicker.show();
     }
 
-    @OnClick(R.id.createMeetingInviteesButton)
+    @OnClick(R.id.createMeetingInvitees)
     void onClickInviteesButton() {
         Intent inviteesIntent = new Intent(CreateMeetingActivity.this, ChooseInviteesActivity.class);
 
