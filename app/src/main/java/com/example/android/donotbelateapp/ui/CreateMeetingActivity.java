@@ -80,6 +80,8 @@ public class CreateMeetingActivity extends ActionBarActivity {
 
         mMeeting = new Meeting();
         mInviteesRelation = mMeeting.getRelation(ParseConstants.KEY_INVITEES);
+
+//        mDate.setBackgroundColor(Color.parseColor("#D6D7D7"));
     }
 
     @Override
@@ -213,7 +215,7 @@ public class CreateMeetingActivity extends ActionBarActivity {
     void onClickTime() {
         // To show current time in the time picker
         Calendar currentTime = Calendar.getInstance();
-        int hour = currentTime.get(Calendar.HOUR); // Done due to not recognizing pm hour
+        int hour = currentTime.get(Calendar.HOUR_OF_DAY);
         int minute = currentTime.get(Calendar.MINUTE);
 
         String time = mTime.getText().toString();
@@ -221,7 +223,7 @@ public class CreateMeetingActivity extends ActionBarActivity {
             SimpleDateFormat format = new SimpleDateFormat("HH:mm");
             try {
                 currentTime.setTime(format.parse(time));
-                hour = currentTime.get(Calendar.HOUR);
+                hour = currentTime.get(Calendar.HOUR_OF_DAY);
                 minute = currentTime.get(Calendar.MINUTE);
             } catch (java.text.ParseException e) {
                 e.printStackTrace();
