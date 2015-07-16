@@ -273,7 +273,7 @@ public class CreateMeetingActivity extends ActionBarActivity {
                 mInviteesList.add(data.getStringExtra(ChooseInviteesActivity.INVITEE + i));
             }
 
-            // Displaying invitees(for now just IDs) in Invitees Field
+            // Displaying invitees in Invitees Field
             String inviteesListToString = "";
             for(String invitee : mInviteesList) {
 //                inviteesListToString += " <" + invitee + "> ";
