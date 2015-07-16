@@ -98,6 +98,14 @@ public class ChooseInviteesActivity extends ActionBarActivity {
                     );
                     mFriendsList.setAdapter(adapter);
 
+                    // Receiving inviteesIds that already were chosen before.
+                    Intent intent = getIntent();
+                    mInviteesList.clear();
+                    int inviteesAmount = intent.getIntExtra(ChooseInviteesActivity.INVITEES_AMOUNT, 0);
+                    for(i = 0; i < inviteesAmount; i++) {
+                        mInviteesList.add(intent.getStringExtra(ChooseInviteesActivity.INVITEE + i));
+                    }
+
                     // Mark previous chosen invitees.
                     int i2 = 0;
                     for (ParseUser friend : mFriends) {
@@ -119,14 +127,6 @@ public class ChooseInviteesActivity extends ActionBarActivity {
                 }
 //            }
 //        });
-
-        // Receiving inviteesIds that already were chosen before.
-        Intent intent = getIntent();
-        mInviteesList.clear();
-        int inviteesAmount = intent.getIntExtra(ChooseInviteesActivity.INVITEES_AMOUNT, 0);
-        for(int i = 0; i < inviteesAmount; i++) {
-            mInviteesList.add(intent.getStringExtra(ChooseInviteesActivity.INVITEE + i));
-        }
     }
 
     @Override
