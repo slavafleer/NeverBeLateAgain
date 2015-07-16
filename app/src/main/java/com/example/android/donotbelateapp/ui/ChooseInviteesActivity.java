@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 
+import com.example.android.donotbelateapp.GlobalApplication;
 import com.example.android.donotbelateapp.OkCustomDialog;
 import com.example.android.donotbelateapp.model.parseCom.ParseConstants;
 import com.example.android.donotbelateapp.R;
@@ -38,6 +39,7 @@ public class ChooseInviteesActivity extends ActionBarActivity {
     private ParseRelation<ParseUser> mFriendsRelation;
     private String[] mFullNames;
     private ArrayList<String> mInviteesList = new ArrayList<>();
+    private GlobalApplication Global;
 
     @InjectView(R.id.chooseInviteesSpinner) ProgressBar mSpinner;
     @InjectView(R.id.chooseInviteesList) ListView mFriendsList;
@@ -47,6 +49,8 @@ public class ChooseInviteesActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_invitees);
         ButterKnife.inject(this);
+
+        Global = (GlobalApplication)getApplication();
 
         mSpinner.setVisibility(View.INVISIBLE);
 
@@ -78,7 +82,9 @@ public class ChooseInviteesActivity extends ActionBarActivity {
                 mSpinner.setVisibility(View.INVISIBLE);
                 if (e == null) {
                     // Success
-                    mFriends = friends;
+//                    mFriends = friends;
+                    mFriends = Global.getFriends();
+
                     int usersAmount = mFriends.size();
                     String[] fullNames = new String[usersAmount];
                     int i = 0;
@@ -97,9 +103,9 @@ public class ChooseInviteesActivity extends ActionBarActivity {
 
                     // Mark previous chosen invitees.
                     int i2 = 0;
-                    for(ParseUser friend : mFriends) {
-                        for(String invitee : mInviteesList) {
-                            if(friend.getObjectId().equals(invitee)) {
+                    for (ParseUser friend : mFriends) {
+                        for (String invitee : mInviteesList) {
+                            if (friend.getObjectId().equals(invitee)) {
                                 mFriendsList.setItemChecked(i2, true);
                                 mInvitees.add(mFriends.get(i2));
                             }
