@@ -27,6 +27,11 @@ public class FutureMeetingsFragment extends Fragment {
     private MeetingAdapter adapter;
     @InjectView(R.id.fragmentFutureMeetingsRecyclerView) RecyclerView mRecyclerView;
     @InjectView(R.id.fragmentFutureMeetingEmpty) TextView mEmpty;
+    @InjectView(R.id.fragmentFutureHeaderSubject) TextView mSubject;
+    @InjectView(R.id.fragmentFutureHeaderDateTime) TextView mDateTime;
+    @InjectView(R.id.fragmentFutureHeaderLocation) TextView mLocation;
+    @InjectView(R.id.fragmentFutureHeaderReminder) TextView mReminder;
+    @InjectView(R.id.fragmentFutureHeaderStatus) TextView mStatus;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -54,8 +59,18 @@ public class FutureMeetingsFragment extends Fragment {
 
         if(adapter.getItemCount() == 0) {
             mEmpty.setVisibility(View.VISIBLE);
+            mSubject.setVisibility(View.INVISIBLE);
+            mDateTime.setVisibility(View.INVISIBLE);
+            mLocation.setVisibility(View.INVISIBLE);
+            mReminder.setVisibility(View.INVISIBLE);
+            mStatus.setVisibility(View.INVISIBLE);
         } else {
             mEmpty.setVisibility(View.INVISIBLE);
+            mSubject.setVisibility(View.VISIBLE);
+            mDateTime.setVisibility(View.VISIBLE);
+            mLocation.setVisibility(View.VISIBLE);
+            mReminder.setVisibility(View.VISIBLE);
+            mStatus.setVisibility(View.VISIBLE);
         }
     }
 }

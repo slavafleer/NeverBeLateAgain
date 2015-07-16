@@ -51,11 +51,9 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.MeetingV
 
         public TextView mItemSerialNumberLabel;
         public TextView mItemSubjectLabel;
-        public TextView mItemDateTimeTopic;
         public TextView mItemDateLabel;
         public TextView mItemTimeLabel;
         public TextView mItemLocationLabel;
-        public TextView mItemReminderTopic;
         public TextView mItemReminderLabel;
         public TextView mItemUserStatus;
 
@@ -71,17 +69,15 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.MeetingV
 
             mItemSerialNumberLabel = (TextView)itemView.findViewById(R.id.itemSerialNumberLabel);
             mItemSubjectLabel = (TextView)itemView.findViewById(R.id.itemSubjectLabel);
-            mItemDateTimeTopic = (TextView)itemView.findViewById(R.id.itemDateTimeTopic);
             mItemDateLabel = (TextView)itemView.findViewById(R.id.itemDateLabel);
             mItemTimeLabel = (TextView)itemView.findViewById(R.id.itemTimeLabel);
             mItemLocationLabel = (TextView)itemView.findViewById(R.id.itemLocationLabel);
-            mItemReminderTopic = (TextView)itemView.findViewById(R.id.itemReminderTopic);
             mItemReminderLabel = (TextView)itemView.findViewById(R.id.itemReminderLabel);
             mItemUserStatus = (TextView)itemView.findViewById(R.id.itemUserStatus);
         }
 
         public void bindMeeting(ParseObject meeting, int position) {
-            mItemSerialNumberLabel.setText(++position + "");
+            mItemSerialNumberLabel.setText(++position + ".");
             mItemSubjectLabel.setText(meeting.getString(ParseConstants.KEY_SUBJECT));
             Date date = meeting.getDate(ParseConstants.KEY_DATETIME);
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");

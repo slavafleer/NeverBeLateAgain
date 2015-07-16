@@ -49,21 +49,6 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Begins at"
-                android:id="@+id/itemDateTimeTopic"
-                android:layout_alignParentTop="false"
-                android:layout_centerVertical="true"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:layout_centerInParent="true"
-                android:layout_toRightOf="@+id/itemDateTimeLinearLayout"
-                android:layout_weight="1"
-                android:singleLine="false"
-                android:textSize="12sp"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:text="13/04/2015"
                 android:id="@+id/itemDateLabel"
                 android:layout_alignParentTop="false"
@@ -83,7 +68,7 @@
                 android:layout_alignLeft="@+id/itemDateLabel"
                 android:layout_alignRight="@+id/itemDateLabel"
                 android:gravity="center"
-                android:textSize="12sp"
+                android:textSize="11sp"
                 android:layout_weight="1"
                 android:layout_gravity="center"/>
         </LinearLayout>
@@ -112,28 +97,13 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Starts in"
-                android:id="@+id/itemReminderTopic"
-                android:layout_alignParentTop="false"
-                android:layout_centerVertical="true"
-                android:layout_gravity="center"
-                android:gravity="center|bottom"
-                android:layout_centerInParent="true"
-                android:layout_toRightOf="@+id/itemDateTimeLinearLayout"
-                android:layout_weight="1"
-                android:singleLine="false"
-                android:textSize="12sp"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:text="13d 20h 23m"
                 android:id="@+id/itemReminderLabel"
                 android:layout_alignParentTop="false"
                 android:layout_centerVertical="true"
                 android:layout_toRightOf="@+id/itemLocationLabel"
                 android:layout_weight="1"
-                android:gravity="center|top"
+                android:gravity="center"
                 android:layout_gravity="center"
                 android:textSize="11sp"
                 android:textIsSelectable="false"/>
