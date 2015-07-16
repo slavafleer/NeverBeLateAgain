@@ -52,14 +52,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.android.donotbelateapp.ui.MainActivity" />
         </activity>
-        <activity
-            android:name=".ui.ChooseInviteesActivity"
-            android:label="@string/title_activity_choose_invitees"
-            android:parentActivityName=".ui.CreateMeetingActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.android.donotbelateapp.ui.CreateMeetingActivity" />
-        </activity>
     </application>
 
 </manifest>
