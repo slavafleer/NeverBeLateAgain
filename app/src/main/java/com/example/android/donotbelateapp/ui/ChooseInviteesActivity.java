@@ -12,9 +12,12 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 
-import com.example.android.donotbelateapp.GlobalApplication;
-import com.example.android.donotbelateapp.R;
+import com.example.android.donotbelateapp.OkCustomDialog;
 import com.example.android.donotbelateapp.model.parseCom.ParseConstants;
+import com.example.android.donotbelateapp.R;
+import com.parse.FindCallback;
+import com.parse.ParseException;
+import com.parse.ParseQuery;
 import com.parse.ParseRelation;
 import com.parse.ParseUser;
 
@@ -35,7 +38,6 @@ public class ChooseInviteesActivity extends ActionBarActivity {
     private ParseRelation<ParseUser> mFriendsRelation;
     private String[] mFullNames;
     private ArrayList<String> mInviteesList = new ArrayList<>();
-    private GlobalApplication Global;
 
     @InjectView(R.id.chooseInviteesSpinner) ProgressBar mSpinner;
     @InjectView(R.id.chooseInviteesList) ListView mFriendsList;
@@ -63,9 +65,18 @@ public class ChooseInviteesActivity extends ActionBarActivity {
             }
         });
 
+        mCurrentUser = ParseUser.getCurrentUser();
+        mFriendsRelation = mCurrentUser.getRelation(ParseConstants.KEY_FRIENDS_RELATION);
 
-                if (true) {
-                    List<ParseUser> friends = Global.getFriends();
+        ParseQuery<ParseUser> query = mFriendsRelation.getQuery();
+        query.orderByAscending(ParseConstants.KEY_LASTNAME);
+        query.addAscendingOrder(ParseConstants.KEY_FIRSTNAME);
+        mSpinner.setVisibility(View.VISIBLE);
+        query.findInBackground(new FindCallback<ParseUser>() {
+            @Override
+            public void done(List<ParseUser> friends, ParseException e) {
+                mSpinner.setVisibility(View.INVISIBLE);
+                if (e == null) {
                     // Success
                     mFriends = friends;
                     int usersAmount = mFriends.size();
@@ -95,7 +106,16 @@ public class ChooseInviteesActivity extends ActionBarActivity {
                         }
                         i2++;
                     }
+                } else {
+                    // Show error to user
+                    OkCustomDialog dialog = new OkCustomDialog(
+                            ChooseInviteesActivity.this,
+                            getString(R.string.friend_list_updating_error_title),
+                            e.getMessage());
+                    dialog.show();
                 }
+            }
+        });
 
         // Receiving inviteesIds that already were chosen before.
         Intent intent = getIntent();
