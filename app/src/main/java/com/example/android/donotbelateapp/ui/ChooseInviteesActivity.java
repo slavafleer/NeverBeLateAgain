@@ -96,15 +96,15 @@ public class ChooseInviteesActivity extends ActionBarActivity {
         }
 
         // Mark previous chosen invitees.
-        int i2 = 0;
+        i = 0;
         for (ParseUser friend : mFriends) {
             for (String invitee : mInviteesList) {
                 if (friend.getObjectId().equals(invitee)) {
-                    mFriendsList.setItemChecked(i2, true);
-                    mInvitees.add(mFriends.get(i2));
+                    mFriendsList.setItemChecked(i, true);
+                    mInvitees.add(mFriends.get(i));
                 }
             }
-            i2++;
+            i++;
         }
     }
 
