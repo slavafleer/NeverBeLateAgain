@@ -12,9 +12,13 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 
-import com.example.android.donotbelateapp.GlobalApplication;
-import com.example.android.donotbelateapp.R;
+import com.example.android.donotbelateapp.OkCustomDialog;
 import com.example.android.donotbelateapp.model.parseCom.ParseConstants;
+import com.example.android.donotbelateapp.R;
+import com.parse.FindCallback;
+import com.parse.ParseException;
+import com.parse.ParseQuery;
+import com.parse.ParseRelation;
 import com.parse.ParseUser;
 
 import java.util.ArrayList;
@@ -30,8 +34,10 @@ public class ChooseInviteesActivity extends ActionBarActivity {
 
     private List<ParseUser> mFriends;
     private ArrayList<ParseUser> mInvitees = new ArrayList<>();
+    private ParseUser mCurrentUser;
+    private ParseRelation<ParseUser> mFriendsRelation;
+    private String[] mFullNames;
     private ArrayList<String> mInviteesList = new ArrayList<>();
-    private GlobalApplication Global;
 
     @InjectView(R.id.chooseInviteesSpinner) ProgressBar mSpinner;
     @InjectView(R.id.chooseInviteesList) ListView mFriendsList;
@@ -42,7 +48,7 @@ public class ChooseInviteesActivity extends ActionBarActivity {
         setContentView(R.layout.activity_choose_invitees);
         ButterKnife.inject(this);
 
-        Global = (GlobalApplication)getApplication();
+        mSpinner.setVisibility(View.INVISIBLE);
 
         // Edit invitees
         mFriendsList.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
@@ -59,40 +65,63 @@ public class ChooseInviteesActivity extends ActionBarActivity {
             }
         });
 
-        List<ParseUser> friends = Global.getFriends();
-        mFriends = friends;
-        int usersAmount = mFriends.size();
-        String[] fullNames = new String[usersAmount];
-        int i = 0;
-        for (ParseUser user : mFriends) {
-            fullNames[i] = user.getString(ParseConstants.KEY_FIRSTNAME) + " " +
-                    user.getString(ParseConstants.KEY_LASTNAME);
-            i++;
-        }
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-                ChooseInviteesActivity.this,
-                android.R.layout.simple_list_item_checked,
-                fullNames
-        );
-        mFriendsList.setAdapter(adapter);
+        mCurrentUser = ParseUser.getCurrentUser();
+        mFriendsRelation = mCurrentUser.getRelation(ParseConstants.KEY_FRIENDS_RELATION);
 
-        // Mark previous chosen invitees.
-        int i2 = 0;
-        for(ParseUser friend : mFriends) {
-            for(String invitee : mInviteesList) {
-                if(friend.getObjectId().equals(invitee)) {
-                    mFriendsList.setItemChecked(i2, true);
-                    mInvitees.add(mFriends.get(i2));
+        ParseQuery<ParseUser> query = mFriendsRelation.getQuery();
+        query.orderByAscending(ParseConstants.KEY_LASTNAME);
+        query.addAscendingOrder(ParseConstants.KEY_FIRSTNAME);
+        mSpinner.setVisibility(View.VISIBLE);
+        query.findInBackground(new FindCallback<ParseUser>() {
+            @Override
+            public void done(List<ParseUser> friends, ParseException e) {
+                mSpinner.setVisibility(View.INVISIBLE);
+                if (e == null) {
+                    // Success
+                    mFriends = friends;
+                    int usersAmount = mFriends.size();
+                    String[] fullNames = new String[usersAmount];
+                    int i = 0;
+                    for (ParseUser user : mFriends) {
+                        fullNames[i] = user.getString(ParseConstants.KEY_FIRSTNAME) + " " +
+                                user.getString(ParseConstants.KEY_LASTNAME);
+                        i++;
+                    }
+                    mFullNames = fullNames;
+                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+                            ChooseInviteesActivity.this,
+                            android.R.layout.simple_list_item_checked,
+                            fullNames
+                    );
+                    mFriendsList.setAdapter(adapter);
+
+                    // Mark previous chosen invitees.
+                    int i2 = 0;
+                    for(ParseUser friend : mFriends) {
+                        for(String invitee : mInviteesList) {
+                            if(friend.getObjectId().equals(invitee)) {
+                                mFriendsList.setItemChecked(i2, true);
+                                mInvitees.add(mFriends.get(i2));
+                            }
+                        }
+                        i2++;
+                    }
+                } else {
+                    // Show error to user
+                    OkCustomDialog dialog = new OkCustomDialog(
+                            ChooseInviteesActivity.this,
+                            getString(R.string.friend_list_updating_error_title),
+                            e.getMessage());
+                    dialog.show();
                 }
             }
-            i2++;
-        }
+        });
 
         // Receiving inviteesIds that already were chosen before.
         Intent intent = getIntent();
         mInviteesList.clear();
         int inviteesAmount = intent.getIntExtra(ChooseInviteesActivity.INVITEES_AMOUNT, 0);
-        for(i = 0; i < inviteesAmount; i++) {
+        for(int i = 0; i < inviteesAmount; i++) {
             mInviteesList.add(intent.getStringExtra(ChooseInviteesActivity.INVITEE + i));
         }
     }
