@@ -4,7 +4,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -52,13 +51,13 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.MeetingV
 
         public TextView mItemSerialNumberLabel;
         public TextView mItemSubjectLabel;
+        public TextView mItemDateTimeTopic;
         public TextView mItemDateLabel;
         public TextView mItemTimeLabel;
         public TextView mItemLocationLabel;
-        public ImageView mItemInviteesIcon;
-        public ImageView mItemInfoIcon;
+        public TextView mItemReminderTopic;
         public TextView mItemReminderLabel;
-        public ImageView mItemApprovingIcon;
+        public TextView mItemUserStatus;
 
         public MeetingViewHolder(View itemView) {
             super(itemView);
@@ -72,13 +71,13 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.MeetingV
 
             mItemSerialNumberLabel = (TextView)itemView.findViewById(R.id.itemSerialNumberLabel);
             mItemSubjectLabel = (TextView)itemView.findViewById(R.id.itemSubjectLabel);
+            mItemDateTimeTopic = (TextView)itemView.findViewById(R.id.itemDateTimeTopic);
             mItemDateLabel = (TextView)itemView.findViewById(R.id.itemDateLabel);
             mItemTimeLabel = (TextView)itemView.findViewById(R.id.itemTimeLabel);
             mItemLocationLabel = (TextView)itemView.findViewById(R.id.itemLocationLabel);
-            mItemInviteesIcon = (ImageView)itemView.findViewById(R.id.itemInviteesIcon);
-            mItemInfoIcon = (ImageView)itemView.findViewById(R.id.itemInfoIcon);
+            mItemReminderTopic = (TextView)itemView.findViewById(R.id.itemReminderTopic);
             mItemReminderLabel = (TextView)itemView.findViewById(R.id.itemReminderLabel);
-            mItemApprovingIcon = (ImageView)itemView.findViewById(R.id.itemApprovingIcon);
+            mItemUserStatus = (TextView)itemView.findViewById(R.id.itemUserStatus);
         }
 
         public void bindMeeting(ParseObject meeting, int position) {
