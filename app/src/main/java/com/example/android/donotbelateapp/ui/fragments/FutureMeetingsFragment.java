@@ -23,15 +23,22 @@ import butterknife.InjectView;
  * Created by Slava on 09/06/2015.
  */
 public class FutureMeetingsFragment extends Fragment {
+    @InjectView(R.id.fragmentFutureMeetingsRecyclerView)
+    RecyclerView mRecyclerView;
+    @InjectView(R.id.fragmentFutureMeetingEmpty)
+    TextView mEmpty;
+    @InjectView(R.id.fragmentFutureHeaderSubject)
+    TextView mSubject;
+    @InjectView(R.id.fragmentFutureHeaderDateTime)
+    TextView mDateTime;
+    @InjectView(R.id.fragmentFutureHeaderLocation)
+    TextView mLocation;
+    @InjectView(R.id.fragmentFutureHeaderReminder)
+    TextView mReminder;
+    @InjectView(R.id.fragmentFutureHeaderStatus)
+    TextView mStatus;
     private GlobalApplication Global;
     private MeetingAdapter adapter;
-    @InjectView(R.id.fragmentFutureMeetingsRecyclerView) RecyclerView mRecyclerView;
-    @InjectView(R.id.fragmentFutureMeetingEmpty) TextView mEmpty;
-    @InjectView(R.id.fragmentFutureHeaderSubject) TextView mSubject;
-    @InjectView(R.id.fragmentFutureHeaderDateTime) TextView mDateTime;
-    @InjectView(R.id.fragmentFutureHeaderLocation) TextView mLocation;
-    @InjectView(R.id.fragmentFutureHeaderReminder) TextView mReminder;
-    @InjectView(R.id.fragmentFutureHeaderStatus) TextView mStatus;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -57,7 +64,7 @@ public class FutureMeetingsFragment extends Fragment {
     public void onResume() {
         super.onResume();
 
-        if(adapter.getItemCount() == 0) {
+        if (adapter.getItemCount() == 0) {
             mEmpty.setVisibility(View.VISIBLE);
             mSubject.setVisibility(View.INVISIBLE);
             mDateTime.setVisibility(View.INVISIBLE);

@@ -47,6 +47,47 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.MeetingV
         return mMeetings.size();
     }
 
+    // TODO: need recheck that timeleft shown correct, pay attention to days.
+    private String timeLeft(Date dateTime) {
+        String answer = "";
+        Calendar currentCalendar = Calendar.getInstance();
+        Date currentDate = currentCalendar.getTime();
+        long timeLeft = dateTime.getTime() - currentDate.getTime();
+        long secondsLeft = timeLeft / 1000;
+        int minutesLeft = (int) (secondsLeft / 60);
+        if (minutesLeft < 60) {
+            answer = minutesLeft + "m";
+        } else {
+            int hoursLeft = minutesLeft / 60;
+            int minutes = minutesLeft % 60;
+            if (hoursLeft < 24) {
+                if (minutes == 0) {
+                    answer = hoursLeft + "h";
+                } else {
+                    answer = hoursLeft + "h " + minutes + "m";
+                }
+            } else {
+                int daysLeft = hoursLeft / 24;
+                int hours = hoursLeft % 24;
+                if (minutes == 0) {
+                    if (hours == 0) {
+                        answer = daysLeft + "d";
+                    } else {
+                        answer = daysLeft + "d " + hoursLeft % 24 + "h";
+                    }
+                } else {
+                    if (hours == 0) {
+                        answer = daysLeft + "d " + minutesLeft % 60 + "m";
+                    } else {
+                        answer = daysLeft + "d " + hoursLeft % 24 + "h " + minutesLeft % 60 + "m";
+                    }
+                }
+            }
+        }
+
+        return answer;
+    }
+
     public class MeetingViewHolder extends RecyclerView.ViewHolder {
 
         public TextView mItemSerialNumberLabel;
@@ -67,13 +108,13 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.MeetingV
                 }
             });
 
-            mItemSerialNumberLabel = (TextView)itemView.findViewById(R.id.itemSerialNumberLabel);
-            mItemSubjectLabel = (TextView)itemView.findViewById(R.id.itemSubjectLabel);
-            mItemDateLabel = (TextView)itemView.findViewById(R.id.itemDateLabel);
-            mItemTimeLabel = (TextView)itemView.findViewById(R.id.itemTimeLabel);
-            mItemLocationLabel = (TextView)itemView.findViewById(R.id.itemLocationLabel);
-            mItemReminderLabel = (TextView)itemView.findViewById(R.id.itemReminderLabel);
-            mItemUserStatus = (TextView)itemView.findViewById(R.id.itemUserStatus);
+            mItemSerialNumberLabel = (TextView) itemView.findViewById(R.id.itemSerialNumberLabel);
+            mItemSubjectLabel = (TextView) itemView.findViewById(R.id.itemSubjectLabel);
+            mItemDateLabel = (TextView) itemView.findViewById(R.id.itemDateLabel);
+            mItemTimeLabel = (TextView) itemView.findViewById(R.id.itemTimeLabel);
+            mItemLocationLabel = (TextView) itemView.findViewById(R.id.itemLocationLabel);
+            mItemReminderLabel = (TextView) itemView.findViewById(R.id.itemReminderLabel);
+            mItemUserStatus = (TextView) itemView.findViewById(R.id.itemUserStatus);
         }
 
         public void bindMeeting(ParseObject meeting, int position) {
@@ -89,47 +130,6 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.MeetingV
             mItemLocationLabel.setText(meeting.getString(ParseConstants.KEY_LOCATION));
             mItemReminderLabel.setText(timeLeft(date));
         }
-    }
-
-    // TODO: need recheck that timeleft shown correct, pay attention to days.
-    private String timeLeft(Date dateTime) {
-        String answer = "";
-        Calendar currentCalendar = Calendar.getInstance();
-        Date currentDate = currentCalendar.getTime();
-        long timeLeft = dateTime.getTime() - currentDate.getTime();
-        long secondsLeft = timeLeft / 1000;
-        int minutesLeft = (int) (secondsLeft / 60);
-        if(minutesLeft < 60) {
-            answer = minutesLeft + "m";
-        } else {
-            int hoursLeft = minutesLeft / 60;
-            int minutes = minutesLeft % 60;
-            if(hoursLeft < 24) {
-                if(minutes == 0) {
-                    answer = hoursLeft + "h";
-                } else {
-                    answer = hoursLeft + "h " + minutes + "m";
-                }
-            } else {
-                int daysLeft = hoursLeft / 24;
-                int hours = hoursLeft % 24;
-                if(minutes == 0) {
-                    if(hours == 0) {
-                        answer = daysLeft + "d";
-                    } else {
-                        answer = daysLeft + "d " + hoursLeft%24 + "h";
-                    }
-                } else {
-                    if(hours == 0) {
-                        answer = daysLeft + "d " + minutesLeft%60 + "m";
-                    } else {
-                        answer = daysLeft + "d " + hoursLeft%24 + "h " + minutesLeft%60 + "m";
-                    }
-                }
-            }
-        }
-
-        return answer;
     }
 
 }

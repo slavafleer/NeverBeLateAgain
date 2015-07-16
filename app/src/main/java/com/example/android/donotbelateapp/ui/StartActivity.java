@@ -30,16 +30,16 @@ import butterknife.InjectView;
 
 public class StartActivity extends ActionBarActivity {
     private static final String TAG = StartActivity.class.getSimpleName();
-
+    public static String[] mFullNames;
+    public static List<ParseObject> mTodaysMeetings;
     protected List<ParseUser> mFriends;
     protected ParseUser mCurrentUser;
     protected ParseRelation<ParseUser> mFriendsRelation;
-    public static String[] mFullNames;
-    public static List<ParseObject> mTodaysMeetings;
+    @InjectView(R.id.startProgressSpinner)
+    ProgressBar mSpinner;
+    @InjectView(R.id.startLoadingDataLabel)
+    TextView mLoadingLabel;
     private GlobalApplication Global;
-
-    @InjectView(R.id.startProgressSpinner) ProgressBar mSpinner;
-    @InjectView(R.id.startLoadingDataLabel) TextView mLoadingLabel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +47,7 @@ public class StartActivity extends ActionBarActivity {
         setContentView(R.layout.activity_start);
         ButterKnife.inject(this);
 
-        Global = (GlobalApplication)getApplication();
+        Global = (GlobalApplication) getApplication();
     }
 
     private void navigateToLogin() {
@@ -135,7 +135,7 @@ public class StartActivity extends ActionBarActivity {
 
         //TODO: for test
         Log.v(TAG, "Now: " + Calendar.getInstance().getTime());
-        Log.v(TAG,"From: " + fromDate.toString());
+        Log.v(TAG, "From: " + fromDate.toString());
         Log.v(TAG, "Till: " + tillDate.toString());
 
         // Requesting for meetings just from initializer and where he was invited in
@@ -148,7 +148,7 @@ public class StartActivity extends ActionBarActivity {
 
         // Query for user was invited meetings.
         ParseQuery<ParseObject> inviteedMeetingsQuery = ParseQuery.getQuery(ParseConstants.CLASS_MEETINGS);
-        inviteedMeetingsQuery.whereEqualTo(ParseConstants.KEY_INVITEES ,mCurrentUser.getObjectId());
+        inviteedMeetingsQuery.whereEqualTo(ParseConstants.KEY_INVITEES, mCurrentUser.getObjectId());
         inviteedMeetingsQuery.whereLessThan(ParseConstants.KEY_DATETIME, tillDate);
         inviteedMeetingsQuery.whereGreaterThan(ParseConstants.KEY_DATETIME, fromDate);
 
@@ -192,7 +192,7 @@ public class StartActivity extends ActionBarActivity {
 
         // Query for user was invited meetings.
         ParseQuery<ParseObject> inviteedMeetingsQuery = ParseQuery.getQuery(ParseConstants.CLASS_MEETINGS);
-        inviteedMeetingsQuery.whereEqualTo(ParseConstants.KEY_INVITEES ,mCurrentUser.getObjectId());
+        inviteedMeetingsQuery.whereEqualTo(ParseConstants.KEY_INVITEES, mCurrentUser.getObjectId());
         inviteedMeetingsQuery.whereGreaterThan(ParseConstants.KEY_DATETIME, fromDate);
 
         // Combined query.

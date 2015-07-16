@@ -103,7 +103,7 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        switch(id) {
+        switch (id) {
             case R.id.action_create_meeting:
                 Intent createMeetingIntent = new Intent(MainActivity.this, CreateMeetingActivity.class);
                 startActivity(createMeetingIntent);
@@ -114,7 +114,7 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
                 startActivity(intent);
                 break;
 
-            case R.id.action_settings :
+            case R.id.action_settings:
                 break;
 
             case R.id.action_logout:
@@ -156,7 +156,7 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
 
-            switch(position) {
+            switch (position) {
                 case 0:
                     return new TodaysMeetingsFragment();
                 case 1:
