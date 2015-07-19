@@ -1,9 +1,11 @@
 package com.example.android.donotbelateapp.adapters;
 
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -90,6 +92,7 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.MeetingV
 
     public class MeetingViewHolder extends RecyclerView.ViewHolder {
 
+        public RelativeLayout mRelativeLayout;
         public TextView mItemSerialNumberLabel;
         public TextView mItemSubjectLabel;
         public TextView mItemDateLabel;
@@ -108,6 +111,7 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.MeetingV
                 }
             });
 
+            mRelativeLayout = (RelativeLayout) itemView.findViewById(R.id.itemRelativeLayout);
             mItemSerialNumberLabel = (TextView) itemView.findViewById(R.id.itemSerialNumberLabel);
             mItemSubjectLabel = (TextView) itemView.findViewById(R.id.itemSubjectLabel);
             mItemDateLabel = (TextView) itemView.findViewById(R.id.itemDateLabel);
@@ -118,6 +122,9 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.MeetingV
         }
 
         public void bindMeeting(ParseObject meeting, int position) {
+            if(position % 2 == 0) {
+                mRelativeLayout.setBackgroundColor(0x11000000 + Color.BLACK);
+            }
             mItemSerialNumberLabel.setText(++position + ".");
             mItemSubjectLabel.setText(meeting.getString(ParseConstants.KEY_SUBJECT));
             Date date = meeting.getDate(ParseConstants.KEY_DATETIME);
