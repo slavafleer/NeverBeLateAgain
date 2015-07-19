@@ -12,8 +12,7 @@
         android:layout_alignParentTop="false"
         android:layout_centerVertical="true"
         android:layout_marginRight="1dp"
-        android:text="1."
-        android:background="#ff91f216"/>
+        android:text="1."/>
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -34,8 +33,7 @@
             android:layout_toRightOf="@+id/itemSerialNumberLabel"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="Subject"
-            android:background="#fff2aa28"/>
+            android:text="Subject"/>
 
         <LinearLayout
             android:id="@+id/itemDateTimeLinearLayout"
@@ -46,8 +44,7 @@
             android:layout_toRightOf="@+id/itemSubjectLabel"
             android:layout_weight="0.8"
             android:gravity="center"
-            android:orientation="vertical"
-            android:background="#ff91f216">
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/itemDateLabel"
@@ -88,16 +85,14 @@
             android:layout_weight="1"
             android:gravity="center"
             android:singleLine="false"
-            android:text="Location"
-            android:background="#fff2aa28"/>
+            android:text="Location"/>
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:layout_weight="0.9"
-            android:orientation="vertical"
-            android:background="#ff91f216">
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/itemReminderLabel"
@@ -123,8 +118,7 @@
             android:layout_toRightOf="@+id/itemReminderLabel"
             android:layout_weight="0.7"
             android:gravity="center"
-            android:text="Inviteed"
-            android:background="#fff2aa28"/>
+            android:text="Inviteed"/>
     </LinearLayout>
 
 </RelativeLayout>
