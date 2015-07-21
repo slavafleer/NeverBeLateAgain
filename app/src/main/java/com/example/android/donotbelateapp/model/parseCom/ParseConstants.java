@@ -4,6 +4,9 @@ package com.example.android.donotbelateapp.model.parseCom;
  * Created by Slava on 09/06/2015.
  */
 public final class ParseConstants {
+
+    //TODO: put here parse.com keys and IDs
+
     // Class name
     public static final String CLASS_MEETINGS = "Meetings";
 

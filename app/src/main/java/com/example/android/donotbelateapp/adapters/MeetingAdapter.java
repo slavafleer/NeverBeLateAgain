@@ -60,6 +60,7 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.MeetingV
         if (minutesLeft < 60) {
             answer = minutesLeft + "m";
         } else {
+            //TODO: create utilities class for date2string
             int hoursLeft = minutesLeft / 60;
             int minutes = minutesLeft % 60;
             if (hoursLeft < 24) {
