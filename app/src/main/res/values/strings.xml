@@ -51,5 +51,6 @@
     <string name="create_meeting_date_time_wrong">Chosen date/time is wrong.</string>
     <string name="fragment_todays_no_meetings">No meetings today.</string>
     <string name="fragment_future_no_meetings">No meetings.</string>
+    <string name="title_activity_meeting">Meeting</string>
 
 </resources>

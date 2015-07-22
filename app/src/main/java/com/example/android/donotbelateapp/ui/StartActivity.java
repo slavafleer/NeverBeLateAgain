@@ -138,7 +138,7 @@ public class StartActivity extends ActionBarActivity {
         Log.v(TAG, "From: " + fromDate.toString());
         Log.v(TAG, "Till: " + tillDate.toString());
 
-        //TODO: put in in separate module class
+        //TODO: put in in separate module class 
         // Requesting for meetings just from initializer and where he was invited in
         // in near future (today).
         // Query for user created meetings.

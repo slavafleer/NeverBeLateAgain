@@ -1,5 +1,6 @@
 package com.example.android.donotbelateapp.adapters;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -7,10 +8,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.android.donotbelateapp.R;
 import com.example.android.donotbelateapp.model.parseCom.ParseConstants;
+import com.example.android.donotbelateapp.ui.MeetingActivity;
 import com.example.android.donotbelateapp.utils.TimeToString;
 import com.parse.ParseObject;
 
@@ -76,7 +77,18 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.MeetingV
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(v.getContext(), "clicked " + getLayoutPosition(), Toast.LENGTH_LONG).show();
+                    // Open new activity that has all meeting data and options for editing it.
+                    // Editing would effect on cloud, so backing need to StartActivity
+                    // for refreshing the data and Lists.
+                    Intent intent = new Intent(v.getContext(), MeetingActivity.class);
+                    ParseObject meeting = mMeetings.get(getLayoutPosition());
+                    intent.putExtra(ParseConstants.KEY_SUBJECT,meeting.getString(ParseConstants.KEY_SUBJECT));
+                    intent.putExtra(ParseConstants.KEY_DETAILS,meeting.getString(ParseConstants.KEY_DETAILS));
+                    intent.putExtra(ParseConstants.KEY_LOCATION,meeting.getString(ParseConstants.KEY_LOCATION));
+                    intent.putExtra(ParseConstants.KEY_DATETIME,meeting.getString(ParseConstants.KEY_DATETIME));
+                    intent.putExtra(ParseConstants.KEY_INVITEES,meeting.getString(ParseConstants.KEY_INVITEES));
+
+                    v.getContext().startActivity(intent);
                 }
             });
 
