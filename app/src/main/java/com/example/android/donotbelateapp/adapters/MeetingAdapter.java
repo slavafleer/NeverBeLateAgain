@@ -50,7 +50,6 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.MeetingV
         return mMeetings.size();
     }
 
-    // TODO: need recheck that timeleft shown correct, pay attention to days.
     private String timeLeft(Date dateTime) {
 
         Calendar currentCalendar = Calendar.getInstance();

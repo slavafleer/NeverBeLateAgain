@@ -3,6 +3,7 @@ package com.example.android.donotbelateapp;
 import android.app.Application;
 
 import com.example.android.donotbelateapp.model.parseCom.Meeting;
+import com.example.android.donotbelateapp.model.parseCom.ParseConstants;
 import com.parse.Parse;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
@@ -59,7 +60,7 @@ public class GlobalApplication extends Application {
 
         ParseObject.registerSubclass(Meeting.class);
 
-        Parse.initialize(this, "3J5hJWC6D79bZKbs8liukXR7kfsrojEKrmkrpTEW",
-                "wbL5uF2kvCOzNYyZbeHZhUgbahpbw4z9R0d25Bgu");
+        Parse.initialize(this, ParseConstants.APPLICATION_ID,
+                ParseConstants.CLIENT_KEY);
     }
 }
