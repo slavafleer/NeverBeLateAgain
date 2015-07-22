@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.example.android.donotbelateapp.R;
 import com.example.android.donotbelateapp.model.parseCom.ParseConstants;
+import com.example.android.donotbelateapp.utils.TimeToString;
 import com.parse.ParseObject;
 
 import java.text.SimpleDateFormat;
@@ -51,44 +52,12 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.MeetingV
 
     // TODO: need recheck that timeleft shown correct, pay attention to days.
     private String timeLeft(Date dateTime) {
-        String answer = "";
+
         Calendar currentCalendar = Calendar.getInstance();
         Date currentDate = currentCalendar.getTime();
         long timeLeft = dateTime.getTime() - currentDate.getTime();
-        long secondsLeft = timeLeft / 1000;
-        int minutesLeft = (int) (secondsLeft / 60);
-        if (minutesLeft < 60) {
-            answer = minutesLeft + "m";
-        } else {
-            //TODO: create utilities class for date2string
-            int hoursLeft = minutesLeft / 60;
-            int minutes = minutesLeft % 60;
-            if (hoursLeft < 24) {
-                if (minutes == 0) {
-                    answer = hoursLeft + "h";
-                } else {
-                    answer = hoursLeft + "h " + minutes + "m";
-                }
-            } else {
-                int daysLeft = hoursLeft / 24;
-                int hours = hoursLeft % 24;
-                if (minutes == 0) {
-                    if (hours == 0) {
-                        answer = daysLeft + "d";
-                    } else {
-                        answer = daysLeft + "d " + hoursLeft % 24 + "h";
-                    }
-                } else {
-                    if (hours == 0) {
-                        answer = daysLeft + "d " + minutesLeft % 60 + "m";
-                    } else {
-                        answer = daysLeft + "d " + hoursLeft % 24 + "h " + minutesLeft % 60 + "m";
-                    }
-                }
-            }
-        }
 
-        return answer;
+        return TimeToString.getTime(timeLeft);
     }
 
     public class MeetingViewHolder extends RecyclerView.ViewHolder {
