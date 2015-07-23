@@ -14,13 +14,12 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.example.android.donotbelateapp.GlobalApplication;
 import com.example.android.donotbelateapp.OkCustomDialog;
 import com.example.android.donotbelateapp.R;
 import com.example.android.donotbelateapp.model.parseCom.Meeting;
 import com.example.android.donotbelateapp.model.parseCom.ParseConstants;
-import com.parse.FindCallback;
 import com.parse.ParseException;
-import com.parse.ParseQuery;
 import com.parse.ParseRelation;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
@@ -54,6 +53,7 @@ public class CreateMeetingActivity extends ActionBarActivity {
     private List<ParseUser> mFriends;
     private Meeting mMeeting;
     ParseRelation<ParseUser> mInviteesRelation;
+    private GlobalApplication Global;
 
 
     @Override
@@ -61,27 +61,12 @@ public class CreateMeetingActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_meeting);
         ButterKnife.inject(this);
+        Global = (GlobalApplication) getApplication();
 
-        mCurrentUser = ParseUser.getCurrentUser();
-        mFriendsRelation = mCurrentUser.getRelation(ParseConstants.KEY_FRIENDS_RELATION);
-
-        ParseQuery<ParseUser> query = mFriendsRelation.getQuery();
-        query.orderByAscending(ParseConstants.KEY_LASTNAME);
-        query.addAscendingOrder(ParseConstants.KEY_FIRSTNAME);
-        query.findInBackground(new FindCallback<ParseUser>() {
-            @Override
-            public void done(List<ParseUser> friends, ParseException e) {
-                if (e == null) {
-                    // Success
-                    mFriends = friends;
-                }
-            }
-        });
+        mFriends = Global.getFriends();
 
         mMeeting = new Meeting();
         mInviteesRelation = mMeeting.getRelation(ParseConstants.KEY_INVITEES);
-
-//        mDate.setBackgroundColor(Color.parseColor("#D6D7D7"));
     }
 
     @Override
