@@ -104,6 +104,7 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.MeetingV
 
         public void bindMeeting(ParseObject meeting, int position) {
             if(position % 2 == 0) {
+                // tint every second line in list
                 mRelativeLayout.setBackgroundColor(0x11000000 + Color.BLACK);
             }
             mItemSerialNumberLabel.setText(++position + ".");
@@ -117,6 +118,7 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.MeetingV
             mItemTimeLabel.setText(timeString);
             mItemLocationLabel.setText(meeting.getString(ParseConstants.KEY_LOCATION));
             mItemReminderLabel.setText(timeLeft(date));
+//            mItemUserStatus.setText(ParseHelper.getUserStatus(meeting));
         }
     }
 

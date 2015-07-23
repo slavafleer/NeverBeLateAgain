@@ -48,11 +48,10 @@ public class CreateMeetingActivity extends ActionBarActivity {
 
     private Calendar mDateTime = Calendar.getInstance();
     private ArrayList<String> mInviteesList = new ArrayList<>();
-    private ParseUser mCurrentUser;
-    private ParseRelation<ParseUser> mFriendsRelation;
     private List<ParseUser> mFriends;
     private Meeting mMeeting;
-    ParseRelation<ParseUser> mInviteesRelation;
+    private ParseRelation<ParseUser> mInviteesRelation;
+    private ParseRelation<ParseUser> mGoingRelation;
     private GlobalApplication Global;
 
 
@@ -67,6 +66,7 @@ public class CreateMeetingActivity extends ActionBarActivity {
 
         mMeeting = new Meeting();
         mInviteesRelation = mMeeting.getRelation(ParseConstants.KEY_INVITEES);
+        mGoingRelation = mMeeting.getRelation(ParseConstants.KEY_GOING);
     }
 
     @Override
@@ -125,6 +125,7 @@ public class CreateMeetingActivity extends ActionBarActivity {
             mMeeting.setDateTime(mDateTime.getTime());
             mMeeting.setLocation(location);
             mMeeting.setInitializer();
+            mGoingRelation.add(ParseUser.getCurrentUser());
             mMeeting.saveInBackground(new SaveCallback() {
                 @Override
                 public void done(ParseException e) {
@@ -261,7 +262,6 @@ public class CreateMeetingActivity extends ActionBarActivity {
             // Displaying invitees in Invitees Field
             String inviteesListToString = "";
             for(String invitee : mInviteesList) {
-//                inviteesListToString += " <" + invitee + "> ";
                 for(ParseUser friend : mFriends) {
                     if(friend.getObjectId().equals(invitee)) {
                         inviteesListToString +=

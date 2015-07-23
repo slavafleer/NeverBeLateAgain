@@ -14,7 +14,6 @@ import android.widget.ListView;
 import com.example.android.donotbelateapp.GlobalApplication;
 import com.example.android.donotbelateapp.R;
 import com.example.android.donotbelateapp.model.parseCom.ParseConstants;
-import com.parse.ParseQuery;
 import com.parse.ParseRelation;
 import com.parse.ParseUser;
 
@@ -61,13 +60,6 @@ public class ChooseInviteesActivity extends ActionBarActivity {
                 }
             }
         });
-
-        mCurrentUser = ParseUser.getCurrentUser();
-        mFriendsRelation = mCurrentUser.getRelation(ParseConstants.KEY_FRIENDS_RELATION);
-
-        ParseQuery<ParseUser> query = mFriendsRelation.getQuery();
-        query.orderByAscending(ParseConstants.KEY_LASTNAME);
-        query.addAscendingOrder(ParseConstants.KEY_FIRSTNAME);
 
         mFriends = Global.getFriends();
 
