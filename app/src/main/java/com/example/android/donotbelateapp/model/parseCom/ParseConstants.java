@@ -22,6 +22,7 @@ public final class ParseConstants {
     public static final String KEY_DATETIME = "dateTime";
     public static final String KEY_LOCATION = "location";
     public static final String KEY_INVITEES = "invitees";
+    public static final String KEY_USER_STATUS = "userStatus";
     public static final String KEY_GOING = "going";
     public static final String KEY_NOT_GOING = "notGoing";
     public static final String KEY_MAYBE = "maybe";

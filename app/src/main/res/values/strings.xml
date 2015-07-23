@@ -52,5 +52,9 @@
     <string name="fragment_todays_no_meetings">No meetings today.</string>
     <string name="fragment_future_no_meetings">No meetings.</string>
     <string name="title_activity_meeting">Meeting</string>
+    <string name="user_status_going">Going</string>
+    <string name="user_status_invited">Invited</string>
+    <string name="user_status_not_going">Not Going</string>
+    <string name="user_status_maybe">Maybe</string>
 
 </resources>

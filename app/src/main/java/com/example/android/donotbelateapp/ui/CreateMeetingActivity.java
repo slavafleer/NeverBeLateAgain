@@ -51,7 +51,6 @@ public class CreateMeetingActivity extends ActionBarActivity {
     private List<ParseUser> mFriends;
     private Meeting mMeeting;
     private ParseRelation<ParseUser> mInviteesRelation;
-    private ParseRelation<ParseUser> mGoingRelation;
     private GlobalApplication Global;
 
 
@@ -66,7 +65,6 @@ public class CreateMeetingActivity extends ActionBarActivity {
 
         mMeeting = new Meeting();
         mInviteesRelation = mMeeting.getRelation(ParseConstants.KEY_INVITEES);
-        mGoingRelation = mMeeting.getRelation(ParseConstants.KEY_GOING);
     }
 
     @Override
@@ -125,7 +123,7 @@ public class CreateMeetingActivity extends ActionBarActivity {
             mMeeting.setDateTime(mDateTime.getTime());
             mMeeting.setLocation(location);
             mMeeting.setInitializer();
-            mGoingRelation.add(ParseUser.getCurrentUser());
+            mMeeting.addGoing(ParseUser.getCurrentUser().getObjectId());
             mMeeting.saveInBackground(new SaveCallback() {
                 @Override
                 public void done(ParseException e) {

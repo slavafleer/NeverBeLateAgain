@@ -15,4 +15,30 @@
         android:layout_height="wrap_content"
         android:id="@+id/meetingSubject"/>
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Going"
+        android:id="@+id/meetingGoingButton"
+        android:layout_below="@+id/meetingSubject"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="57dp"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Not Going"
+        android:id="@+id/meetingNotGoingButton"
+        android:layout_below="@+id/meetingGoingButton"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="31dp"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Maybe"
+        android:id="@+id/meetingMaybeButton"
+        android:layout_centerVertical="true"
+        android:layout_alignParentStart="true"/>
+
 </RelativeLayout>

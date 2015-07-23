@@ -1,8 +1,8 @@
 package com.example.android.donotbelateapp.ui;
 
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
@@ -12,11 +12,14 @@ import com.example.android.donotbelateapp.model.parseCom.ParseConstants;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import butterknife.OnClick;
 
 public class MeetingActivity extends ActionBarActivity {
 
     @InjectView(R.id.meetingSubject)
     TextView mSubject;
+
+    private String mUserStatus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +34,7 @@ public class MeetingActivity extends ActionBarActivity {
 
         Intent intent = getIntent();
         mSubject.setText(intent.getStringExtra(ParseConstants.KEY_SUBJECT));
+        mUserStatus = intent.getStringExtra(ParseConstants.KEY_USER_STATUS);
     }
 
     @Override
@@ -53,5 +57,13 @@ public class MeetingActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @OnClick(R.id.meetingGoingButton)
+    public void onClickGoingButton() {
+        if(mUserStatus.equals(getString(R.string.user_status_invited))) {
+            // TODO: bring here meeting from cloud, change it and send back.
+            // IF so, no need to bring extras from previous activities. bring all in start from cloud
+        }
     }
 }

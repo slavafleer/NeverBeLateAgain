@@ -1,5 +1,6 @@
 package com.example.android.donotbelateapp.adapters;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 
 import com.example.android.donotbelateapp.R;
 import com.example.android.donotbelateapp.model.parseCom.ParseConstants;
+import com.example.android.donotbelateapp.model.parseCom.ParseHelper;
 import com.example.android.donotbelateapp.ui.MeetingActivity;
 import com.example.android.donotbelateapp.utils.TimeToString;
 import com.parse.ParseObject;
@@ -27,6 +29,7 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.MeetingV
     private static final String TAG = MeetingAdapter.class.getSimpleName();
 
     private List<ParseObject> mMeetings;
+    private Context mContext;
 
     public MeetingAdapter(List<ParseObject> meetings) {
         mMeetings = meetings;
@@ -37,6 +40,7 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.MeetingV
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(
                 R.layout.adapter_item_meeting, viewGroup, false);
         MeetingViewHolder viewHolder = new MeetingViewHolder(view);
+        mContext = viewGroup.getContext();
 
         return viewHolder;
     }
@@ -87,6 +91,8 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.MeetingV
                     intent.putExtra(ParseConstants.KEY_LOCATION,meeting.getString(ParseConstants.KEY_LOCATION));
                     intent.putExtra(ParseConstants.KEY_DATETIME,meeting.getString(ParseConstants.KEY_DATETIME));
                     intent.putExtra(ParseConstants.KEY_INVITEES,meeting.getString(ParseConstants.KEY_INVITEES));
+                    intent.putExtra(ParseConstants.KEY_USER_STATUS,
+                            ParseHelper.getUserStatus(v.getContext(),meeting));
 
                     v.getContext().startActivity(intent);
                 }
@@ -118,7 +124,7 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.MeetingV
             mItemTimeLabel.setText(timeString);
             mItemLocationLabel.setText(meeting.getString(ParseConstants.KEY_LOCATION));
             mItemReminderLabel.setText(timeLeft(date));
-//            mItemUserStatus.setText(ParseHelper.getUserStatus(meeting));
+            mItemUserStatus.setText(ParseHelper.getUserStatus(mContext, meeting));
         }
     }
 

@@ -5,6 +5,8 @@ import com.parse.ParseObject;
 import com.parse.ParseUser;
 
 import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * Created by Slava on 02/07/2015.
@@ -60,5 +62,53 @@ public class Meeting extends ParseObject {
 
     public String getInitializer() {
         return getString(ParseConstants.KEY_INITIALIZER);
+    }
+
+    // Add userId to Going List.
+    public void addGoing(String userId) {
+        add(ParseConstants.KEY_GOING, userId);
+    }
+
+    // Remove userId from Going List.
+    public void removeGoing(List<String> list, String userId) {
+        Iterator<String> iterator = list.iterator();
+        while (iterator.hasNext()) {
+            String item = iterator.next();
+            if (userId.equals(item)) {
+                iterator.remove();
+            }
+        }
+    }
+
+    // Add userId to Not Going List.
+    public void addNotGoing(String userId) {
+        add(ParseConstants.KEY_GOING, userId);
+    }
+
+    // Remove userId from Not Going List.
+    public void removeNotGoing(List<String> list, String userId) {
+        Iterator<String> iterator = list.iterator();
+        while (iterator.hasNext()) {
+            String item = iterator.next();
+            if (userId.equals(item)) {
+                iterator.remove();
+            }
+        }
+    }
+
+    // Add userId to Maybe List.
+    public void addMaybe(String userId) {
+        add(ParseConstants.KEY_GOING, userId);
+    }
+
+    // Remove userId from Not Going List.
+    public void removeMaybe(List<String> list, String userId) {
+        Iterator<String> iterator = list.iterator();
+        while (iterator.hasNext()) {
+            String item = iterator.next();
+            if (userId.equals(item)) {
+                iterator.remove();
+            }
+        }
     }
 }
