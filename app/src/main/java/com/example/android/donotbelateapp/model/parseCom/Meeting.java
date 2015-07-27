@@ -70,7 +70,7 @@ public class Meeting extends ParseObject {
     }
 
     // Remove userId from Going List.
-    public void removeGoing(List<String> list, String userId) {
+    public List<String> removeGoing(List<String> list, String userId) {
         Iterator<String> iterator = list.iterator();
         while (iterator.hasNext()) {
             String item = iterator.next();
@@ -78,6 +78,8 @@ public class Meeting extends ParseObject {
                 iterator.remove();
             }
         }
+
+        return list;
     }
 
     // Add userId to Not Going List.
@@ -104,7 +106,7 @@ public class Meeting extends ParseObject {
     }
 
     // Remove userId from Not Going List.
-    public void removeMaybe(List<String> list, String userId) {
+    public List<String> removeMaybe(List<String> list, String userId) {
         Iterator<String> iterator = list.iterator();
         while (iterator.hasNext()) {
             String item = iterator.next();
@@ -112,5 +114,7 @@ public class Meeting extends ParseObject {
                 iterator.remove();
             }
         }
+
+        return list;
     }
 }

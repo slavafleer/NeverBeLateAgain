@@ -104,14 +104,34 @@ public class MeetingActivity extends ActionBarActivity {
                                         mMeeting.<String>getList(ParseConstants.KEY_NOT_GOING),
                                         currentUserId
                                 );
+                                mMeeting.removeMaybe(
+                                        mMeeting.<String>getList(ParseConstants.KEY_MAYBE),
+                                        currentUserId
+                                );
                                 mStatus.setText(getString(R.string.user_status_going));
                                 break;
                             case 1:
                                 mMeeting.addNotGoing(currentUserId);
+                                mMeeting.removeGoing(
+                                        mMeeting.<String>getList(ParseConstants.KEY_GOING),
+                                        currentUserId
+                                );
+                                mMeeting.removeMaybe(
+                                        mMeeting.<String>getList(ParseConstants.KEY_MAYBE),
+                                        currentUserId
+                                );
                                 mStatus.setText(getString(R.string.user_status_not_going));
                                 break;
                             case 2:
                                 mMeeting.addMaybe(currentUserId);
+                                mMeeting.removeGoing(
+                                        mMeeting.<String>getList(ParseConstants.KEY_GOING),
+                                        currentUserId
+                                );
+                                mMeeting.removeNotGoing(
+                                        mMeeting.<String>getList(ParseConstants.KEY_NOT_GOING),
+                                        currentUserId
+                                );
                                 mStatus.setText(getString(R.string.user_status_maybe));
                                 break;
                         }
