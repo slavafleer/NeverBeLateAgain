@@ -13,7 +13,7 @@ import java.util.List;
  */
 public class ParseHelper {
 
-    // returning String of
+    // Returning String of User Status for arriving to the meeting.
     public static String getUserStatus(Context context, ParseObject meeting) {
         List<String> list = meeting.getList(ParseConstants.KEY_GOING);
         for(String status : list) {
