@@ -1,5 +1,7 @@
 package com.example.android.donotbelateapp.ui;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -8,7 +10,14 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.example.android.donotbelateapp.R;
+import com.example.android.donotbelateapp.model.parseCom.Meeting;
 import com.example.android.donotbelateapp.model.parseCom.ParseConstants;
+import com.example.android.donotbelateapp.model.parseCom.ParseHelper;
+import com.example.android.donotbelateapp.utils.UtilStrings;
+import com.parse.ParseException;
+import com.parse.ParseUser;
+
+import java.util.Date;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -16,25 +25,45 @@ import butterknife.OnClick;
 
 public class MeetingActivity extends ActionBarActivity {
 
-    @InjectView(R.id.meetingSubject)
-    TextView mSubject;
+    @InjectView(R.id.meetingSubject) TextView mSubject;
+    @InjectView(R.id.meeting_Details) TextView mDetails;
+    @InjectView(R.id.meetingDate) TextView mDate;
+    @InjectView(R.id.meetingTime) TextView mTime;
+    @InjectView(R.id.meetingRemain) TextView mRemain;
+    @InjectView(R.id.meetingLocation) TextView mLocation;
+    @InjectView(R.id.meetingGoing) TextView mGoing;
+    @InjectView(R.id.meetingUserStatus) TextView mStatus;
 
     private String mUserStatus;
+    private Meeting mMeeting;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_meeting);
         ButterKnife.inject(this);
+
+        Intent intent = getIntent();
+        String meetingId = intent.getStringExtra(ParseConstants.KEY_MEETING_ID);
+        mMeeting = ParseHelper.getMeeting(this, meetingId);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
 
-        Intent intent = getIntent();
-        mSubject.setText(intent.getStringExtra(ParseConstants.KEY_SUBJECT));
-        mUserStatus = intent.getStringExtra(ParseConstants.KEY_USER_STATUS);
+        if (mMeeting != null) {
+            mSubject.setText(mMeeting.getString(ParseConstants.KEY_SUBJECT));
+            mDetails.setText(mMeeting.getString(ParseConstants.KEY_DETAILS));
+            Date date = mMeeting.getDate(ParseConstants.KEY_DATETIME);
+            mDate.setText(UtilStrings.getDate(date));
+            mTime.setText(UtilStrings.getTime(date));
+            mRemain.setText(UtilStrings.timeLeft(date));
+            mLocation.setText(mMeeting.getString(ParseConstants.KEY_LOCATION));
+            //TODO: need to display Full Names of invitees/going in this field.
+//            mGoing.setText(mMeeting.getString(ParseConstants.KEY_GOING));
+            mStatus.setText(ParseHelper.getUserStatus(this, mMeeting));
+        }
     }
 
     @Override
@@ -59,11 +88,41 @@ public class MeetingActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    @OnClick(R.id.meetingGoingButton)
-    public void onClickGoingButton() {
-        if(mUserStatus.equals(getString(R.string.user_status_invited))) {
-            // TODO: bring here meeting from cloud, change it and send back.
-            // IF so, no need to bring extras from previous activities. bring all in start from cloud
-        }
+    // TODO: need to give option to change the status and send it to Parse.com
+    @OnClick(R.id.meetingUserStatus)
+    public void onClickUserStatus() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this)
+                .setTitle("Choose your arriving status")
+                .setItems(R.array.meeting_user_status, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        String currentUserId = ParseUser.getCurrentUser().getObjectId();
+                        switch (which) {
+                            case 0:
+                                mMeeting.addGoing(currentUserId);
+                                mMeeting.removeNotGoing(
+                                        mMeeting.<String>getList(ParseConstants.KEY_NOT_GOING),
+                                        currentUserId
+                                );
+                                mStatus.setText(getString(R.string.user_status_going));
+                                break;
+                            case 1:
+                                mMeeting.addNotGoing(currentUserId);
+                                mStatus.setText(getString(R.string.user_status_not_going));
+                                break;
+                            case 2:
+                                mMeeting.addMaybe(currentUserId);
+                                mStatus.setText(getString(R.string.user_status_maybe));
+                                break;
+                        }
+                        try {
+                            mMeeting.save();
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 }

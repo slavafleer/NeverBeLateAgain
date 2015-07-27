@@ -2,8 +2,11 @@ package com.example.android.donotbelateapp.model.parseCom;
 
 import android.content.Context;
 
+import com.example.android.donotbelateapp.OkCustomDialog;
 import com.example.android.donotbelateapp.R;
+import com.parse.ParseException;
 import com.parse.ParseObject;
+import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
 import java.util.List;
@@ -39,4 +42,21 @@ public class ParseHelper {
         return context.getString(R.string.user_status_invited);
     }
 
+    // Requesting meeting ParseObject from Parse.com by ObjectId.
+    public static Meeting getMeeting(Context context, String meetingId) {
+        ParseQuery<ParseObject> query = ParseQuery.getQuery(ParseConstants.CLASS_MEETINGS);
+        query.whereEqualTo(ParseConstants.KEY_OBJECT_ID, meetingId);
+        try {
+            return (Meeting)query.getFirst();
+        } catch (ParseException e) {
+            // Show the error.
+            OkCustomDialog dialog = new OkCustomDialog(
+                    context,
+                    context.getString(R.string.loading_data_error_title),
+                    e.getMessage()
+            );
+            dialog.show();
+            return null;
+        }
+    }
 }

@@ -66,7 +66,7 @@ public class Meeting extends ParseObject {
 
     // Add userId to Going List.
     public void addGoing(String userId) {
-        add(ParseConstants.KEY_GOING, userId);
+        addUnique(ParseConstants.KEY_GOING, userId);
     }
 
     // Remove userId from Going List.
@@ -82,11 +82,11 @@ public class Meeting extends ParseObject {
 
     // Add userId to Not Going List.
     public void addNotGoing(String userId) {
-        add(ParseConstants.KEY_GOING, userId);
+        addUnique(ParseConstants.KEY_GOING, userId);
     }
 
     // Remove userId from Not Going List.
-    public void removeNotGoing(List<String> list, String userId) {
+    public List<String> removeNotGoing(List<String> list, String userId) {
         Iterator<String> iterator = list.iterator();
         while (iterator.hasNext()) {
             String item = iterator.next();
@@ -94,11 +94,13 @@ public class Meeting extends ParseObject {
                 iterator.remove();
             }
         }
+
+        return list;
     }
 
     // Add userId to Maybe List.
     public void addMaybe(String userId) {
-        add(ParseConstants.KEY_GOING, userId);
+        addUnique(ParseConstants.KEY_GOING, userId);
     }
 
     // Remove userId from Not Going List.

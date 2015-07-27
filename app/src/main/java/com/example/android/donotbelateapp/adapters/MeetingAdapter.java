@@ -14,7 +14,7 @@ import com.example.android.donotbelateapp.R;
 import com.example.android.donotbelateapp.model.parseCom.ParseConstants;
 import com.example.android.donotbelateapp.model.parseCom.ParseHelper;
 import com.example.android.donotbelateapp.ui.MeetingActivity;
-import com.example.android.donotbelateapp.utils.TimeToString;
+import com.example.android.donotbelateapp.utils.UtilStrings;
 import com.parse.ParseObject;
 
 import java.text.SimpleDateFormat;
@@ -61,7 +61,7 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.MeetingV
         Date currentDate = currentCalendar.getTime();
         long timeLeft = dateTime.getTime() - currentDate.getTime();
 
-        return TimeToString.getTime(timeLeft);
+        return UtilStrings.getTime(timeLeft);
     }
 
     public class MeetingViewHolder extends RecyclerView.ViewHolder {
@@ -86,14 +86,7 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.MeetingV
                     // for refreshing the data and Lists.
                     Intent intent = new Intent(v.getContext(), MeetingActivity.class);
                     ParseObject meeting = mMeetings.get(getLayoutPosition());
-                    intent.putExtra(ParseConstants.KEY_SUBJECT,meeting.getString(ParseConstants.KEY_SUBJECT));
-                    intent.putExtra(ParseConstants.KEY_DETAILS,meeting.getString(ParseConstants.KEY_DETAILS));
-                    intent.putExtra(ParseConstants.KEY_LOCATION,meeting.getString(ParseConstants.KEY_LOCATION));
-                    intent.putExtra(ParseConstants.KEY_DATETIME,meeting.getString(ParseConstants.KEY_DATETIME));
-                    intent.putExtra(ParseConstants.KEY_INVITEES,meeting.getString(ParseConstants.KEY_INVITEES));
-                    intent.putExtra(ParseConstants.KEY_USER_STATUS,
-                            ParseHelper.getUserStatus(v.getContext(),meeting));
-
+                    intent.putExtra(ParseConstants.KEY_MEETING_ID, meeting.getObjectId());
                     v.getContext().startActivity(intent);
                 }
             });

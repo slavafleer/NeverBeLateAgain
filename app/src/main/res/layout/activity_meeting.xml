@@ -10,35 +10,177 @@
                 style="@style/niceBackground">
 
     <TextView
-        android:text="@string/hello_world"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/meetingSubject"/>
+        android:text="@string/meeting_subject_label"
+        android:id="@+id/meetingSubjectLabel"
+        android:layout_centerHorizontal="true"
+        style="@style/meetingLabels"/>
 
-    <Button
+    <TextView
+        android:text="@string/blank_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Going"
-        android:id="@+id/meetingGoingButton"
+        android:id="@+id/meetingSubject"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/meetingSubjectLabel"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/meeting_details_label"
+        android:id="@+id/meetingDetailsLabel"
+        android:layout_centerHorizontal="true"
         android:layout_below="@+id/meetingSubject"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="57dp"/>
+        style="@style/meetingLabels"/>
 
-    <Button
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Not Going"
-        android:id="@+id/meetingNotGoingButton"
-        android:layout_below="@+id/meetingGoingButton"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="31dp"/>
+        android:text="@string/blank_text_view"
+        android:id="@+id/meeting_Details"
+        android:layout_below="@+id/meetingDetailsLabel"
+        android:layout_centerHorizontal="true"/>
 
-    <Button
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/meeting_Details"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/meetingTimeLayout">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/meeting_date_label"
+                android:id="@+id/meetingDateLabel"
+                android:layout_weight="1"
+                android:gravity="center"
+                style="@style/meetingLabels"
+                android:minWidth="5dp"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/meeting_remain_label"
+                android:id="@+id/meetingRemainLabel"
+                android:layout_weight="1"
+                android:gravity="center"
+                style="@style/meetingLabels"
+                android:minWidth="5dp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+
+            <LinearLayout
+                android:id="@+id/linearLayout2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center"
+                android:layout_toRightOf="@+id/itemSubjectLabel"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/meetingDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="false"
+                    android:layout_gravity="center"
+                    android:layout_toEndOf="@+id/itemSerialNumberLabel"
+                    android:layout_toRightOf="@+id/itemSubjectLabel"
+                    android:layout_weight="1"
+                    android:text="@string/blank_text_view"
+                    android:textSize="11sp"/>
+
+                <TextView
+                    android:id="@+id/meetingTime"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/meetingDate"
+                    android:layout_alignRight="@+id/meetingDate"
+                    android:layout_below="@+id/itemSerialNumberLabel"
+                    android:layout_gravity="center"
+                    android:layout_toEndOf="@+id/itemSerialNumberLabel"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/blank_text_view"
+                    android:textSize="11sp"/>
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/blank_text_view"
+                android:id="@+id/meetingRemain"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:layout_marginLeft="2dp"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Maybe"
-        android:id="@+id/meetingMaybeButton"
-        android:layout_centerVertical="true"
-        android:layout_alignParentStart="true"/>
+        android:text="@string/meeting_location_label"
+        android:id="@+id/meetingLocationLabel"
+        android:layout_below="@+id/meetingTimeLayout"
+        android:layout_centerHorizontal="true"
+        style="@style/meetingLabels"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/blank_text_view"
+        android:id="@+id/meetingLocation"
+        android:layout_below="@+id/meetingLocationLabel"
+        android:layout_centerHorizontal="true"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/meeting_going_label"
+        android:id="@+id/meetingGoingLabel"
+        android:layout_below="@+id/meetingLocation"
+        android:layout_centerHorizontal="true"
+        style="@style/meetingLabels"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/blank_text_view"
+        android:id="@+id/meetingGoing"
+        android:layout_below="@+id/meetingGoingLabel"
+        android:layout_centerHorizontal="true"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/meeting_user_status_label"
+        android:id="@+id/meetingUserStatusLabel"
+        android:layout_below="@+id/meetingGoing"
+        android:layout_centerHorizontal="true"
+        style="@style/meetingLabels"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/blank_text_view"
+        android:id="@+id/meetingUserStatus"
+        android:layout_below="@+id/meetingUserStatusLabel"
+        android:layout_centerHorizontal="true"/>
 
 </RelativeLayout>

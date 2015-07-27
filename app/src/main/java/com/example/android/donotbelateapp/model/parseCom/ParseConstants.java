@@ -27,4 +27,6 @@ public final class ParseConstants {
     public static final String KEY_NOT_GOING = "notGoing";
     public static final String KEY_MAYBE = "maybe";
     public static final String KEY_INITIALIZER = "initializer";
+    public static final String KEY_MEETING_ID = "meetingId";
+    public static final String KEY_OBJECT_ID = "objectId";
 }

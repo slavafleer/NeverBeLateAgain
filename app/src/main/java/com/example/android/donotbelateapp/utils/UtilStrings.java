@@ -1,9 +1,13 @@
 package com.example.android.donotbelateapp.utils;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 /**
  * Created by Slava on 22/07/2015.
  */
-public class TimeToString {
+public class UtilStrings {
 
     public static String getTime(long timeLeft) {
         // Transforming long number (in milliseconds) to string of time in d h m,
@@ -45,4 +49,29 @@ public class TimeToString {
 
         return timeLeftString;
     }
+
+    // returns time till wanted dateTime.
+    public static String timeLeft(Date dateTime) {
+        Calendar currentCalendar = Calendar.getInstance();
+        Date currentDate = currentCalendar.getTime();
+        long timeLeft = dateTime.getTime() - currentDate.getTime();
+
+        return UtilStrings.getTime(timeLeft);
+    }
+
+    public static String getDate(Date date) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        String dateString = dateFormat.format(date);
+
+        return dateString;
+    }
+
+    public static String getTime(Date time) {
+        SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
+        String timeString = timeFormat.format(time);
+
+        return timeString;
+    }
+
+
 }

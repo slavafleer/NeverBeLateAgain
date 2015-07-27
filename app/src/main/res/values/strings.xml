@@ -56,5 +56,19 @@
     <string name="user_status_invited">Invited</string>
     <string name="user_status_not_going">Not Going</string>
     <string name="user_status_maybe">Maybe</string>
+    <string name="blank_text_view">...</string>
+    <string name="meeting_subject_label">Meeting Subject</string>
+    <string name="meeting_details_label">Details</string>
+    <string name="meeting_date_label">Begins at</string>
+    <string name="meeting_remain_label">Starts in</string>
+    <string name="meeting_location_label">Meeting Location</string>
+    <string name="meeting_going_label">Going</string>
+    <string name="meeting_user_status_label">Your intention</string>
+
+    <array name="meeting_user_status">
+        <item>Going</item>
+        <item>Not Going</item>
+        <item>Maybe</item>
+    </array>
 
 </resources>
