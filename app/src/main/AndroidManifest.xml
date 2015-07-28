@@ -62,7 +62,8 @@
         </activity>
         <activity
             android:name=".ui.MeetingActivity"
-            android:label="@string/title_activity_meeting" >
+            android:label="@string/title_activity_meeting"
+            android:parentActivityName=".ui.StartActivity" >
         </activity>
     </application>
 

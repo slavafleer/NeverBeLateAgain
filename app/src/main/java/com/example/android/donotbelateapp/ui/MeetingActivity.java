@@ -80,15 +80,19 @@ public class MeetingActivity extends ActionBarActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        switch (id) {
+            case R.id.action_settings:
+                return true;
+
+            case android.R.id.home: // Action Bar Back Button
+                onBackPressed();
+                return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
 
-    // TODO: need to give option to change the status and send it to Parse.com
+    // Brings dialog for changing User Status for the meeting.
     @OnClick(R.id.meetingUserStatus)
     public void onClickUserStatus() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this)
@@ -110,6 +114,7 @@ public class MeetingActivity extends ActionBarActivity {
                                 );
                                 mStatus.setText(getString(R.string.user_status_going));
                                 break;
+
                             case 1:
                                 mMeeting.addNotGoing(currentUserId);
                                 mMeeting.removeGoing(
@@ -122,6 +127,7 @@ public class MeetingActivity extends ActionBarActivity {
                                 );
                                 mStatus.setText(getString(R.string.user_status_not_going));
                                 break;
+
                             case 2:
                                 mMeeting.addMaybe(currentUserId);
                                 mMeeting.removeGoing(
@@ -145,4 +151,14 @@ public class MeetingActivity extends ActionBarActivity {
         AlertDialog dialog = builder.create();
         dialog.show();
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+
+        Intent intent = new Intent(this, StartActivity.class);
+        startActivity(intent);
+    }
 }
+
+

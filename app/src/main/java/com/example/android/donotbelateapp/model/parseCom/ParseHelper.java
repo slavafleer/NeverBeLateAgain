@@ -19,23 +19,29 @@ public class ParseHelper {
     // Returning String of User Status for arriving to the meeting.
     public static String getUserStatus(Context context, ParseObject meeting) {
         List<String> list = meeting.getList(ParseConstants.KEY_GOING);
-        for(String status : list) {
-            if(status.equals(ParseUser.getCurrentUser().getObjectId())) {
-                return context.getString(R.string.user_status_going);
+        if (list != null) {
+            for(String status : list) {
+                if(status.equals(ParseUser.getCurrentUser().getObjectId())) {
+                    return context.getString(R.string.user_status_going);
+                }
             }
         }
 
         list = meeting.getList(ParseConstants.KEY_NOT_GOING);
-        for(String status : list) {
-            if(status.equals(ParseUser.getCurrentUser().getObjectId())) {
-                return context.getString(R.string.user_status_not_going);
+        if (list != null) {
+            for(String status : list) {
+                if(status.equals(ParseUser.getCurrentUser().getObjectId())) {
+                    return context.getString(R.string.user_status_not_going);
+                }
             }
         }
 
         list = meeting.getList(ParseConstants.KEY_NOT_GOING);
-        for(String status : list) {
-            if(status.equals(ParseUser.getCurrentUser().getObjectId())) {
-                return context.getString(R.string.user_status_maybe);
+        if (list != null) {
+            for(String status : list) {
+                if(status.equals(ParseUser.getCurrentUser().getObjectId())) {
+                    return context.getString(R.string.user_status_maybe);
+                }
             }
         }
 
