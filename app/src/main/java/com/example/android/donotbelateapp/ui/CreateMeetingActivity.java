@@ -270,6 +270,7 @@ public class CreateMeetingActivity extends ActionBarActivity {
                                 " <" + friend.getString(ParseConstants.KEY_FIRSTNAME) + " " +
                                 friend.getString(ParseConstants.KEY_LASTNAME) + "> ";
 
+                        //TODO: change to horizontal and vertical layouts and play with weight
                         // For GridLayout.
                         String fullName = friend.getString(ParseConstants.KEY_FIRSTNAME) + " " +
                                 friend.getString(ParseConstants.KEY_LASTNAME);
