@@ -34,7 +34,6 @@ public class MeetingActivity extends ActionBarActivity {
     @InjectView(R.id.meetingGoing) TextView mGoing;
     @InjectView(R.id.meetingUserStatus) TextView mStatus;
 
-    private String mUserStatus;
     private Meeting mMeeting;
 
     @Override
