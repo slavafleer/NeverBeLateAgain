@@ -71,11 +71,13 @@ public class Meeting extends ParseObject {
 
     // Remove userId from Going List.
     public List<String> removeGoing(List<String> list, String userId) {
-        Iterator<String> iterator = list.iterator();
-        while (iterator.hasNext()) {
-            String item = iterator.next();
-            if (userId.equals(item)) {
-                iterator.remove();
+        if (list != null) {
+            Iterator<String> iterator = list.iterator();
+            while (iterator.hasNext()) {
+                String item = iterator.next();
+                if (userId.equals(item)) {
+                    iterator.remove();
+                }
             }
         }
 
@@ -84,16 +86,18 @@ public class Meeting extends ParseObject {
 
     // Add userId to Not Going List.
     public void addNotGoing(String userId) {
-        addUnique(ParseConstants.KEY_GOING, userId);
+        addUnique(ParseConstants.KEY_NOT_GOING, userId);
     }
 
     // Remove userId from Not Going List.
     public List<String> removeNotGoing(List<String> list, String userId) {
-        Iterator<String> iterator = list.iterator();
-        while (iterator.hasNext()) {
-            String item = iterator.next();
-            if (userId.equals(item)) {
-                iterator.remove();
+        if (list != null) {
+            Iterator<String> iterator = list.iterator();
+            while (iterator.hasNext()) {
+                String item = iterator.next();
+                if (userId.equals(item)) {
+                    iterator.remove();
+                }
             }
         }
 
@@ -102,16 +106,18 @@ public class Meeting extends ParseObject {
 
     // Add userId to Maybe List.
     public void addMaybe(String userId) {
-        addUnique(ParseConstants.KEY_GOING, userId);
+        addUnique(ParseConstants.KEY_MAYBE, userId);
     }
 
     // Remove userId from Not Going List.
     public List<String> removeMaybe(List<String> list, String userId) {
-        Iterator<String> iterator = list.iterator();
-        while (iterator.hasNext()) {
-            String item = iterator.next();
-            if (userId.equals(item)) {
-                iterator.remove();
+        if (list != null) {
+            Iterator<String> iterator = list.iterator();
+            while (iterator.hasNext()) {
+                String item = iterator.next();
+                if (userId.equals(item)) {
+                    iterator.remove();
+                }
             }
         }
 
