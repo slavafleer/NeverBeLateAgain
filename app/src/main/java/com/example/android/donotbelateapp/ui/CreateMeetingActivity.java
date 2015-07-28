@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.GridLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -19,6 +20,7 @@ import com.example.android.donotbelateapp.OkCustomDialog;
 import com.example.android.donotbelateapp.R;
 import com.example.android.donotbelateapp.model.parseCom.Meeting;
 import com.example.android.donotbelateapp.model.parseCom.ParseConstants;
+import com.example.android.donotbelateapp.utils.UtilsUi;
 import com.parse.ParseException;
 import com.parse.ParseRelation;
 import com.parse.ParseUser;
@@ -45,6 +47,7 @@ public class CreateMeetingActivity extends ActionBarActivity {
     @InjectView(R.id.createMeetingTime) TextView mTime;
     @InjectView(R.id.createMeetingLocation) EditText mLocation;
     @InjectView(R.id.createMeetingInvitees) TextView mInvitees;
+    @InjectView(R.id.createMeetingInviteesLinearLayout) GridLayout mInviteesLinearLayout;
 
     private Calendar mDateTime = Calendar.getInstance();
     private ArrayList<String> mInviteesList = new ArrayList<>();
@@ -262,9 +265,16 @@ public class CreateMeetingActivity extends ActionBarActivity {
             for(String invitee : mInviteesList) {
                 for(ParseUser friend : mFriends) {
                     if(friend.getObjectId().equals(invitee)) {
+                        // For TextView.
                         inviteesListToString +=
-                                " < " + friend.getString(ParseConstants.KEY_FIRSTNAME) + " " +
-                                friend.getString(ParseConstants.KEY_LASTNAME) + " > ";
+                                " <" + friend.getString(ParseConstants.KEY_FIRSTNAME) + " " +
+                                friend.getString(ParseConstants.KEY_LASTNAME) + "> ";
+
+                        // For GridLayout.
+                        String fullName = friend.getString(ParseConstants.KEY_FIRSTNAME) + " " +
+                                friend.getString(ParseConstants.KEY_LASTNAME);
+                        mInviteesLinearLayout.addView(UtilsUi.createTextButton(this, fullName));
+
                         mInviteesRelation.add(friend);
                     }
                 }
