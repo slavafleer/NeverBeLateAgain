@@ -10,7 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.GridLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -47,7 +47,9 @@ public class CreateMeetingActivity extends ActionBarActivity {
     @InjectView(R.id.createMeetingTime) TextView mTime;
     @InjectView(R.id.createMeetingLocation) EditText mLocation;
     @InjectView(R.id.createMeetingInvitees) TextView mInvitees;
-    @InjectView(R.id.createMeetingInviteesLinearLayout) GridLayout mInviteesLinearLayout;
+    @InjectView(R.id.createMeetingInviteesLeft) LinearLayout mLeftInvitees;
+    @InjectView(R.id.createMeetingInviteesMiddle) LinearLayout mMiddleInvitees;
+    @InjectView(R.id.createMeetingsInviteesRight) LinearLayout mRightInvitees;
 
     private Calendar mDateTime = Calendar.getInstance();
     private ArrayList<String> mInviteesList = new ArrayList<>();
@@ -262,6 +264,10 @@ public class CreateMeetingActivity extends ActionBarActivity {
 
             // Displaying invitees in Invitees Field
             String inviteesListToString = "";
+            int i = 0;
+            mLeftInvitees.removeAllViews();
+            mMiddleInvitees.removeAllViews();
+            mRightInvitees.removeAllViews();
             for(String invitee : mInviteesList) {
                 for(ParseUser friend : mFriends) {
                     if(friend.getObjectId().equals(invitee)) {
@@ -271,12 +277,19 @@ public class CreateMeetingActivity extends ActionBarActivity {
                                 friend.getString(ParseConstants.KEY_LASTNAME) + "> ";
 
                         //TODO: change to horizontal and vertical layouts and play with weight
-                        // For GridLayout.
+                        // For GroupLayout.
                         String fullName = friend.getString(ParseConstants.KEY_FIRSTNAME) + " " +
                                 friend.getString(ParseConstants.KEY_LASTNAME);
-                        mInviteesLinearLayout.addView(UtilsUi.createTextButton(this, fullName));
+                        if(i % 3 == 0) {
+                            mLeftInvitees.addView(UtilsUi.createTextButton(this, fullName));
+                        } else if(i % 3 == 1) {
+                            mMiddleInvitees.addView(UtilsUi.createTextButton(this, fullName));
+                        } else {
+                            mRightInvitees.addView(UtilsUi.createTextButton(this, fullName));
+                        }
 
                         mInviteesRelation.add(friend);
+                        i++;
                     }
                 }
             }

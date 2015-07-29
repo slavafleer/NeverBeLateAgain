@@ -4,6 +4,9 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.util.DisplayMetrics;
+import android.view.Gravity;
+import android.view.ViewGroup;
+import android.widget.TableRow;
 import android.widget.TextView;
 
 /**
@@ -14,14 +17,15 @@ public class UtilsUi {
     public static TextView createTextButton(Context context,String label) {
         TextView button = new TextView(context);
         button.setText(label);
+        button.setGravity(Gravity.CENTER);
         button.setBackgroundColor(0x11000000 + Color.BLACK);
         button.setPadding(dpToPixel(3), dpToPixel(2), dpToPixel(3), dpToPixel(2));
 
-//        TableRow.LayoutParams params = new TableRow.LayoutParams(
-//                ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT
-//        );
-//        params.setMargins(dpToPixel(3), dpToPixel(2), dpToPixel(3), dpToPixel(2));
-//        button.setLayoutParams(params);
+        TableRow.LayoutParams params = new TableRow.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT
+        );
+        params.setMargins(dpToPixel(3), dpToPixel(2), dpToPixel(3), dpToPixel(2));
+        button.setLayoutParams(params);
 
         return button;
     }

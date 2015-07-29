@@ -109,14 +109,39 @@
         android:layout_alignBottom="@+id/createMeetingMaps"
         android:layout_toStartOf="@+id/createMeetingMaps"/>
 
-    <GridLayout
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_centerHorizontal="true"
         android:layout_below="@+id/createMeetingCreateButton"
-        android:id="@+id/createMeetingInviteesLinearLayout"
-        android:orientation="horizontal"
-        android:columnCount="3">
-    </GridLayout>
+        android:id="@+id/createMeetingInviteesGroupLayout">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:id="@+id/createMeetingInviteesLeft">
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/createMeetingCreateButton"
+            android:layout_centerHorizontal="true"
+            android:layout_weight="1"
+            android:id="@+id/createMeetingInviteesMiddle">
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:id="@+id/createMeetingsInviteesRight">
+        </LinearLayout>
+    </LinearLayout>
 
 </RelativeLayout>
