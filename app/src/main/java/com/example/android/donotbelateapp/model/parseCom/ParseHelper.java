@@ -36,7 +36,7 @@ public class ParseHelper {
             }
         }
 
-        list = meeting.getList(ParseConstants.KEY_NOT_GOING);
+        list = meeting.getList(ParseConstants.KEY_MAYBE);
         if (list != null) {
             for(String status : list) {
                 if(status.equals(ParseUser.getCurrentUser().getObjectId())) {
