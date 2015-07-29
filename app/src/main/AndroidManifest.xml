@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.android.donotbelateapp" >
+    package="com.alpha.android.donotbelateapp" >
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
-        android:name=".GlobalApplication"
+        android:name="com.alpha.android.donotbelateapp.GlobalApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".ui.StartActivity"
+            android:name="com.alpha.android.donotbelateapp.ui.StartActivity"
             android:label="@string/title_activity_start" >
             <intent-filter android:label="@string/app_name" >
                 <action android:name="android.intent.action.MAIN" />
@@ -21,49 +21,49 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.MainActivity"
+            android:name="com.alpha.android.donotbelateapp.ui.MainActivity"
             android:label="@string/app_name" >
         </activity>
         <activity
-            android:name=".ui.ParseLoginActivity"
+            android:name="com.alpha.android.donotbelateapp.ui.ParseLoginActivity"
             android:label="@string/title_activity_parse_login" >
         </activity>
         <activity
-            android:name=".ui.ParseSignUpActivity"
+            android:name="com.alpha.android.donotbelateapp.ui.ParseSignUpActivity"
             android:label="@string/title_activity_parse_sign_up"
-            android:parentActivityName=".ui.ParseLoginActivity" >
+            android:parentActivityName="com.alpha.android.donotbelateapp.ui.ParseLoginActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.android.donotbelateapp.ui.ParseLoginActivity" />
+                android:value="com.alpha.android.donotbelateapp.ui.ParseLoginActivity" />
         </activity>
         <activity
-            android:name=".ui.EditFriendsActivity"
+            android:name="com.alpha.android.donotbelateapp.ui.EditFriendsActivity"
             android:label="@string/title_activity_edit_friends"
-            android:parentActivityName=".ui.MainActivity" >
+            android:parentActivityName="com.alpha.android.donotbelateapp.ui.MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.android.donotbelateapp.ui.MainActivity" />
+                android:value="com.alpha.android.donotbelateapp.ui.MainActivity" />
         </activity>
         <activity
-            android:name=".ui.CreateMeetingActivity"
+            android:name="com.alpha.android.donotbelateapp.ui.CreateMeetingActivity"
             android:label="@string/title_activity_create_meeting"
-            android:parentActivityName=".ui.MainActivity" >
+            android:parentActivityName="com.alpha.android.donotbelateapp.ui.MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.android.donotbelateapp.ui.MainActivity" />
+                android:value="com.alpha.android.donotbelateapp.ui.MainActivity" />
         </activity>
         <activity
-            android:name=".ui.ChooseInviteesActivity"
+            android:name="com.alpha.android.donotbelateapp.ui.ChooseInviteesActivity"
             android:label="@string/title_activity_choose_invitees"
-            android:parentActivityName=".ui.CreateMeetingActivity" >
+            android:parentActivityName="com.alpha.android.donotbelateapp.ui.CreateMeetingActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.android.donotbelateapp.ui.CreateMeetingActivity" />
+                android:value="com.alpha.android.donotbelateapp.ui.CreateMeetingActivity" />
         </activity>
         <activity
-            android:name=".ui.MeetingActivity"
+            android:name="com.alpha.android.donotbelateapp.ui.MeetingActivity"
             android:label="@string/title_activity_meeting"
-            android:parentActivityName=".ui.StartActivity" >
+            android:parentActivityName="com.alpha.android.donotbelateapp.ui.StartActivity" >
         </activity>
     </application>
 
