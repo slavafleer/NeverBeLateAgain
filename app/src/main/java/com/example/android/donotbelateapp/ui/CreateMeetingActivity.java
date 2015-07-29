@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -46,10 +47,10 @@ public class CreateMeetingActivity extends ActionBarActivity {
     @InjectView(R.id.createMeetingDate) TextView mDate;
     @InjectView(R.id.createMeetingTime) TextView mTime;
     @InjectView(R.id.createMeetingLocation) EditText mLocation;
-    @InjectView(R.id.createMeetingInvitees) TextView mInvitees;
     @InjectView(R.id.createMeetingInviteesLeft) LinearLayout mLeftInvitees;
     @InjectView(R.id.createMeetingInviteesMiddle) LinearLayout mMiddleInvitees;
     @InjectView(R.id.createMeetingsInviteesRight) LinearLayout mRightInvitees;
+    @InjectView(R.id.createMeetingEditIviteesButton) Button mEditInvitees;
 
     private Calendar mDateTime = Calendar.getInstance();
     private ArrayList<String> mInviteesList = new ArrayList<>();
@@ -236,7 +237,7 @@ public class CreateMeetingActivity extends ActionBarActivity {
         timePicker.show();
     }
 
-    @OnClick(R.id.createMeetingInvitees)
+    @OnClick(R.id.createMeetingEditIviteesButton)
     void onClickInviteesButton() {
         Intent inviteesIntent = new Intent(CreateMeetingActivity.this, ChooseInviteesActivity.class);
 
@@ -263,24 +264,18 @@ public class CreateMeetingActivity extends ActionBarActivity {
             }
 
             // Displaying invitees in Invitees Field
-            String inviteesListToString = "";
             int i = 0;
             mLeftInvitees.removeAllViews();
             mMiddleInvitees.removeAllViews();
             mRightInvitees.removeAllViews();
+            mEditInvitees.setText("Choose Invitees");
             for(String invitee : mInviteesList) {
                 for(ParseUser friend : mFriends) {
                     if(friend.getObjectId().equals(invitee)) {
-                        // For TextView.
-                        inviteesListToString +=
-                                " <" + friend.getString(ParseConstants.KEY_FIRSTNAME) + " " +
-                                friend.getString(ParseConstants.KEY_LASTNAME) + "> ";
-
-                        //TODO: change to horizontal and vertical layouts and play with weight
-                        // For GroupLayout.
                         String fullName = friend.getString(ParseConstants.KEY_FIRSTNAME) + " " +
                                 friend.getString(ParseConstants.KEY_LASTNAME);
                         if(i % 3 == 0) {
+                            mEditInvitees.setText("Edit Invitees");
                             mLeftInvitees.addView(UtilsUi.createTextButton(this, fullName));
                         } else if(i % 3 == 1) {
                             mMiddleInvitees.addView(UtilsUi.createTextButton(this, fullName));
@@ -293,7 +288,6 @@ public class CreateMeetingActivity extends ActionBarActivity {
                     }
                 }
             }
-            mInvitees.setText(inviteesListToString);
         }
     }
 }

@@ -76,31 +76,6 @@
         android:layout_toStartOf="@+id/createMeetingsPictures"
         android:layout_toLeftOf="@+id/createMeetingsPictures"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/createMeetingInvitees"
-        android:layout_below="@+id/createMeetingLocation"
-        android:layout_alignParentStart="true"
-        android:layout_alignEnd="@+id/createMeetingMaps"
-        android:textSize="18sp"
-        android:minLines="2"
-        android:hint="Invitees"
-        android:singleLine="false"
-        android:nestedScrollingEnabled="false"
-        android:elegantTextHeight="false"
-        android:autoText="false"
-        />
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Create Meeting"
-        android:id="@+id/createMeetingCreateButton"
-        android:layout_weight="1"
-        android:layout_below="@+id/createMeetingInvitees"
-        />
-
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -112,8 +87,32 @@
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/createMeetingCreateButton"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/createMeetingInviteesGroupLayout">
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Choose Invitees"
+            android:id="@+id/createMeetingEditIviteesButton"
+            android:layout_weight="1"
+            android:layout_below="@+id/createMeetingInviteesGroupLayout"/>
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Create Meeting"
+            android:id="@+id/createMeetingCreateButton"
+            android:layout_weight="1"
+            android:layout_below="@+id/createMeetingInviteesGroupLayout"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/createMeetingLocation"
         android:id="@+id/createMeetingInviteesGroupLayout">
 
         <LinearLayout
@@ -142,6 +141,7 @@
             android:layout_weight="1"
             android:id="@+id/createMeetingsInviteesRight">
         </LinearLayout>
+
     </LinearLayout>
 
 </RelativeLayout>
