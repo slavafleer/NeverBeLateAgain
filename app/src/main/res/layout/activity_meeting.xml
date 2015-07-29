@@ -152,28 +152,51 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/meeting_going_label"
-        android:id="@+id/meetingGoingLabel"
+        android:text="@string/meeting_invitees_label"
+        android:id="@+id/meetingInviteesLabel"
         android:layout_below="@+id/meetingLocation"
         android:layout_centerHorizontal="true"
         style="@style/meetingLabels"/>
 
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/blank_text_view"
-        android:id="@+id/meetingGoing"
-        android:layout_below="@+id/meetingGoingLabel"
-        android:layout_centerHorizontal="true"/>
+        android:layout_below="@+id/meetingInviteesLabel"
+        android:id="@+id/meetingInviteesGroupLayout">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:id="@+id/meetingInviteesLeft"/>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/createMeetingCreateButton"
+            android:layout_centerHorizontal="true"
+            android:layout_weight="1"
+            android:id="@+id/meetingInviteesMiddle"/>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:id="@+id/meetingInviteesRight"/>
+    </LinearLayout>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/meeting_user_status_label"
         android:id="@+id/meetingUserStatusLabel"
-        android:layout_below="@+id/meetingGoing"
         android:layout_centerHorizontal="true"
-        style="@style/meetingLabels"/>
+        style="@style/meetingLabels"
+        android:layout_below="@+id/meetingInviteesGroupLayout"/>
 
     <TextView
         android:layout_width="wrap_content"

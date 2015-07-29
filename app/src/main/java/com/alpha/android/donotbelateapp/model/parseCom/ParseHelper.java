@@ -65,4 +65,6 @@ public class ParseHelper {
             return null;
         }
     }
+
+    //TODO: create getInvitees()
 }

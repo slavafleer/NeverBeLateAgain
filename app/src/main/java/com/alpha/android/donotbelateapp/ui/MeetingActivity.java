@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.alpha.android.donotbelateapp.R;
@@ -14,6 +15,7 @@ import com.alpha.android.donotbelateapp.model.parseCom.Meeting;
 import com.alpha.android.donotbelateapp.model.parseCom.ParseConstants;
 import com.alpha.android.donotbelateapp.model.parseCom.ParseHelper;
 import com.alpha.android.donotbelateapp.utils.UtilStrings;
+import com.alpha.android.donotbelateapp.utils.UtilsUi;
 import com.parse.ParseException;
 import com.parse.ParseUser;
 
@@ -31,7 +33,9 @@ public class MeetingActivity extends ActionBarActivity {
     @InjectView(R.id.meetingTime) TextView mTime;
     @InjectView(R.id.meetingRemain) TextView mRemain;
     @InjectView(R.id.meetingLocation) TextView mLocation;
-    @InjectView(R.id.meetingGoing) TextView mGoing;
+    @InjectView(R.id.meetingInviteesLeft) LinearLayout mLeftInvitees;
+    @InjectView(R.id.meetingInviteesMiddle) LinearLayout mMiddleInvitees;
+    @InjectView(R.id.meetingInviteesRight) LinearLayout mRightInvitees;
     @InjectView(R.id.meetingUserStatus) TextView mStatus;
 
     private Meeting mMeeting;
@@ -62,6 +66,36 @@ public class MeetingActivity extends ActionBarActivity {
             //TODO: need to display Full Names of invitees/going in this field.
 //            mGoing.setText(mMeeting.getString(ParseConstants.KEY_GOING));
             mStatus.setText(ParseHelper.getUserStatus(this, mMeeting));
+        }
+    }
+
+    private void updateInvitees() {
+
+        //TODO: use getInvitees() from ParseHelper for bringing invitees list
+
+        // Displaying invitees in Invitees Field
+        int i = 0;
+        mLeftInvitees.removeAllViews();
+        mMiddleInvitees.removeAllViews();
+        mRightInvitees.removeAllViews();
+        for(String invitee : mInviteesList) {
+            for(ParseUser friend : mFriends) {
+                if(friend.getObjectId().equals(invitee)) {
+                    String fullName = friend.getString(ParseConstants.KEY_FIRSTNAME) + " " +
+                            friend.getString(ParseConstants.KEY_LASTNAME);
+                    if(i % 3 == 0) {
+                        mEditInvitees.setText("Edit Invitees");
+                        mLeftInvitees.addView(UtilsUi.createTextButton(this, fullName));
+                    } else if(i % 3 == 1) {
+                        mMiddleInvitees.addView(UtilsUi.createTextButton(this, fullName));
+                    } else {
+                        mRightInvitees.addView(UtilsUi.createTextButton(this, fullName));
+                    }
+
+                    mInviteesRelation.add(friend);
+                    i++;
+                }
+            }
         }
     }
 
