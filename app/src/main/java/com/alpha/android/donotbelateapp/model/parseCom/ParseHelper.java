@@ -67,4 +67,5 @@ public class ParseHelper {
     }
 
     //TODO: create getInvitees()
+    public static
 }
