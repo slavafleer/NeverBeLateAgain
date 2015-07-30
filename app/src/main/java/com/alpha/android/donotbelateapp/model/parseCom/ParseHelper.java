@@ -7,6 +7,7 @@ import com.alpha.android.donotbelateapp.R;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
+import com.parse.ParseRelation;
 import com.parse.ParseUser;
 
 import java.util.List;
@@ -66,6 +67,17 @@ public class ParseHelper {
         }
     }
 
-    //TODO: create getInvitees()
-    public static
+    // Asking fir invitees from Parse.com for wanted meeting.
+    public static List<ParseUser> getInvitees(Meeting meeting) {
+        ParseRelation relation = meeting.getRelation(ParseConstants.KEY_INVITEES);
+        ParseQuery query = relation.getQuery();
+
+        try {
+            return query.find();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
 }
