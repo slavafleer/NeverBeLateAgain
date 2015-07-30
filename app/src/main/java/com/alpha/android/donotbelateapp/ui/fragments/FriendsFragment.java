@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.TextView;
 
 import com.alpha.android.donotbelateapp.GlobalApplication;
 import com.alpha.android.donotbelateapp.R;
@@ -15,6 +16,7 @@ import com.parse.ParseUser;
 import java.util.List;
 
 import butterknife.ButterKnife;
+import butterknife.InjectView;
 
 /**
  * Created by Slava on 09/06/2015.
@@ -22,6 +24,7 @@ import butterknife.ButterKnife;
 public class FriendsFragment extends ListFragment {
 
     private GlobalApplication Global;
+    @InjectView(R.id.fragmentFriendsEmpty) TextView mEmpty;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -40,6 +43,11 @@ public class FriendsFragment extends ListFragment {
 
         List<ParseUser> friends = Global.getFriends();
         int usersAmount = friends.size();
+        if(usersAmount == 0) {
+            mEmpty.setVisibility(View.VISIBLE);
+        } else {
+            mEmpty.setVisibility(View.INVISIBLE);
+        }
         String[] fullNames = new String[usersAmount];
         int i = 0;
         for (ParseUser user : friends) {
