@@ -29,4 +29,8 @@
         <item name="android:layout_marginTop">5dp</item>
     </style>
 
+    <style name="unviteesStatusLegend">
+        <item name="android:textSize">10sp</item>
+    </style>
+
 </resources>

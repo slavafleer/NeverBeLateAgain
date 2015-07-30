@@ -163,6 +163,75 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/meetingInviteesLabel"
+        android:id="@+id/meetingLegend"
+        android:layout_marginBottom="5dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/user_status_going"
+            android:id="@+id/meetingLegendGoing"
+            android:gravity="center"
+            android:paddingLeft="3dp"
+            android:paddingTop="2dp"
+            android:paddingRight="3dp"
+            android:paddingBottom="2dp"
+            android:layout_margin="2dp"
+            android:layout_weight="1"
+            android:background="#3300ff00"
+            style="@style/unviteesStatusLegend"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/user_status_maybe"
+            android:id="@+id/meetingLegendMaybe"
+            android:gravity="center"
+            android:paddingLeft="3dp"
+            android:paddingTop="2dp"
+            android:paddingRight="3dp"
+            android:paddingBottom="2dp"
+            android:layout_margin="2dp"
+            android:layout_weight="1"
+            android:background="#33ffff00"
+            style="@style/unviteesStatusLegend"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/user_status_not_going"
+            android:id="@+id/meetingLegendNotGoing"
+            android:gravity="center"
+            android:paddingLeft="3dp"
+            android:paddingTop="2dp"
+            android:paddingRight="3dp"
+            android:paddingBottom="2dp"
+            android:layout_margin="2dp"
+            android:layout_weight="1"
+            android:background="#33ff0000"
+            style="@style/unviteesStatusLegend"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/user_status_invited"
+            android:id="@+id/meetingLegendInvited"
+            android:gravity="center"
+            android:paddingLeft="3dp"
+            android:paddingTop="2dp"
+            android:paddingRight="3dp"
+            android:paddingBottom="2dp"
+            android:layout_margin="2dp"
+            android:layout_weight="1"
+            android:background="#11000000"
+            style="@style/unviteesStatusLegend"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/meetingLegend"
         android:id="@+id/meetingInviteesGroupLayout"
         android:baselineAligned="false">
 
@@ -203,9 +272,9 @@
         android:text="@string/blank_text_view"
         android:id="@+id/meetingUserStatus"
         android:layout_below="@+id/meetingUserStatusLabel"
-        android:paddingLeft="20dp"
+        android:paddingLeft="3dp"
         android:paddingTop="2dp"
-        android:paddingRight="20dp"
+        android:paddingRight="3dp"
         android:paddingBottom="2dp"
         android:layout_marginLeft="2dp"
         android:layout_marginRight="2dp"
