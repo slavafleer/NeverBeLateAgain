@@ -11,6 +11,7 @@ import android.widget.ProgressBar;
 
 import com.alpha.android.donotbelateapp.OkCustomDialog;
 import com.alpha.android.donotbelateapp.R;
+import com.alpha.android.donotbelateapp.ResetPasswordActivity;
 import com.parse.LogInCallback;
 import com.parse.ParseException;
 import com.parse.ParseUser;
@@ -76,6 +77,12 @@ public class ParseLoginActivity extends ActionBarActivity {
                 }
             });
         }
+    }
+
+    @OnClick(R.id.loginForgotPassword)
+    public void onClickForgotPassword() {
+        Intent intent = new Intent(this, ResetPasswordActivity.class);
+        startActivity(intent);
     }
 
     @Override
