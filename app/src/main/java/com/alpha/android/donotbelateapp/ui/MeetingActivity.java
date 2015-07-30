@@ -66,9 +66,20 @@ public class MeetingActivity extends ActionBarActivity {
             mRemain.setText(UtilStrings.timeLeft(date));
             mLocation.setText(mMeeting.getString(ParseConstants.KEY_LOCATION));
             updateInvitees(mMeeting);
-            mStatus.setText(ParseHelper.getStatus(this, mMeeting, ParseUser.getCurrentUser()));
-            // Set color of mStatus depend on status.
+            updateStatusColor();
         }
+    }
+
+    private void updateStatusColor() {
+        ParseUser currentUser = ParseUser.getCurrentUser();
+        String status = ParseHelper.getStatus(this, mMeeting, currentUser);
+        mStatus.setText(status);
+        int color = getButtonColor(mMeeting, currentUser);
+        int colorIntencity = 0x11000000;
+        if(color != Color.BLACK) {
+            colorIntencity = 0x33000000;
+        }
+        mStatus.setBackgroundColor(colorIntencity + color);
     }
 
     private void updateInvitees(Meeting meeting) {
@@ -83,7 +94,7 @@ public class MeetingActivity extends ActionBarActivity {
         for(ParseUser invitee : invitees) {
             String fullName = invitee.getString(ParseConstants.KEY_FIRSTNAME) + " " +
                     invitee.getString(ParseConstants.KEY_LASTNAME);
-            int color = setButtonColor(meeting, invitee);
+            int color = getButtonColor(meeting, invitee);
             if(i % 3 == 0) {
                 mLeftInvitees.addView(UtilsUi.createTextButton(this, fullName, color));
             } else if(i % 3 == 1) {
@@ -92,22 +103,17 @@ public class MeetingActivity extends ActionBarActivity {
                 mRightInvitees.addView(UtilsUi.createTextButton(this, fullName, color));
             }
             i++;
-            setButtonColor(meeting, invitee);
-
-
         }
     }
 
-    private int setButtonColor(Meeting meeting, ParseUser invitee) {
+    private int getButtonColor(Meeting meeting, ParseUser invitee) {
         // Coloring invitees buttons depend there status.
-        if(ParseHelper.getStatus(this, meeting, invitee)
-                .equals(getString(R.string.user_status_going))) {
+        String status = ParseHelper.getStatus(this, meeting, invitee);
+        if(status.equals(getString(R.string.user_status_going))) {
             return Color.GREEN;
-        } else if(ParseHelper.getStatus(this, meeting, invitee)
-                .equals(getString(R.string.user_status_not_going))) {
+        } else if(status.equals(getString(R.string.user_status_not_going))) {
             return Color.RED;
-        } else if(ParseHelper.getStatus(this, meeting, invitee)
-                .equals(getString(R.string.user_status_maybe))) {
+        } else if(status.equals(getString(R.string.user_status_maybe))) {
             return Color.YELLOW;
         } else {
             return Color.BLACK;
@@ -166,6 +172,7 @@ public class MeetingActivity extends ActionBarActivity {
                                         currentUserId
                                 );
                                 mStatus.setText(getString(R.string.user_status_going));
+                                updateStatusColor();
                                 break;
 
                             case 1:
@@ -179,6 +186,7 @@ public class MeetingActivity extends ActionBarActivity {
                                         currentUserId
                                 );
                                 mStatus.setText(getString(R.string.user_status_not_going));
+                                updateStatusColor();
                                 break;
 
                             case 2:
@@ -192,6 +200,7 @@ public class MeetingActivity extends ActionBarActivity {
                                         currentUserId
                                 );
                                 mStatus.setText(getString(R.string.user_status_maybe));
+                                updateStatusColor();
                                 break;
                         }
                         try {
