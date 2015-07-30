@@ -16,6 +16,7 @@ import com.alpha.android.donotbelateapp.model.parseCom.ParseHelper;
 import com.alpha.android.donotbelateapp.ui.MeetingActivity;
 import com.alpha.android.donotbelateapp.utils.UtilStrings;
 import com.parse.ParseObject;
+import com.parse.ParseUser;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -117,7 +118,7 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.MeetingV
             mItemTimeLabel.setText(timeString);
             mItemLocationLabel.setText(meeting.getString(ParseConstants.KEY_LOCATION));
             mItemReminderLabel.setText(timeLeft(date));
-            mItemUserStatus.setText(ParseHelper.getUserStatus(mContext, meeting));
+            mItemUserStatus.setText(ParseHelper.getStatus(mContext, meeting, ParseUser.getCurrentUser()));
         }
     }
 

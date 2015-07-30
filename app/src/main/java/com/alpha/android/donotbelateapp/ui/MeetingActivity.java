@@ -3,6 +3,7 @@ package com.alpha.android.donotbelateapp.ui;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
@@ -65,7 +66,8 @@ public class MeetingActivity extends ActionBarActivity {
             mRemain.setText(UtilStrings.timeLeft(date));
             mLocation.setText(mMeeting.getString(ParseConstants.KEY_LOCATION));
             updateInvitees(mMeeting);
-            mStatus.setText(ParseHelper.getUserStatus(this, mMeeting));
+            mStatus.setText(ParseHelper.getStatus(this, mMeeting, ParseUser.getCurrentUser()));
+            // Set color of mStatus depend on status.
         }
     }
 
@@ -77,18 +79,40 @@ public class MeetingActivity extends ActionBarActivity {
         mLeftInvitees.removeAllViews();
         mMiddleInvitees.removeAllViews();
         mRightInvitees.removeAllViews();
+
         for(ParseUser invitee : invitees) {
-                String fullName = invitee.getString(ParseConstants.KEY_FIRSTNAME) + " " +
-                        invitee.getString(ParseConstants.KEY_LASTNAME);
-                if(i % 3 == 0) {
-                    mLeftInvitees.addView(UtilsUi.createTextButton(this, fullName));
-                } else if(i % 3 == 1) {
-                    mMiddleInvitees.addView(UtilsUi.createTextButton(this, fullName));
-                } else {
-                    mRightInvitees.addView(UtilsUi.createTextButton(this, fullName));
-                }
-                i++;
+            String fullName = invitee.getString(ParseConstants.KEY_FIRSTNAME) + " " +
+                    invitee.getString(ParseConstants.KEY_LASTNAME);
+            int color = setButtonColor(meeting, invitee);
+            if(i % 3 == 0) {
+                mLeftInvitees.addView(UtilsUi.createTextButton(this, fullName, color));
+            } else if(i % 3 == 1) {
+                mMiddleInvitees.addView(UtilsUi.createTextButton(this, fullName, color));
+            } else {
+                mRightInvitees.addView(UtilsUi.createTextButton(this, fullName, color));
+            }
+            i++;
+            setButtonColor(meeting, invitee);
+
+
         }
+    }
+
+    private int setButtonColor(Meeting meeting, ParseUser invitee) {
+        // Coloring invitees buttons depend there status.
+        if(ParseHelper.getStatus(this, meeting, invitee)
+                .equals(getString(R.string.user_status_going))) {
+            return Color.GREEN;
+        } else if(ParseHelper.getStatus(this, meeting, invitee)
+                .equals(getString(R.string.user_status_not_going))) {
+            return Color.RED;
+        } else if(ParseHelper.getStatus(this, meeting, invitee)
+                .equals(getString(R.string.user_status_maybe))) {
+            return Color.YELLOW;
+        } else {
+            return Color.BLACK;
+        }
+
     }
 
     @Override

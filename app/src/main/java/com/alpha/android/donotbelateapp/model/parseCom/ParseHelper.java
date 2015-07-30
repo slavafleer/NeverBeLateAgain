@@ -18,11 +18,11 @@ import java.util.List;
 public class ParseHelper {
 
     // Returning String of User Status for arriving to the meeting.
-    public static String getUserStatus(Context context, ParseObject meeting) {
+    public static String getStatus(Context context, ParseObject meeting, ParseUser user) {
         List<String> list = meeting.getList(ParseConstants.KEY_GOING);
         if (list != null) {
             for(String status : list) {
-                if(status.equals(ParseUser.getCurrentUser().getObjectId())) {
+                if(status.equals(user.getObjectId())) {
                     return context.getString(R.string.user_status_going);
                 }
             }
@@ -31,7 +31,7 @@ public class ParseHelper {
         list = meeting.getList(ParseConstants.KEY_NOT_GOING);
         if (list != null) {
             for(String status : list) {
-                if(status.equals(ParseUser.getCurrentUser().getObjectId())) {
+                if(status.equals(user.getObjectId())) {
                     return context.getString(R.string.user_status_not_going);
                 }
             }
@@ -40,7 +40,7 @@ public class ParseHelper {
         list = meeting.getList(ParseConstants.KEY_MAYBE);
         if (list != null) {
             for(String status : list) {
-                if(status.equals(ParseUser.getCurrentUser().getObjectId())) {
+                if(status.equals(user.getObjectId())) {
                     return context.getString(R.string.user_status_maybe);
                 }
             }
@@ -67,7 +67,7 @@ public class ParseHelper {
         }
     }
 
-    // Asking fir invitees from Parse.com for wanted meeting.
+    // Asking for invitees from Parse.com for wanted meeting.
     public static List<ParseUser> getInvitees(Meeting meeting) {
         ParseRelation relation = meeting.getRelation(ParseConstants.KEY_INVITEES);
         ParseQuery query = relation.getQuery();

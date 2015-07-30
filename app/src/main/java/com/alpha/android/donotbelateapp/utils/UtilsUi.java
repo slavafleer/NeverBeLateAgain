@@ -14,17 +14,21 @@ import android.widget.TextView;
  */
 public class UtilsUi {
 
-    public static TextView createTextButton(Context context,String label) {
+    public static TextView createTextButton(Context context,String label, int color) {
         TextView button = new TextView(context);
         button.setText(label);
         button.setGravity(Gravity.CENTER);
-        button.setBackgroundColor(0x11000000 + Color.BLACK);
+        int colorIntencity = 0x11000000;
+        if(color != Color.BLACK) {
+            colorIntencity = 0x33000000;
+        }
+        button.setBackgroundColor(colorIntencity + color);
         button.setPadding(dpToPixel(3), dpToPixel(2), dpToPixel(3), dpToPixel(2));
 
         TableRow.LayoutParams params = new TableRow.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT
         );
-        params.setMargins(dpToPixel(3), dpToPixel(2), dpToPixel(3), dpToPixel(2));
+        params.setMargins(dpToPixel(2), dpToPixel(2), dpToPixel(2), dpToPixel(2));
         button.setLayoutParams(params);
 
         return button;

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
@@ -274,13 +275,14 @@ public class CreateMeetingActivity extends ActionBarActivity {
                     if(friend.getObjectId().equals(invitee)) {
                         String fullName = friend.getString(ParseConstants.KEY_FIRSTNAME) + " " +
                                 friend.getString(ParseConstants.KEY_LASTNAME);
+                        int color = Color.BLACK;
                         if(i % 3 == 0) {
                             mEditInvitees.setText("Edit Invitees");
-                            mLeftInvitees.addView(UtilsUi.createTextButton(this, fullName));
+                            mLeftInvitees.addView(UtilsUi.createTextButton(this, fullName, color));
                         } else if(i % 3 == 1) {
-                            mMiddleInvitees.addView(UtilsUi.createTextButton(this, fullName));
+                            mMiddleInvitees.addView(UtilsUi.createTextButton(this, fullName, color));
                         } else {
-                            mRightInvitees.addView(UtilsUi.createTextButton(this, fullName));
+                            mRightInvitees.addView(UtilsUi.createTextButton(this, fullName, color));
                         }
 
                         mInviteesRelation.add(friend);
