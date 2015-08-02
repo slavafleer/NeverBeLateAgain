@@ -92,17 +92,19 @@ public class MeetingActivity extends ActionBarActivity {
         mRightInvitees.removeAllViews();
 
         for(ParseUser invitee : invitees) {
-            String fullName = invitee.getString(ParseConstants.KEY_FIRSTNAME) + " " +
-                    invitee.getString(ParseConstants.KEY_LASTNAME);
-            int color = getButtonColor(meeting, invitee);
-            if(i % 3 == 0) {
-                mLeftInvitees.addView(UtilsUi.createTextButton(this, fullName, color));
-            } else if(i % 3 == 1) {
-                mMiddleInvitees.addView(UtilsUi.createTextButton(this, fullName, color));
-            } else {
-                mRightInvitees.addView(UtilsUi.createTextButton(this, fullName, color));
+            if (invitee.getObjectId() != ParseUser.getCurrentUser().getObjectId()) {
+                String fullName = invitee.getString(ParseConstants.KEY_FIRSTNAME) + " " +
+                        invitee.getString(ParseConstants.KEY_LASTNAME);
+                int color = getButtonColor(meeting, invitee);
+                if(i % 3 == 0) {
+                    mLeftInvitees.addView(UtilsUi.createTextButton(this, fullName, color));
+                } else if(i % 3 == 1) {
+                    mMiddleInvitees.addView(UtilsUi.createTextButton(this, fullName, color));
+                } else {
+                    mRightInvitees.addView(UtilsUi.createTextButton(this, fullName, color));
+                }
+                i++;
             }
-            i++;
         }
     }
 

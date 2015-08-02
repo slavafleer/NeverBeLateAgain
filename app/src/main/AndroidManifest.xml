@@ -13,7 +13,8 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name=".ui.StartActivity"
-            android:label="@string/title_activity_start" >
+            android:label="@string/title_activity_start"
+            android:screenOrientation="portrait" >
             <intent-filter android:label="@string/app_name" >
                 <action android:name="android.intent.action.MAIN" />
 
@@ -22,16 +23,19 @@
         </activity>
         <activity
             android:name=".ui.MainActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".ui.ParseLoginActivity"
-            android:label="@string/title_activity_parse_login" >
+            android:label="@string/title_activity_parse_login"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".ui.ParseSignUpActivity"
             android:label="@string/title_activity_parse_sign_up"
-            android:parentActivityName=".ui.ParseLoginActivity" >
+            android:parentActivityName=".ui.ParseLoginActivity"
+            android:screenOrientation="portrait" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.alpha.android.donotbelateapp.ui.ParseLoginActivity" />
@@ -39,7 +43,8 @@
         <activity
             android:name=".ui.EditFriendsActivity"
             android:label="@string/title_activity_edit_friends"
-            android:parentActivityName=".ui.MainActivity" >
+            android:parentActivityName=".ui.MainActivity"
+            android:screenOrientation="portrait" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.alpha.android.donotbelateapp.ui.MainActivity" />
@@ -47,7 +52,8 @@
         <activity
             android:name=".ui.CreateMeetingActivity"
             android:label="@string/title_activity_create_meeting"
-            android:parentActivityName=".ui.MainActivity" >
+            android:parentActivityName=".ui.MainActivity"
+            android:screenOrientation="portrait" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.alpha.android.donotbelateapp.ui.MainActivity" />
@@ -55,7 +61,8 @@
         <activity
             android:name=".ui.ChooseInviteesActivity"
             android:label="@string/title_activity_choose_invitees"
-            android:parentActivityName=".ui.CreateMeetingActivity" >
+            android:parentActivityName=".ui.CreateMeetingActivity"
+            android:screenOrientation="portrait" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.alpha.android.donotbelateapp.ui.CreateMeetingActivity" />
@@ -63,12 +70,14 @@
         <activity
             android:name=".ui.MeetingActivity"
             android:label="@string/title_activity_meeting"
-            android:parentActivityName=".ui.StartActivity" >
+            android:parentActivityName=".ui.StartActivity"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".ResetPasswordActivity"
             android:label="@string/title_activity_reset_password"
-            android:parentActivityName=".ui.ParseLoginActivity" >
+            android:parentActivityName=".ui.ParseLoginActivity"
+            android:screenOrientation="portrait" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.alpha.android.donotbelateapp.ui.ParseLoginActivity" />

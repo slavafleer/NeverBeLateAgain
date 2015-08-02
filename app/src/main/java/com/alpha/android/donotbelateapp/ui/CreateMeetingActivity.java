@@ -290,6 +290,7 @@ public class CreateMeetingActivity extends ActionBarActivity {
                     }
                 }
             }
+            mInviteesRelation.add(ParseUser.getCurrentUser());
         }
     }
 }
