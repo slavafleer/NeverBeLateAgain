@@ -3,6 +3,7 @@ package com.alpha.android.donotbelateapp.ui;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -10,7 +11,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import com.alpha.android.donotbelateapp.OkCustomDialog;
 import com.alpha.android.donotbelateapp.R;
@@ -29,6 +29,8 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 
 public class EditFriendsActivity extends ActionBarActivity {
+
+    private final static String TAG = EditFriendsActivity.class.getSimpleName();
 
     protected List<ParseUser> mUsers;
     protected ParseUser mCurrentUser;
@@ -63,9 +65,9 @@ public class EditFriendsActivity extends ActionBarActivity {
                     public void done(ParseException e) {
                         if (e == null) {
                             // Success
-                            Toast.makeText(EditFriendsActivity.this,
-                                    getString(R.string.friend_list_updated_toast),
-                                    Toast.LENGTH_LONG).show();
+//                            Toast.makeText(EditFriendsActivity.this,
+//                                    getString(R.string.friend_list_updated_toast),
+//                                    Toast.LENGTH_LONG).show();
                         } else {
                             // Show error to user
                             OkCustomDialog dialog = new OkCustomDialog(
@@ -181,13 +183,7 @@ public class EditFriendsActivity extends ActionBarActivity {
                     mSpinner.setVisibility(View.INVISIBLE);
                 } else {
                     mSpinner.setVisibility(View.INVISIBLE);
-                    // Show error to user
-                    OkCustomDialog dialog = new OkCustomDialog(
-                            EditFriendsActivity.this,
-                            getString(R.string.friend_list_updating_error_title),
-                            e.getMessage());
-                    dialog.show();
-
+                    Log.e(TAG, "Error: ", e);
                 }
             }
         });

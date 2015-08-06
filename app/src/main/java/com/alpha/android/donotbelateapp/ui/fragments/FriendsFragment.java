@@ -42,24 +42,27 @@ public class FriendsFragment extends ListFragment {
         super.onResume();
 
         List<ParseUser> friends = Global.getFriends();
-        int usersAmount = friends.size();
+        int usersAmount = 0;
+        if(friends != null) {
+            usersAmount = friends.size();
+        }
         if(usersAmount == 0) {
             mEmpty.setVisibility(View.VISIBLE);
         } else {
             mEmpty.setVisibility(View.INVISIBLE);
-        }
-        String[] fullNames = new String[usersAmount];
-        int i = 0;
-        for (ParseUser user : friends) {
-            fullNames[i] = user.getString(ParseConstants.KEY_FIRSTNAME) + " " +
-                    user.getString(ParseConstants.KEY_LASTNAME);
-            i++;
-        }
+            String[] fullNames = new String[usersAmount];
+            int i = 0;
+            for (ParseUser user : friends) {
+                fullNames[i] = user.getString(ParseConstants.KEY_FIRSTNAME) + " " +
+                        user.getString(ParseConstants.KEY_LASTNAME);
+                i++;
+            }
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-                getListView().getContext(),
-                android.R.layout.simple_list_item_1,
-                fullNames);
-        setListAdapter(adapter);
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+                    getListView().getContext(),
+                    android.R.layout.simple_list_item_1,
+                    fullNames);
+            setListAdapter(adapter);
+        }
     }
 }

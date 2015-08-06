@@ -8,7 +8,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.alpha.android.donotbelateapp.GlobalApplication;
-import com.alpha.android.donotbelateapp.OkCustomDialog;
 import com.alpha.android.donotbelateapp.R;
 import com.alpha.android.donotbelateapp.model.parseCom.ParseConstants;
 import com.parse.FindCallback;
@@ -104,12 +103,8 @@ public class StartActivity extends ActionBarActivity {
                     }
                     mFullNames = fullNames;
                 } else {
-                    // Show error to user
-                    OkCustomDialog dialog = new OkCustomDialog(
-                            StartActivity.this,
-                            getString(R.string.friend_list_updating_error_title),
-                            e.getMessage());
-                    dialog.show();
+                    Log.e(TAG, "Error: ", e);
+                    Global.setFriends(null);
                 }
 
                 // TODO: meantime data are retrieving in "synchronous" way
